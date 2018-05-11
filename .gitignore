@@ -1,10 +1,5 @@
-npm-debug.log
-node_modules
-.project
-.vscode
-.history
 .DS_Store
-\.settings/
-build/env.js
+node_modules/
 dist/
-iview-admin/
+npm-debug.log
+.idea
