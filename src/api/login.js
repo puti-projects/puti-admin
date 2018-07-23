@@ -11,11 +11,13 @@ export function login(username, password) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo(username) {
   return request({
-    url: '/api/user/',
-    method: 'get',
-    params: { token }
+    url: '/api/user/' + username,
+    method: 'get'
+    // params: {
+    //   username
+    // }
   })
 }
 

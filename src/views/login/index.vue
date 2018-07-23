@@ -48,8 +48,9 @@ export default {
       }
     }
     return {
+      // TODO 默认值不直接填充
       loginForm: {
-        username: 'admin',
+        username: 'gzp',
         password: 'admin'
       },
       loginRules: {
