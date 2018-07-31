@@ -6,8 +6,8 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.indexOf(role) >= 0)
+  if (route.meta && route.meta.roles) { // 如果配置了roles权限
+    return role => route.meta.roles.indexOf(role) >= 0
   } else {
     return true
   }
@@ -21,6 +21,7 @@ function hasPermission(roles, route) {
 function filterAsyncRouter(asyncRouterMap, roles) {
   const accessedRouters = asyncRouterMap.filter(route => {
     if (hasPermission(roles, route)) {
+      // 父级有权限才查询子级
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)
       }
@@ -47,9 +48,11 @@ const permission = {
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters
-        if (roles.indexOf('administrator') >= 0) {
+        if (roles === 'administrator') {
+          // 超级管理员拥有所有权限
           accessedRouters = asyncRouterMap
         } else {
+          // 非超级管理员进行过滤
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)
