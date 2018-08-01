@@ -52,7 +52,7 @@ export const asyncRouterMap = [
     alwaysShow: true, // will always show the root menu
     meta: {
       title: '文章',
-      icon: 'form',
+      icon: 'article',
       roles: ['administrator', 'editor'] // you can set roles in root nav
     },
     children: [{
@@ -70,7 +70,7 @@ export const asyncRouterMap = [
       name: 'article-new',
       meta: {
         title: '创建文章',
-        icon: 'edit',
+        icon: 'add',
         roles: ['administrator']
       }
     }, {
@@ -79,7 +79,7 @@ export const asyncRouterMap = [
       name: 'article-category',
       meta: {
         title: '分类目录',
-        icon: 'tab',
+        icon: 'category',
         roles: ['administrator']
       }
     }, {
@@ -88,7 +88,7 @@ export const asyncRouterMap = [
       name: 'article-tag',
       meta: {
         title: '标签',
-        icon: 'star',
+        icon: 'tag',
         roles: ['administrator']
       }
     }]
@@ -101,7 +101,7 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: {
       title: '专题',
-      icon: 'form',
+      icon: 'subject',
       roles: ['administrator']
     },
     children: [{
@@ -110,7 +110,7 @@ export const asyncRouterMap = [
       name: 'subject-manage',
       meta: {
         title: '专题管理',
-        icon: 'list',
+        icon: 'manage',
         roles: ['administrator']
       }
     }, {
@@ -119,7 +119,7 @@ export const asyncRouterMap = [
       name: 'subject-new',
       meta: {
         title: '添加专题',
-        icon: 'edit',
+        icon: 'add',
         roles: ['administrator']
       }
     }]
@@ -141,7 +141,7 @@ export const asyncRouterMap = [
       name: 'media-library',
       meta: {
         title: '媒体库',
-        icon: 'list',
+        icon: 'media-list',
         roles: ['administrator']
       }
     }, {
@@ -150,7 +150,7 @@ export const asyncRouterMap = [
       name: 'media-new',
       meta: {
         title: '新增媒体',
-        icon: 'edit',
+        icon: 'add',
         roles: ['administrator']
       }
     }]
@@ -181,7 +181,7 @@ export const asyncRouterMap = [
       name: 'link-new',
       meta: {
         title: '添加链接',
-        icon: 'edit',
+        icon: 'add',
         roles: ['administrator']
       }
     }, {
@@ -190,7 +190,7 @@ export const asyncRouterMap = [
       name: 'link-linkCategory',
       meta: {
         title: '链接分类目录',
-        icon: 'edit',
+        icon: 'category',
         roles: ['administrator']
       }
     }]
@@ -212,7 +212,7 @@ export const asyncRouterMap = [
       name: 'page-list',
       meta: {
         title: '所有页面',
-        icon: 'list',
+        icon: 'pages',
         roles: ['administrator']
       }
     }, {
@@ -221,7 +221,7 @@ export const asyncRouterMap = [
       name: 'page-new',
       meta: {
         title: '添加页面',
-        icon: 'edit',
+        icon: 'add',
         roles: ['administrator']
       }
     }]
@@ -243,7 +243,7 @@ export const asyncRouterMap = [
       name: 'comment-list',
       meta: {
         title: '评论列表',
-        icon: 'list',
+        icon: 'comments',
         roles: ['administrator']
       }
     }]
@@ -265,7 +265,7 @@ export const asyncRouterMap = [
       name: 'user-list',
       meta: {
         title: '所有用户',
-        icon: 'list',
+        icon: 'users',
         roles: ['administrator']
       }
     }, {
@@ -274,7 +274,7 @@ export const asyncRouterMap = [
       name: 'user-new',
       meta: {
         title: '添加用户',
-        icon: 'list',
+        icon: 'add',
         roles: ['administrator']
       }
     }, {
@@ -283,7 +283,7 @@ export const asyncRouterMap = [
       name: 'user-info',
       meta: {
         title: '我的个人资料',
-        icon: 'list',
+        icon: 'profile',
         roles: ['administrator']
       }
     }]
@@ -299,70 +299,82 @@ export const asyncRouterMap = [
       icon: 'setting',
       roles: ['administrator']
     },
-    children: [{
-      path: 'general',
-      component: () => import('@/views/setting/general'),
-      name: 'setting-general',
-      meta: {
-        title: '常规设置',
-        icon: 'list',
-        roles: ['administrator']
+    children: [
+      {
+        path: 'site',
+        name: 'site',
+        redirect: 'noredirect',
+        alwaysShow: true,
+        meta: { title: '网站配置', icon: 'website' },
+        children: [
+          {
+            path: 'general',
+            component: () => import('@/views/setting/site/general'),
+            name: 'general',
+            meta: { title: '常规' }
+          },
+          {
+            path: 'property',
+            component: () => import('@/views/setting/site/property'),
+            name: 'property',
+            meta: { title: '属性' }
+          }
+        ]
+      },
+      {
+        path: 'content',
+        name: 'content',
+        redirect: 'noredirect',
+        alwaysShow: true,
+        meta: { title: '内容配置', icon: 'content' },
+        children: [
+          {
+            path: 'writing',
+            component: () => import('@/views/setting/content/writing'),
+            name: 'writing',
+            meta: { title: '撰写' }
+          },
+          {
+            path: 'reading',
+            component: () => import('@/views/setting/content/reading'),
+            name: 'reading',
+            meta: { title: '阅读' }
+          },
+          {
+            path: 'media',
+            component: () => import('@/views/setting/content/media'),
+            name: 'media',
+            meta: { title: '媒体' }
+          },
+          {
+            path: 'discuss',
+            component: () => import('@/views/setting/content/discuss'),
+            name: 'discuss',
+            meta: { title: '讨论' }
+          }
+        ]
+      },
+      {
+        path: 'others',
+        name: 'others',
+        redirect: 'noredirect',
+        alwaysShow: true,
+        meta: { title: '其它', icon: 'others' },
+        children: [
+          {
+            path: 'github',
+            component: () => import('@/views/setting/others/github'),
+            name: 'github',
+            meta: { title: 'Github', icon: 'github' }
+          }, {
+            path: 'public-account',
+            component: () => import('@/views/setting/others/public-account'),
+            name: 'public-account',
+            meta: { title: '公众号', icon: 'wechat' }
+          }
+        ]
       }
-    }, {
-      path: 'property',
-      component: () => import('@/views/setting/property'),
-      name: 'setting-property',
-      meta: {
-        title: '网站属性',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }, {
-      path: 'writing',
-      component: () => import('@/views/setting/writing'),
-      name: 'setting-writing',
-      meta: {
-        title: '撰写',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }, {
-      path: 'reading',
-      component: () => import('@/views/setting/reading'),
-      name: 'setting-reading',
-      meta: {
-        title: '阅读',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }, {
-      path: 'discuss',
-      component: () => import('@/views/setting/discuss'),
-      name: 'setting-discuss',
-      meta: {
-        title: '讨论',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }, {
-      path: 'media',
-      component: () => import('@/views/setting/media'),
-      name: 'setting-media',
-      meta: {
-        title: '媒体',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }, {
-      path: 'project',
-      component: () => import('@/views/setting/project'),
-      name: 'setting-project',
-      meta: {
-        title: '作品',
-        icon: 'list',
-        roles: ['administrator']
-      }
-    }]
+    ]
   },
 
   { path: '*', redirect: '/404', hidden: true }
