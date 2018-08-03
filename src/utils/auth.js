@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'gingob-login-token'
+const TokenKey = 'puti-login-token'
 
 export function getToken() {
   return Cookies.get(TokenKey)
