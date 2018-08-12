@@ -31,6 +31,7 @@
 
 <script>
 import path from 'path'
+import { generateTitle } from '@/utils/i18n'
 
 export default {
   name: 'SidebarItem',
@@ -72,7 +73,8 @@ export default {
     },
     resolvePath(...paths) {
       return path.resolve(this.basePath, ...paths)
-    }
+    },
+    generateTitle
   }
 }
 </script>
