@@ -9,7 +9,7 @@
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
-      <!-- <lang-select class="international right-menu-item"></lang-select> -->
+      <lang-select class="international right-menu-item"></lang-select>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
@@ -36,12 +36,14 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
+import LangSelect from '@/components/LangSelect'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
-    Screenfull
+    Screenfull,
+    LangSelect
   },
   computed: {
     ...mapGetters([

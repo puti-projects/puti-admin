@@ -33,7 +33,7 @@ export const constantRouterMap = [
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
       name: 'dashboard',
-      meta: { title: '首页', icon: 'dashboard', noCache: true }
+      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
   }
 ]
@@ -51,7 +51,7 @@ export const asyncRouterMap = [
     redirect: '/article/index',
     alwaysShow: true, // will always show the root menu
     meta: {
-      title: '文章',
+      title: 'article',
       icon: 'article',
       roles: ['administrator', 'editor'] // you can set roles in root nav
     },
@@ -60,7 +60,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/article/post'),
       name: 'article-post',
       meta: {
-        title: '文章列表',
+        title: 'articleList',
         icon: 'list',
         roles: ['administrator']
       }
@@ -69,7 +69,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/article/new'),
       name: 'article-new',
       meta: {
-        title: '创建文章',
+        title: 'articleAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -78,7 +78,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/article/category'),
       name: 'article-category',
       meta: {
-        title: '分类目录',
+        title: 'category',
         icon: 'category',
         roles: ['administrator']
       }
@@ -87,7 +87,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/article/tag'),
       name: 'article-tag',
       meta: {
-        title: '标签',
+        title: 'tags',
         icon: 'tag',
         roles: ['administrator']
       }
@@ -100,7 +100,7 @@ export const asyncRouterMap = [
     redirect: '/subject/index',
     alwaysShow: true,
     meta: {
-      title: '专题',
+      title: 'subject',
       icon: 'subject',
       roles: ['administrator']
     },
@@ -109,7 +109,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/subject/manage'),
       name: 'subject-manage',
       meta: {
-        title: '专题管理',
+        title: 'subjectManager',
         icon: 'manage',
         roles: ['administrator']
       }
@@ -118,7 +118,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/subject/new'),
       name: 'subject-new',
       meta: {
-        title: '添加专题',
+        title: 'subjectAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -131,7 +131,7 @@ export const asyncRouterMap = [
     redirect: '/media/index',
     alwaysShow: true,
     meta: {
-      title: '媒体',
+      title: 'media',
       icon: 'media',
       roles: ['administrator']
     },
@@ -140,7 +140,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/media/library'),
       name: 'media-library',
       meta: {
-        title: '媒体库',
+        title: 'mediaManager',
         icon: 'media-list',
         roles: ['administrator']
       }
@@ -149,7 +149,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/media/new'),
       name: 'media-new',
       meta: {
-        title: '新增媒体',
+        title: 'mediaAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -162,7 +162,7 @@ export const asyncRouterMap = [
     redirect: '/link/index',
     alwaysShow: true,
     meta: {
-      title: '链接',
+      title: 'link',
       icon: 'link',
       roles: ['administrator']
     },
@@ -171,7 +171,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/link/list'),
       name: 'link-library',
       meta: {
-        title: '全部链接',
+        title: 'linkList',
         icon: 'list',
         roles: ['administrator']
       }
@@ -180,7 +180,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/link/new'),
       name: 'link-new',
       meta: {
-        title: '添加链接',
+        title: 'linkAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -189,7 +189,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/link/linkCategory'),
       name: 'link-linkCategory',
       meta: {
-        title: '链接分类目录',
+        title: 'linkCategory',
         icon: 'category',
         roles: ['administrator']
       }
@@ -202,7 +202,7 @@ export const asyncRouterMap = [
     redirect: '/page/index',
     alwaysShow: true,
     meta: {
-      title: '页面',
+      title: 'page',
       icon: 'page',
       roles: ['administrator']
     },
@@ -211,7 +211,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/page/list'),
       name: 'page-list',
       meta: {
-        title: '所有页面',
+        title: 'pageList',
         icon: 'pages',
         roles: ['administrator']
       }
@@ -220,7 +220,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/page/new'),
       name: 'page-new',
       meta: {
-        title: '添加页面',
+        title: 'pageAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -233,7 +233,7 @@ export const asyncRouterMap = [
     redirect: '/comment/index',
     alwaysShow: true,
     meta: {
-      title: '评论',
+      title: 'comment',
       icon: 'comment',
       roles: ['administrator']
     },
@@ -242,7 +242,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/comment/list'),
       name: 'comment-list',
       meta: {
-        title: '评论列表',
+        title: 'commentList',
         icon: 'comments',
         roles: ['administrator']
       }
@@ -255,7 +255,7 @@ export const asyncRouterMap = [
     redirect: '/user/index',
     alwaysShow: true,
     meta: {
-      title: '用户',
+      title: 'user',
       icon: 'user',
       roles: ['administrator']
     },
@@ -264,7 +264,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/user/list'),
       name: 'user-list',
       meta: {
-        title: '所有用户',
+        title: 'userList',
         icon: 'users',
         roles: ['administrator']
       }
@@ -273,7 +273,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/user/new'),
       name: 'user-new',
       meta: {
-        title: '添加用户',
+        title: 'userAdd',
         icon: 'add',
         roles: ['administrator']
       }
@@ -282,7 +282,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/user/info'),
       name: 'user-info',
       meta: {
-        title: '我的个人资料',
+        title: 'myProfile',
         icon: 'profile',
         roles: ['administrator']
       }
@@ -295,7 +295,7 @@ export const asyncRouterMap = [
     redirect: '/setting/index',
     alwaysShow: true,
     meta: {
-      title: '设置',
+      title: 'setting',
       icon: 'setting',
       roles: ['administrator']
     },
@@ -305,19 +305,19 @@ export const asyncRouterMap = [
         name: 'site',
         redirect: 'noredirect',
         alwaysShow: true,
-        meta: { title: '网站配置', icon: 'website' },
+        meta: { title: 'siteSetting', icon: 'website' },
         children: [
           {
             path: 'general',
             component: () => import('@/views/setting/site/general'),
             name: 'general',
-            meta: { title: '常规' }
+            meta: { title: 'siteSettingGeneral' }
           },
           {
             path: 'property',
             component: () => import('@/views/setting/site/property'),
             name: 'property',
-            meta: { title: '属性' }
+            meta: { title: 'siteSettingProperty' }
           }
         ]
       },
@@ -326,31 +326,31 @@ export const asyncRouterMap = [
         name: 'content',
         redirect: 'noredirect',
         alwaysShow: true,
-        meta: { title: '内容配置', icon: 'content' },
+        meta: { title: 'contentSetting', icon: 'content' },
         children: [
           {
             path: 'writing',
             component: () => import('@/views/setting/content/writing'),
             name: 'writing',
-            meta: { title: '撰写' }
+            meta: { title: 'contentSettingWritting' }
           },
           {
             path: 'reading',
             component: () => import('@/views/setting/content/reading'),
             name: 'reading',
-            meta: { title: '阅读' }
+            meta: { title: 'contentSettingReading' }
           },
           {
             path: 'media',
             component: () => import('@/views/setting/content/media'),
             name: 'media',
-            meta: { title: '媒体' }
+            meta: { title: 'contentSettingMedia' }
           },
           {
             path: 'discuss',
             component: () => import('@/views/setting/content/discuss'),
             name: 'discuss',
-            meta: { title: '讨论' }
+            meta: { title: 'contentSettingDiscuss' }
           }
         ]
       },
@@ -359,18 +359,18 @@ export const asyncRouterMap = [
         name: 'others',
         redirect: 'noredirect',
         alwaysShow: true,
-        meta: { title: '其它', icon: 'others' },
+        meta: { title: 'otherSetting', icon: 'others' },
         children: [
           {
             path: 'github',
             component: () => import('@/views/setting/others/github'),
             name: 'github',
-            meta: { title: 'Github', icon: 'github' }
+            meta: { title: 'otherSettingGithub', icon: 'github' }
           }, {
             path: 'public-account',
             component: () => import('@/views/setting/others/public-account'),
             name: 'public-account',
-            meta: { title: '公众号', icon: 'wechat' }
+            meta: { title: 'otherSettingGeneralAccount', icon: 'wechat' }
           }
         ]
       }

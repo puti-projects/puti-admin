@@ -1,20 +1,16 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name:{{name}}</div>
-    <div class="dashboard-text">roles:<span v-for='role in roles' :key='role'>{{role}}</span></div>
+    <panel-group @handleSetLineChartData="handleSetLineChartData"></panel-group>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import PanelGroup from './components/PanelGroup'
 
 export default {
   name: 'dashboard',
-  computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
+  components: {
+    PanelGroup
   }
 }
 </script>
@@ -22,11 +18,8 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
+    padding: 32px;
+    background-color: rgb(240, 242, 245);
   }
 }
 </style>

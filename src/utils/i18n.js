@@ -6,5 +6,6 @@ export function generateTitle(title) {
   if (hasKey) {
     return translatedTitle
   }
+
   return title
 }
