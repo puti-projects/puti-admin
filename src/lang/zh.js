@@ -1,4 +1,13 @@
 export default {
+  common: {
+    search: '搜索',
+    add: '添加',
+    delete: '删除',
+    edit: '编辑',
+    DESC: '按降序排列',
+    ASC: '按升序排列',
+    ID: '序号'
+  },
   route: {
     dashboard: '首页',
     article: '文章',
@@ -48,12 +57,13 @@ export default {
     author: '作者',
     title: '标题',
     date: '发布时间',
+    views: '阅读量',
+    comments: '评论数',
     status: '状态',
     action: '操作',
-    edit: '编辑',
     publish: '已发布',
     draft: '草稿',
-    deleted: '删除'
+    deleted: '已删除'
   },
   navbar: {
     logOut: '退出登录',

@@ -1,4 +1,13 @@
 export default {
+  common: {
+    search: 'Search',
+    add: 'Add',
+    delete: 'Delete',
+    edit: 'Edit',
+    DESC: 'ID Descending',
+    ASC: 'ID Ascending',
+    ID: 'ID'
+  },
   route: {
     dashboard: 'Dashboard',
     article: 'article',
@@ -48,9 +57,10 @@ export default {
     author: 'Author',
     title: 'Title',
     date: 'Date',
+    views: 'Views',
+    comments: 'Comments',
     status: 'Status',
     action: 'Actions',
-    edit: 'Edit',
     publish: 'published',
     draft: 'draft',
     deleted: 'deleted'

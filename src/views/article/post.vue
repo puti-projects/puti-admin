@@ -1,16 +1,30 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('post.title')" v-model="listQuery.title">
+      </el-input>
+      <el-select clearable style="width: 100px" class="filter-item" v-model="listQuery.status" :placeholder="$t('post.status')">
+        <el-option v-for="item in statusOptions" :key="item" :label="$t('post.' + item)" :value="item">
+        </el-option>
+      </el-select>
+      <el-select @change='handleFilter' style="width: 150px" class="filter-item" v-model="listQuery.sort">
+        <el-option v-for="item in sortOptions" :key="item" :label="$t('common.' + item)" :value="item">
+        </el-option>
+      </el-select>
+      <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">{{$t('common.search')}}</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">{{$t('common.add')}}</el-button>
+   </div>
 
     <el-table :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="ID" width="80">
+      <el-table-column align="center" :label="$t('common.ID')" width="80">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" :label="$t('post.author')">
+      <el-table-column width="180px" align="center" :label="$t('post.date')">
         <template slot-scope="scope">
-          <span>{{scope.row.userId}}</span>
+          <span>{{scope.row.post_date | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
 
@@ -22,23 +36,36 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" :label="$t('post.date')">
+      <el-table-column width="120px" align="center" :label="$t('post.author')">
         <template slot-scope="scope">
-          <span>{{scope.row.post_date | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.userId}}</span>
         </template>
       </el-table-column>
       
-      <el-table-column class-name="status-col" :label="$t('post.status')" width="110">
+      <el-table-column align="center" :label="$t('post.comments')" width="95">
+        <template slot-scope="scope">
+          <span>{{scope.row.comment_count}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('post.views')" width="95">
+        <template slot-scope="scope">
+          <span v-if="scope.row.view_count">{{scope.row.view_count}}</span>
+          <span v-else>0</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" class-name="status-col" :label="$t('post.status')" width="110">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">
             <div v-if="scope.row.status === 'publish'">
-              {{$t('post.publish')}}
+              <i class="el-icon-check"></i> {{$t('post.publish')}}
             </div>
             <div v-else-if="scope.row.status === 'draft'">
-              {{$t('post.draft')}}
+              <i class="el-icon-edit-outline"></i> {{$t('post.draft')}}
             </div>
             <div v-else-if="scope.row.status === 'deleted'">
-              {{$t('post.deleted')}}
+              <i class="el-icon-delete"></i> {{$t('post.deleted')}}
             </div>
             <div v-else>
               Not A/B/C
@@ -47,10 +74,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('post.action')" width="120">
+      <el-table-column align="center" :label="$t('post.action')" width="200">
         <template slot-scope="scope">
           <router-link :to="'/example/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">{{$t('post.edit')}}</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit">{{$t('common.edit')}}</el-button>
+            <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" icon="el-icon-delete">
+              {{$t('common.delete')}}
+            </el-button>
           </router-link>
         </template>
       </el-table-column>
@@ -77,8 +107,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        number: 15
-      }
+        number: 15,
+        title: undefined,
+        sort: 'DESC',
+        status: undefined
+      },
+      sortOptions: ['DESC', 'ASC'],
+      statusOptions: ['publish', 'draft', 'deleted']
     }
   },
   filters: {
@@ -107,6 +142,10 @@ export default {
         this.listLoading = false
       })
     },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.getList()
+    },
     handleSizeChange(val) {
       this.listQuery.number = val
       this.getList()
@@ -118,14 +157,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.edit-input {
-  padding-right: 100px;
-}
-.cancel-btn {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-}
-</style>
