@@ -44,6 +44,17 @@ export default {
     totalArticles: 'Articles',
     totalMedia: 'Media'
   },
+  post: {
+    author: 'Author',
+    title: 'Title',
+    date: 'Date',
+    status: 'Status',
+    action: 'Actions',
+    edit: 'Edit',
+    publish: 'published',
+    draft: 'draft',
+    deleted: 'deleted'
+  },
   navbar: {
     logOut: 'Log Out',
     dashboard: 'Dashboard',

@@ -44,6 +44,17 @@ export default {
     totalArticles: '文章数',
     totalMedia: '媒体数'
   },
+  post: {
+    author: '作者',
+    title: '标题',
+    date: '发布时间',
+    status: '状态',
+    action: '操作',
+    edit: '编辑',
+    publish: '已发布',
+    draft: '草稿',
+    deleted: '删除'
+  },
   navbar: {
     logOut: '退出登录',
     dashboard: '首页',
