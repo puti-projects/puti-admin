@@ -6,7 +6,8 @@ export default {
     edit: '编辑',
     DESC: '按降序排列',
     ASC: '按升序排列',
-    ID: '序号'
+    ID: '序号',
+    error: '异常'
   },
   route: {
     dashboard: '首页',
@@ -86,5 +87,22 @@ export default {
     close: '关闭',
     closeOthers: '关闭其它',
     closeAll: '关闭所有'
+  },
+  user: {
+    username: '用户名',
+    email: '邮箱',
+    registeredTime: '注册时间',
+    status: '状态',
+    normal: '正常',
+    freezing: '冻结',
+    defreeze: '解除冻结',
+    role: '角色',
+    administrator: '管理员',
+    writer: '创作者',
+    subscriber: '订阅者',
+    selectRole: '请选择用户角色',
+    password: '密码',
+    passwordAgain: '确认密码',
+    website: '站点'
   }
 }

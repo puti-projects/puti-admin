@@ -6,7 +6,8 @@ export default {
     edit: 'Edit',
     DESC: 'ID Descending',
     ASC: 'ID Ascending',
-    ID: 'ID'
+    ID: 'ID',
+    error: 'Error Status'
   },
   route: {
     dashboard: 'Dashboard',
@@ -86,5 +87,22 @@ export default {
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
+  },
+  user: {
+    username: 'username',
+    email: 'Email',
+    registeredTime: 'Registerd Time',
+    status: 'Status',
+    normal: 'Normal',
+    freezing: 'Freezing',
+    defreeze: 'Defreeze',
+    role: 'Role',
+    administrator: 'Administrator',
+    writer: 'Writer',
+    subscriber: 'Subscriber',
+    selectRole: 'Please select user role',
+    password: 'Password',
+    passwordAgain: 'Check password',
+    website: 'Website'
   }
 }

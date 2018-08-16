@@ -78,6 +78,7 @@ export default {
     background: #fff;
     box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
     border-color: rgba(0, 0, 0, .05);
+    border-radius: 5px;
     &:hover {
       .card-panel-icon-wrapper {
         color: #fff;

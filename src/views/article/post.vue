@@ -68,7 +68,7 @@
               <i class="el-icon-delete"></i> {{$t('post.deleted')}}
             </div>
             <div v-else>
-              Not A/B/C
+              {{$t('common.error')}}
             </div>
           </el-tag>
         </template>
