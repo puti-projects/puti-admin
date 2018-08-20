@@ -4,10 +4,12 @@ export default {
     add: '添加',
     delete: '删除',
     edit: '编辑',
+    create: '创建',
     DESC: '按降序排列',
     ASC: '按升序排列',
     ID: '序号',
-    error: '异常'
+    error: '异常',
+    cancel: '取消'
   },
   route: {
     dashboard: '首页',
@@ -33,7 +35,6 @@ export default {
     commentList: '评论列表',
     user: '用户',
     userList: '所有用户',
-    userAdd: '添加用户',
     myProfile: '我的个人资料',
     setting: '设置',
     siteSetting: '网站配置',
@@ -89,7 +90,9 @@ export default {
     closeAll: '关闭所有'
   },
   user: {
+    account: '账号',
     username: '用户名',
+    nickname: '昵称',
     email: '邮箱',
     registeredTime: '注册时间',
     status: '状态',
@@ -103,6 +106,9 @@ export default {
     selectRole: '请选择用户角色',
     password: '密码',
     passwordAgain: '确认密码',
-    website: '站点'
+    website: '站点',
+    createNow: '立即创建',
+    reset: '重置',
+    save: '保存'
   }
 }

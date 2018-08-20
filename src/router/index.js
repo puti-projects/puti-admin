@@ -269,15 +269,6 @@ export const asyncRouterMap = [
         roles: ['administrator']
       }
     }, {
-      path: 'new',
-      component: () => import('@/views/user/new'),
-      name: 'user-new',
-      meta: {
-        title: 'userAdd',
-        icon: 'add',
-        roles: ['administrator']
-      }
-    }, {
       path: 'info',
       component: () => import('@/views/user/info'),
       name: 'user-info',

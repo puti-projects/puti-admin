@@ -4,10 +4,12 @@ export default {
     add: 'Add',
     delete: 'Delete',
     edit: 'Edit',
+    create: 'Create',
     DESC: 'ID Descending',
     ASC: 'ID Ascending',
     ID: 'ID',
-    error: 'Error Status'
+    error: 'Error Status',
+    cancel: 'Cancel'
   },
   route: {
     dashboard: 'Dashboard',
@@ -33,7 +35,6 @@ export default {
     commentList: 'comment list',
     user: 'user',
     userList: 'user list',
-    userAdd: 'create user',
     myProfile: 'my profile',
     setting: 'setting',
     siteSetting: 'site setting',
@@ -89,7 +90,9 @@ export default {
     closeAll: 'Close All'
   },
   user: {
+    account: 'account',
     username: 'username',
+    nickname: 'nickname',
     email: 'Email',
     registeredTime: 'Registerd Time',
     status: 'Status',
@@ -103,6 +106,9 @@ export default {
     selectRole: 'Please select user role',
     password: 'Password',
     passwordAgain: 'Check password',
-    website: 'Website'
+    website: 'Website',
+    createNow: 'Create Now',
+    reset: 'Reset',
+    save: 'Save'
   }
 }
