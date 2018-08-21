@@ -30,3 +30,10 @@ export function updateUser(info) {
     data: info
   })
 }
+
+export function deleteUser(id) {
+  return request({
+    url: '/user/' + id,
+    method: 'delete'
+  })
+}

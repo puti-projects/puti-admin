@@ -9,7 +9,22 @@ export default {
     ASC: '按升序排列',
     ID: '序号',
     error: '异常',
-    cancel: '取消'
+    cancel: '取消',
+    confirm: '确定',
+    tips: '提示',
+    reset: '重置',
+    save: '保存',
+    success: '成功',
+    failed: '失败',
+    operationFailed: '操作失败！',
+    operationSucceeded: '操作成功！',
+    deleteSucceeded: '删除成功！',
+    cancelDelete: '已取消删除',
+    updateSucceeded: '更新成功！',
+    updateFailed: '更新失败！',
+    createSucceeded: '创建成功！',
+    createFailed: '创建失败！',
+    needRequiredParams: '缺少必填参数'
   },
   route: {
     dashboard: '首页',
@@ -108,7 +123,15 @@ export default {
     passwordAgain: '确认密码',
     website: '站点',
     createNow: '立即创建',
-    reset: '重置',
-    save: '保存'
+    pleaseInputPassWord: '请输入密码',
+    pleaseInputPassWordAgain: '请再次输入密码',
+    checkPasswordFailed: '两次输入密码不一致!',
+    pleaseInputAccount: '请输入登录账号',
+    pleaseCheckAcountLength: '账号长度不能小于 3 个字符',
+    pleaseInputEmail: '请输入邮箱地址',
+    pleaseInputCorrectEmail: '请输入正确的邮箱地址',
+    pleaseSelectRoles: '请选择用户角色',
+    pleaseCheckPasswordLength: '密码长度不能小于 6 个字符',
+    checkToDeleteUser: '此操作将把用户移至回收站, 是否继续?'
   }
 }

@@ -9,7 +9,22 @@ export default {
     ASC: 'ID Ascending',
     ID: 'ID',
     error: 'Error Status',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    tips: 'Tips',
+    reset: 'Reset',
+    save: 'Save',
+    success: 'Success',
+    failed: 'Failed',
+    operationFailed: 'Operation failed!',
+    operationSucceeded: 'Operation succeeded!',
+    deleteSucceeded: 'Delete succeeded!',
+    cancelDelete: 'Already cancel delete.',
+    updateSucceeded: 'Update succeeded!',
+    updateFailed: 'Update failed!',
+    createSucceeded: 'Create succeeded!',
+    createFailed: 'Create failed!',
+    needRequiredParams: 'Missing params.'
   },
   route: {
     dashboard: 'Dashboard',
@@ -108,7 +123,15 @@ export default {
     passwordAgain: 'Check password',
     website: 'Website',
     createNow: 'Create Now',
-    reset: 'Reset',
-    save: 'Save'
+    pleaseInputPassWord: 'Please input the password.',
+    pleaseInputPassWordAgain: 'Please input the password again.',
+    checkPasswordFailed: 'Password is incorrect.',
+    pleaseInputAccount: 'Please input the login accout.',
+    pleaseCheckAcountLength: 'The length of account can not less than three character.',
+    pleaseInputEmail: 'Please input Email.',
+    pleaseInputCorrectEmail: 'Please input a correct Email.',
+    pleaseSelectRoles: 'Please select user role.',
+    pleaseCheckPasswordLength: 'The length of password can not less than six character.',
+    checkToDeleteUser: 'You are removing the user into the trash, continue or not?'
   }
 }

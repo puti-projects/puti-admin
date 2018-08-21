@@ -57,11 +57,11 @@
       <el-table-column align="center" class-name="status-col" :label="$t('user.status')" width="110">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">
-            <div v-if="scope.row.status === 0">
+            <div v-if="scope.row.status === 1">
               {{$t('user.normal')}}
             </div>
-            <div v-else-if="scope.row.status === 1">
-              {{$t('post.freezing')}}
+            <div v-else-if="scope.row.status === 2">
+              {{$t('user.freezing')}}
             </div>
             <div v-else>
                {{$t('common.error')}}
@@ -70,17 +70,18 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('post.action')" width="200">
+      <el-table-column align="center" :label="$t('post.action')" width="300">
         <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">{{$t('common.edit')}}</el-button>
 
-            <el-button v-if="scope.row.status==0" size="mini" type="warning" @click="handleModifyStatus(scope.row,'deleted')">
+            <el-button v-if="scope.row.status==1" size="mini" type="warning" @click="handleModifyStatus(scope.row,'freeze')">
               {{$t('user.freezing')}}
             </el-button>
-            <el-button v-else-if="scope.row.status==1" size="mini" type="info" @click="handleModifyStatus(scope.row,'deleted')">
+            <el-button v-else-if="scope.row.status==2" size="mini" type="info" @click="handleModifyStatus(scope.row,'defreeze')">
               {{$t('user.defreeze')}}
             </el-button>
           
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)">{{$t('common.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -128,8 +129,8 @@
         
           <el-form-item>
               <el-button v-if="dialogStatus=='create'" type="primary" @click="createUser">{{$t('user.createNow')}}</el-button>
-              <el-button v-else type="primary" @click="updateUser">{{$t('user.save')}}</el-button>
-              <el-button v-if="dialogStatus=='create'" @click="resetForm('ruleForm')">重置</el-button>
+              <el-button v-else type="primary" @click="updateUser">{{$t('common.save')}}</el-button>
+              <el-button v-if="dialogStatus=='create'" @click="resetForm('ruleForm')">{{$t('common.reset')}}</el-button>
               <el-button v-else @click="dialogFormVisible = false">{{$t('common.cancel')}}</el-button>
           </el-form-item>
         </el-form>
@@ -139,14 +140,14 @@
 </template>
 
 <script>
-import { fetchList, fetchUser, createUser, updateUser } from '@/api/user'
+import { fetchList, fetchUser, createUser, updateUser, deleteUser } from '@/api/user'
 
 export default {
   name: 'userList',
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'))
+        callback(new Error(this.$t('user.pleaseInputPassWord')))
       } else {
         if (this.ruleForm.passwordAgain !== '') {
           this.$refs.ruleForm.validateField('passwordAgain')
@@ -156,9 +157,9 @@ export default {
     }
     var validateCheckPass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'))
+        callback(new Error(this.$t('user.pleaseInputPassWordAgain')))
       } else if (value !== this.ruleForm.password) {
-        callback(new Error('两次输入密码不一致!'))
+        callback(new Error(this.$t('user.checkPasswordFailed')))
       } else {
         callback()
       }
@@ -175,7 +176,7 @@ export default {
         role: undefined
       },
       roleOptions: ['administrator', 'writer', 'subscriber'],
-      statusOptions: [{ 'label': 'normal', 'key': 0 }, { 'label': 'freezing', 'key': 1 }],
+      statusOptions: [{ 'label': 'normal', 'key': 1 }, { 'label': 'freezing', 'key': 2 }],
       ruleForm: {
         id: undefined,
         account: '',
@@ -194,23 +195,23 @@ export default {
       },
       rules: {
         account: [
-          { required: true, message: '请输入登录账号', trigger: 'blur' },
-          { min: 3, message: '账号长度不能小于 3 个字符', trigger: 'blur' }
+          { required: true, message: this.$t('user.pleaseInputAccount'), trigger: 'blur' },
+          { min: 3, message: this.$t('user.pleaseCheckAcountLength'), trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入邮箱地址', trigger: ['blur', 'change'] },
-          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+          { required: true, message: this.$t('user.pleaseInputEmail'), trigger: ['blur', 'change'] },
+          { type: 'email', message: this.$t('user.pleaseInputCorrectEmail'), trigger: ['blur', 'change'] }
         ],
         role: [
-          { required: true, message: '请选择用户角色', trigger: 'blur' }
+          { required: true, message: this.$t('user.pleaseSelectRoles'), trigger: 'blur' }
         ],
         password: [
           { required: true, validator: validatePass, trigger: ['blur'] },
-          { min: 6, message: '密码长度不能小于 6 个字符', trigger: ['blur', 'change'] }
+          { min: 6, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
         ],
         passwordAgain: [
           { required: true, validator: validateCheckPass, trigger: ['blur'] },
-          { min: 6, message: '密码长度不能小于 6 个字符', trigger: ['blur', 'change'] }
+          { min: 6, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
         ]
       }
     }
@@ -218,8 +219,8 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        normal: 'success',
-        freezing: 'warning'
+        1: 'success',
+        2: 'danger'
       }
       return statusMap[status]
     }
@@ -280,12 +281,12 @@ export default {
               this.getList()
               this.dialogFormVisible = false
               this.$message({
-                message: '用户创建成功！',
+                message: this.$t('common.createSucceeded'),
                 type: 'success',
                 duration: 2000
               })
             } else {
-              this.$message.error('创建失败！' + response.message)
+              this.$message.error(this.$t('common.createFailed') + response.message)
             }
           })
         } else {
@@ -305,6 +306,8 @@ export default {
         this.ruleForm.email = response.data.email
         this.ruleForm.role = response.data.roles
         this.ruleForm.website = response.data.website
+        this.ruleForm.password = undefined
+        this.ruleForm.passwordAgain = undefined
       })
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
@@ -316,23 +319,79 @@ export default {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           updateUser(this.ruleForm).then(response => {
-            this.getList()
-            // for (const v of this.list) {
-            //   if (v.id === this.ruleForm.id) {
-            //     const index = this.list.indexOf(v)
-            //     this.list.splice(index, 1, this.ruleForm)
-            //     break
-            //   }
-            // }
             this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            })
+            if (response.code === 0) {
+              this.getList()
+              this.$notify({
+                title: this.$t('common.success'),
+                message: this.$t('common.updateSucceeded'),
+                type: 'success',
+                duration: 2000
+              })
+            } else if (response.code === 10002) {
+              this.$notify({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + this.$t('common.needRequiredParams'),
+                type: 'danger',
+                duration: 2000
+              })
+            } else {
+              this.$notify({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + response.message,
+                type: 'danger',
+                duration: 2000
+              })
+            }
           })
         }
+      })
+    },
+    handleModifyStatus(row, status) {
+      var changeStatus
+      var statusData
+      if (status === 'freeze') {
+        changeStatus = 2
+        statusData = { id: row.id, status: changeStatus }
+      } else {
+        changeStatus = 1
+        statusData = { id: row.id, status: changeStatus }
+      }
+      updateUser(statusData).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          this.$message.error(this.$t('common.operationFailed') + response.message)
+        }
+      })
+      row.status = changeStatus
+    },
+    handleDelete(row) {
+      this.$confirm(this.$t('user.checkToDeleteUser'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        deleteUser(row.id).then(response => {
+          if (response.code === 0) {
+            this.$message({
+              type: 'success',
+              message: this.$t('common.deleteSucceeded')
+            })
+          } else {
+            this.$message.error(this.$t('common.operationFailed') + response.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelDelete')
+        })
       })
     }
   }
