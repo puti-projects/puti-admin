@@ -94,7 +94,8 @@ export default {
     username: '账号',
     password: '密码',
     any: '随便填',
-    thirdparty: '第三方登录'
+    thirdparty: '第三方登录',
+    wellcomeLogin: '您好，欢迎登录'
   },
   permission: {
     roles: '你的权限'

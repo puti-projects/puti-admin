@@ -1,34 +1,41 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">Puti</h3>
-      <el-form-item prop="username">
-        <span class="svg-container svg-container_login">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" :placeholder="$t('login.username')" />
-      </el-form-item>
+      <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
+        <h3 class="title">{{website.title}}</h3>
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password"></svg-icon>
-        </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
-          :placeholder="$t('login.password')"></el-input>
+        <p class="login-text">{{$t('login.wellcomeLogin')}}</p>
+
+        <el-form-item prop="username">
+          <span class="svg-container">
+            <svg-icon icon-class="user"></svg-icon>
+          </span>
+          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" :placeholder="$t('login.username')" />
+        </el-form-item>
+
+        <el-form-item prop="password">
+          <span class="svg-container">
+            <svg-icon icon-class="password"></svg-icon>
+          </span>
+          <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
+            :placeholder="$t('login.password')"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
-      </el-form-item>
-      
-      <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-          {{$t('login.logIn')}}
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+        </el-form-item>
+        
+        <el-form-item>
+          <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+            {{$t('login.logIn')}}
+          </el-button>
+        </el-form-item>
+
+        <p class="login-text  footer-text"><a href="https://github.com/goozp/puti" target="_blank"><svg-icon icon-class="github"></svg-icon></a></p>
+        <p class="login-text"><span> Copyright © 2018 Puti All rights reserved. Make by Goozp. </span></p>
+      </el-form>
+    </div>
 </template>
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'login',
@@ -61,6 +68,11 @@ export default {
       pwdType: 'password'
     }
   },
+  computed: {
+    ...mapGetters([
+      'website'
+    ])
+  },
   methods: {
     showPwd() {
       if (this.pwdType === 'password') {
@@ -90,9 +102,6 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-$bg:#2d3a4b;
-$light_gray:#eee;
-
 /* reset element-ui css */
 .login-container {
   .el-input {
@@ -105,77 +114,78 @@ $light_gray:#eee;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: #555555;
       height: 47px;
       &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
+        -webkit-box-shadow: 0 0 0px 1000px #2d3a4b inset !important;
         -webkit-text-fill-color: #fff !important;
       }
     }
   }
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #e7ecee;
+    background: #fff;
     border-radius: 5px;
-    color: #454545;
+    color: #001529;
   }
 }
 
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #F4F5F5;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .login-form {
     position: absolute;
     left: 0;
     right: 0;
-    width: 520px;
+
+    width: 400px;
     padding: 35px 35px 15px 35px;
-    margin: 120px auto;
-  }
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
+    margin: auto;
   }
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: $dark_gray;
+    color: #909DB7;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
-    &_login {
-      font-size: 20px;
-    }
   }
   .title {
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 400;
-    color: $light_gray;
+    color: #409EFF;
     margin: 0px auto 40px auto;
     text-align: center;
     font-weight: bold;
+  }
+  .login-text{
+    text-align: center;
+    color: #909DB7;
+  }
+  .footer-text{
+    margin-top: 30%;
   }
   .show-pwd {
     position: absolute;
     right: 10px;
     top: 7px;
     font-size: 16px;
-    color: $dark_gray;
+    color: #909DB7;
     cursor: pointer;
     user-select: none;
+  }
+  @media (max-width: 768px) {
+    .login-form{
+      width: auto;
+    }
   }
 }
 </style>

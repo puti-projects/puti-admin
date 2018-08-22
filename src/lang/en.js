@@ -94,7 +94,8 @@ export default {
     username: 'Username',
     password: 'Password',
     any: 'any',
-    thirdparty: 'Or connect with'
+    thirdparty: 'Or connect with',
+    wellcomeLogin: 'Wellcome!'
   },
   permission: {
     roles: 'Your roles'

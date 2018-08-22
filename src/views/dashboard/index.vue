@@ -1,6 +1,8 @@
 <template>
-  <div class="dashboard-container">
-    <panel-group @handleSetLineChartData="handleSetLineChartData"></panel-group>
+  <div class="app-container">
+    <div class="dashboard-container">
+      <panel-group @handleSetLineChartData="handleSetLineChartData"></panel-group>
+    </div>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ export default {
   &-container {
     padding: 32px;
     background-color: rgb(240, 242, 245);
+    height: 100%;
   }
 }
 </style>

@@ -39,9 +39,12 @@
     .svg-icon {
       margin-right: 16px;
     }
+    .menu-wrapper{
+      overflow: hidden;
+    }
     .el-menu {
       border: none;
-      height: 100%;
+      height: calc(100% - 50px);
       width: 100% !important;
     }
   }
