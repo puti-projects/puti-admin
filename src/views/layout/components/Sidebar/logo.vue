@@ -59,10 +59,10 @@ export default {
   align-items: center;
   height: 50px;
   line-height: 50px;
-  background: -webkit-gradient(linear,0 0,0 100%,from(#000000),to(#001529));
-  background: -moz-linear-gradient((#000000, #001529));
-  background: -o-linear-gradient((#000000, #001529));
-  background: linear-gradient(#000000, #001529);
+  background: -webkit-gradient(linear,0 0,0 100%,from(#000000),to(#00142A));
+  background: -moz-linear-gradient((#000000, #00142A));
+  background: -o-linear-gradient((#000000, #00142A));
+  background: linear-gradient(#000000, #00142A);
   color: #fdfdfd;
   text-align: center;
   font-size: 20px;

@@ -41,15 +41,19 @@ export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+      if (value.length === 0) {
+        callback(new Error(this.$t('login.pleaseEnterUsername')))
       } else {
-        callback()
+        if (!isvalidUsername(value)) {
+          callback(new Error(this.$t('login.usernameValidate')))
+        } else {
+          callback()
+        }
       }
     }
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+        callback(new Error(this.$t('login.passwordValidate')))
       } else {
         callback()
       }
@@ -57,8 +61,8 @@ export default {
     return {
       // TODO 默认值不直接填充
       loginForm: {
-        username: 'gzp',
-        password: 'admin'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -106,16 +110,15 @@ export default {
 .login-container {
   .el-input {
     display: inline-block;
-    height: 47px;
+    height: 45px;
     width: 85%;
     input {
       background: transparent;
       border: 0px;
       -webkit-appearance: none;
       border-radius: 0px;
-      padding: 12px 5px 12px 15px;
       color: #555555;
-      height: 47px;
+      height: 45px;
       &:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px #2d3a4b inset !important;
         -webkit-text-fill-color: #fff !important;
@@ -125,9 +128,13 @@ export default {
   .el-form-item {
     border: 1px solid #e7ecee;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #001529;
+    box-shadow: 5px 5px 10px #e7ecee;
+    text-indent: 5px;
   }
+
+
 }
 
 </style>
@@ -139,23 +146,21 @@ export default {
   width: 100%;
   background-color: #F4F5F5;
   font-size: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   .login-form {
     position: absolute;
     left: 0;
     right: 0;
-
+    top: 50%;
     width: 400px;
     padding: 35px 35px 15px 35px;
     margin: auto;
+    margin-top: -220px;
   }
   .svg-container {
-    padding: 6px 5px 6px 15px;
+    padding: 0 0 0 10px;
     color: #909DB7;
     vertical-align: middle;
-    width: 30px;
+    width: 20px;
     display: inline-block;
   }
   .title {
@@ -176,7 +181,7 @@ export default {
   .show-pwd {
     position: absolute;
     right: 10px;
-    top: 7px;
+    top: 6px;
     font-size: 16px;
     color: #909DB7;
     cursor: pointer;

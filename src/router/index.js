@@ -48,7 +48,8 @@ export const asyncRouterMap = [
   {
     path: '/article',
     component: Layout,
-    redirect: '/article/index',
+    redirect: '/article/post',
+    name: 'article',
     alwaysShow: true, // will always show the root menu
     meta: {
       title: 'article',
@@ -97,7 +98,8 @@ export const asyncRouterMap = [
   {
     path: '/subject',
     component: Layout,
-    redirect: '/subject/index',
+    redirect: '/subject/manage',
+    name: 'subject',
     alwaysShow: true,
     meta: {
       title: 'subject',
@@ -128,7 +130,8 @@ export const asyncRouterMap = [
   {
     path: '/media',
     component: Layout,
-    redirect: '/media/index',
+    redirect: '/media/library',
+    name: 'media',
     alwaysShow: true,
     meta: {
       title: 'media',
@@ -160,6 +163,7 @@ export const asyncRouterMap = [
     path: '/link',
     component: Layout,
     redirect: '/link/index',
+    name: 'link',
     alwaysShow: true,
     meta: {
       title: 'link',
@@ -200,6 +204,7 @@ export const asyncRouterMap = [
     path: '/page',
     component: Layout,
     redirect: '/page/index',
+    name: 'page',
     alwaysShow: true,
     meta: {
       title: 'page',
@@ -231,6 +236,7 @@ export const asyncRouterMap = [
     path: '/comment',
     component: Layout,
     redirect: '/comment/index',
+    name: 'comment',
     alwaysShow: true,
     meta: {
       title: 'comment',
@@ -252,7 +258,8 @@ export const asyncRouterMap = [
   {
     path: '/user',
     component: Layout,
-    redirect: '/user/index',
+    redirect: '/user/list',
+    name: 'user',
     alwaysShow: true,
     meta: {
       title: 'user',
@@ -269,21 +276,33 @@ export const asyncRouterMap = [
         roles: ['administrator']
       }
     }, {
-      path: 'info',
-      component: () => import('@/views/user/info'),
-      name: 'user-info',
+      path: 'profile',
+      component: () => import('@/views/user/profile'),
+      name: 'user-profile',
       meta: {
         title: 'myProfile',
         icon: 'profile',
         roles: ['administrator']
       }
-    }]
+    }
+    // {
+    //   path: 'info/:id',
+    //   component: () => import('@/views/user/info'),
+    //   name: 'user-info',
+    //   hidden: true,
+    //   meta: {
+    //     title: 'info',
+    //     roles: ['administrator']
+    //   }
+    // }
+    ]
   },
 
   {
     path: '/setting',
     component: Layout,
     redirect: '/setting/index',
+    name: 'setting',
     alwaysShow: true,
     meta: {
       title: 'setting',

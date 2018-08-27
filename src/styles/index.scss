@@ -70,7 +70,7 @@ a:hover {
 
 //main-container全局样式
 .app-main{
-  min-height: 100%
+  min-height: 100%;
 }
 
 .app-container {
@@ -93,6 +93,37 @@ a:hover {
 
 .pagination-container {
   margin-top: 30px;
+}
+
+.tabs-container{
+  position: absolute;
+  min-height: calc(100vh - 84px);
+  width: 100%;
+  .el-tabs{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  .el-tabs__item{
+    width: 150px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+  }
+  .el-tabs__item span{
+    font-size:15px;
+    display:inline-block;
+    width: 150px;
+    text-align: center;
+    vertical-align:middle; 
+  }
+  .el-tabs__item:after{
+    content:'';
+    width:0;
+    height:100%;
+    display:inline-block;
+    vertical-align:middle;
+  }
 }
 
 .link-type,

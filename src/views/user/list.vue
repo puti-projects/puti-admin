@@ -24,9 +24,7 @@
 
       <el-table-column min-width="150px" :label="$t('user.account')">
         <template slot-scope="scope">
-          <router-link class="link-type" :to="'/example/edit/'+scope.row.id">
-            <span>{{ scope.row.account }}</span>
-          </router-link>
+          <span>{{ scope.row.account }}</span>
         </template>
       </el-table-column>
 
@@ -44,7 +42,7 @@
 
       <el-table-column width="180px" align="center" :label="$t('user.registeredTime')">
         <template slot-scope="scope">
-          <span>{{scope.row.registered_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.registered_time}}</span>
         </template>
       </el-table-column>
 

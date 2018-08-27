@@ -51,6 +51,7 @@ export default {
     user: 'user',
     userList: 'user list',
     myProfile: 'my profile',
+    info: 'user info',
     setting: 'setting',
     siteSetting: 'site setting',
     siteSettingGeneral: 'general',

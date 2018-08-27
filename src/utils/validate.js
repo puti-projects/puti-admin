@@ -1,9 +1,6 @@
-/**
- * Created by jiachenpan on 16/11/18.
- */
-
 export function isvalidUsername(str) {
-  return 1
+  const urlregex = /^[a-zA-Z0-9_]{3,16}$/
+  return urlregex.test(str)
 }
 
 /* 合法uri*/

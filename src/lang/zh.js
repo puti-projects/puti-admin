@@ -50,6 +50,7 @@ export default {
     commentList: '评论列表',
     user: '用户',
     userList: '所有用户',
+    info: '用户详情',
     myProfile: '我的个人资料',
     setting: '设置',
     siteSetting: '网站配置',
@@ -95,7 +96,10 @@ export default {
     password: '密码',
     any: '随便填',
     thirdparty: '第三方登录',
-    wellcomeLogin: '您好，欢迎登录'
+    wellcomeLogin: '您好，欢迎登录',
+    pleaseEnterUsername: '请输入用户名',
+    passwordValidate: '密码不能小于5位',
+    usernameValidate: '请输入正确格式的用户名；包含字母数字下划线，3到16位'
   },
   permission: {
     roles: '你的权限'
