@@ -6,7 +6,8 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: ''
+    roles: '',
+    nickname: ''
   },
 
   mutations: {
@@ -17,10 +18,13 @@ const user = {
       state.name = name
     },
     SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
+      state.avatar = avatar === '' ? '/upload/users/default.jpg' : avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_NICKNAME: (state, nickname) => {
+      state.nickname = nickname
     }
   },
 
@@ -53,6 +57,7 @@ const user = {
           }
           commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.avatar)
+          commit('SET_NICKNAME', data.nickname)
           resolve(response)
         }).catch(error => {
           reject(error)

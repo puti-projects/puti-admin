@@ -1,57 +1,52 @@
-<template>
-    
+<template> 
          <div class="tabs-container">
              <el-tabs :tab-position="tabPosition" type="border-card">
                 <el-tab-pane>
                     <span slot="label"><svg-icon icon-class="user" /> 个人资料</span>
                     <div class="form-box">
-                        <el-form ref="form" :model="form" label-width="80px">
-                            <el-form-item label="表单名称" style="border-sty">
-                                <el-input v-model="form.name"></el-input>
+                        <el-form ref="infoForm" :model="infoForm" status-icon :rules="infoRules" label-width="100px">
+
+                            <el-form-item :label="$t('user.account')" prop="account">
+                                <el-col :span="11">
+                                    <el-input v-model="infoForm.account" disabled="disabled" style="width: 100%"></el-input>
+                                </el-col>
                             </el-form-item>
 
-                            <el-form-item label="选择器">
-                                <el-select v-model="form.region" placeholder="请选择">
-                                    <el-option key="bbk" label="步步高" value="bbk"></el-option>
-                                    <el-option key="xtc" label="小天才" value="xtc"></el-option>
-                                    <el-option key="imoo" label="imoo" value="imoo"></el-option>
+                            <el-form-item :label="$t('user.nickname')" prop="nickname">
+                                <el-col :span="11">
+                                    <el-input v-model="infoForm.nickname" style="width: 100%"></el-input>
+                                </el-col>
+                            </el-form-item>
+
+                            <el-form-item :label="$t('user.email')" prop="email">
+                                <el-col :span="11">
+                                    <el-input v-model="infoForm.email" style="width: 100%"></el-input>
+                                </el-col>
+                            </el-form-item>
+
+                            <el-form-item :label="$t('user.role')" prop="role">
+                                <el-select v-model="infoForm.role" :placeholder="$t('user.selectRole')">
+                                <el-option :label="$t('user.administrator')" value="administrator"></el-option>
+                                <el-option :label="$t('user.writer')" value="writer"></el-option>
+                                <el-option :label="$t('user.subscriber')" value="subscriber"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="日期时间">
+
+                            <el-form-item :label="$t('user.website')" prop="website">
                                 <el-col :span="11">
-                                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                    <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+                                    <el-input v-model="infoForm.website" style="width: 100%"></el-input>
                                 </el-col>
                             </el-form-item>
-                            <el-form-item label="城市级联">
-                                <el-cascader :options="options" v-model="form.options"></el-cascader>
+
+                             <el-form-item :label="$t('user.registeredTime')">
+                                <el-col :span="11">
+                                    <el-date-picker type="datetime" :placeholder="$t('user.registeredTime')" v-model="infoForm.registeredTime" disabled="disabled"></el-date-picker>
+                                </el-col>
                             </el-form-item>
-                            <el-form-item label="选择开关">
-                                <el-switch v-model="form.delivery"></el-switch>
-                            </el-form-item>
-                            <el-form-item label="多选框">
-                                <el-checkbox-group v-model="form.type">
-                                    <el-checkbox label="步步高" name="type"></el-checkbox>
-                                    <el-checkbox label="小天才" name="type"></el-checkbox>
-                                    <el-checkbox label="imoo" name="type"></el-checkbox>
-                                </el-checkbox-group>
-                            </el-form-item>
-                            <el-form-item label="单选框">
-                                <el-radio-group v-model="form.resource">
-                                    <el-radio label="步步高"></el-radio>
-                                    <el-radio label="小天才"></el-radio>
-                                    <el-radio label="imoo"></el-radio>
-                                </el-radio-group>
-                            </el-form-item>
-                            <el-form-item label="文本框">
-                                <el-input type="textarea" rows="5" v-model="form.desc"></el-input>
-                            </el-form-item>
+                        
                             <el-form-item>
-                                <el-button type="primary" @click="onSubmit">表单提交</el-button>
-                                <el-button>取消</el-button>
+                                <el-button type="primary" @click="updateMyProfile">{{$t('common.change')}}</el-button>
+                                <el-button @click="resetForm('infoForm')">{{$t('common.reset')}}</el-button>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -59,21 +54,43 @@
 
                 <el-tab-pane>
                     <span slot="label"><i class="el-icon-edit"></i> 修改头像</span>
-                    <ImageCropUpload class="image-upload-container"></ImageCropUpload>  
+                    <div class="upload-box">
+                        <el-button type="primary" @click="toggleShow">点击上传新头像</el-button>
+                        <el-col :span="8">
+                            <img class="upload-image" :src="imgDataUrl">
+                            <my-upload field="img"
+                                @crop-success="cropSuccess"
+                                @crop-upload-success="cropUploadSuccess"
+                                @crop-upload-fail="cropUploadFail"
+                                v-model="showUplaod"
+                                :width="300"
+                                :height="300"
+                                :url="uploadUIrl"
+                                :params="uploadParams"
+                                :headers="uploadHeaders"
+                                :langType="uploadLangType"
+                                img-format="png">
+                            </my-upload>
+                        </el-col>
+                    </div>  
                 </el-tab-pane>
 
                 <el-tab-pane>
                     <span slot="label"><svg-icon icon-class="password" /> 重置密码</span>
-                    <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-                        <el-form-item label="密码" prop="pass">
-                            <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+                    <el-form :model="passwordForm" status-icon :rules="passwordRules" ref="passwordForm" label-width="100px">
+                        <el-form-item label="密码" prop="password">
+                            <el-col :span="11">
+                                <el-input type="password" v-model="passwordForm.password" auto-complete="off"></el-input>
+                            </el-col>
                         </el-form-item>
-                        <el-form-item label="确认密码" prop="checkPass">
-                            <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+                        <el-form-item label="确认密码" prop="passwordAgain">
+                            <el-col :span="11">
+                                <el-input type="password" v-model="passwordForm.passwordAgain" auto-complete="off"></el-input>
+                            </el-col>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-                            <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                            <el-button type="primary" @click="updatePassword()">提交</el-button>
+                            <el-button @click="resetForm('passwordForm')">重置</el-button>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
@@ -83,83 +100,224 @@
 </template>
 
 <script>
-import ImageCropUpload from '@/components/ImageCropUpload'
+import 'babel-polyfill' // es6 shim
+import myUpload from 'vue-image-crop-upload'
+import { getInfo } from '@/api/login'
+import { updateUser } from '@/api/user'
 
 export default {
   name: 'profile',
   components: {
-    ImageCropUpload
+    'my-upload': myUpload
   },
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'))
+        callback(new Error(this.$t('user.pleaseInputPassWord')))
       } else {
-        if (this.ruleForm2.checkPass !== '') {
-          this.$refs.ruleForm2.validateField('checkPass')
+        if (this.passwordForm.passwordAgain !== '') {
+          this.$refs.passwordForm.validateField('passwordAgain')
         }
         callback()
       }
     }
-    var validatePass2 = (rule, value, callback) => {
+    var validateCheckPass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'))
-      } else if (value !== this.ruleForm2.pass) {
-        callback(new Error('两次输入密码不一致!'))
+        callback(new Error(this.$t('user.pleaseInputPassWordAgain')))
+      } else if (value !== this.passwordForm.password) {
+        callback(new Error(this.$t('user.checkPasswordFailed')))
       } else {
         callback()
       }
     }
     return {
       tabPosition: 'left',
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: true,
-        type: ['步步高'],
-        resource: '小天才',
-        desc: '',
-        options: []
+      infoForm: {
+        id: undefined,
+        account: '',
+        nickname: '',
+        email: '',
+        avatar: '',
+        role: '',
+        website: '',
+        registeredTime: ''
       },
-      ruleForm2: {
-        pass: '',
-        checkPass: ''
-      },
-      rules2: {
-        pass: [
-          { validator: validatePass, trigger: 'blur' }
+      infoRules: {
+        email: [
+          { required: true, message: this.$t('user.pleaseInputEmail'), trigger: ['change'] },
+          { type: 'email', message: this.$t('user.pleaseInputCorrectEmail'), trigger: ['change'] }
         ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
+        role: [
+          { required: true, message: this.$t('user.pleaseSelectRoles'), trigger: 'change' }
         ]
-      }
+      },
+      passwordForm: {
+        id: undefined,
+        password: '',
+        passwordAgain: ''
+      },
+      passwordRules: {
+        password: [
+          { required: true, validator: validatePass, trigger: ['blur', 'change'] },
+          { min: 5, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
+        ],
+        passwordAgain: [
+          { required: true, validator: validateCheckPass, trigger: ['blur', 'change'] },
+          { min: 5, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
+        ]
+      },
+      showUplaod: false,
+      uploadUIrl: process.env.BASE_API + '/avatar',
+      uploadParams: {
+        // 上传附带其它参数
+        userId: ''
+      },
+      uploadHeaders: {
+        // 上传header设置
+        Authorization: ''
+      },
+      uploadLangType: this.$store.getters.language,
+      imgDataUrl: '' // the datebase64 url of created image
     }
   },
+  created() {
+    this.getInfo()
+  },
   methods: {
-    onSubmit() {
-      this.$message.success('提交成功！')
+    getInfo() {
+      var token = this.$store.getters.token
+      this.uploadHeaders.Authorization = 'Bearer ' + token
+
+      getInfo(token).then(response => {
+        this.infoForm.id = response.data.id
+        this.infoForm.account = response.data.account
+        this.infoForm.nickname = response.data.nickname
+        this.infoForm.email = response.data.email
+        this.infoForm.role = response.data.roles
+        this.infoForm.website = response.data.website
+        this.infoForm.registeredTime = response.data.registered_time
+
+        this.infoForm.avatar = this.$store.getters.avatar
+        this.imgDataUrl = this.$store.getters.avatar
+
+        this.passwordForm.id = response.data.id
+        this.uploadParams.userId = response.data.id
+      })
     },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    updateMyProfile() {
+      this.$refs['infoForm'].validate((valid) => {
         if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
+          updateUser(this.infoForm).then(response => {
+            if (response.code === 0) {
+              this.$notify({
+                title: this.$t('common.success'),
+                message: this.$t('common.updateSucceeded'),
+                type: 'success',
+                duration: 3000
+              })
+            } else if (response.code === 10002) {
+              this.$notify.error({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + this.$t('common.needRequiredParams'),
+                duration: 3000
+              })
+            } else {
+              this.$notify.error({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + response.message,
+                duration: 3000
+              })
+            }
+          })
+
+          this.$nextTick(() => {
+            this.$refs['infoForm'].clearValidate()
+          })
+        }
+      })
+    },
+    updatePassword() {
+      this.$refs['passwordForm'].validate((valid) => {
+        if (valid) {
+          updateUser(this.passwordForm).then(response => {
+            if (response.code === 0) {
+              this.$notify({
+                title: this.$t('common.success'),
+                message: this.$t('common.updateSucceeded'),
+                type: 'success',
+                duration: 3000
+              })
+            } else if (response.code === 20001) {
+              this.$notify.error({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + this.$t('user.checkPasswordFailed'),
+                duration: 3000
+              })
+            } else {
+              this.$notify.error({
+                title: this.$t('common.failed'),
+                message: this.$t('common.updateFailed') + response.message,
+                duration: 3000
+              })
+            }
+          })
+
+          this.$nextTick(() => {
+            this.$refs['passwordForm'].clearValidate()
+          })
         }
       })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    toggleShow() {
+      this.showUplaod = !this.showUplaod
+    },
+    cropSuccess(imgDataUrl, field) {
+      this.imgDataUrl = imgDataUrl
+      this.$notify.info({
+        title: this.$t('common.success'),
+        message: this.$t('user.cropSuccess')
+      })
+    },
+    cropUploadSuccess(jsonData, field) {
+      if (jsonData.code === 0) {
+        this.$notify({
+          title: this.$t('common.success'),
+          message: this.$t('user.uploadSucceeded'),
+          type: 'success',
+          duration: 3000
+        })
+      } else {
+        this.$notify.error({
+          title: this.$t('common.failed'),
+          message: this.$t('user.uploadFailed') + jsonData.message,
+          duration: 3000
+        })
+      }
+      this.toggleShow()
+    },
+    cropUploadFail(status, field) {
+      this.$notify.error({
+        title: this.$t('common.failed'),
+        message: this.$t('user.uploadFailed') + ' Error ' + status,
+        duration: 3000
+      })
     }
   }
 }
 </script>
 
-<style>
-.tabs-container{
-    height: 100%;
+<style scoped>
+.upload-box button{
+    margin-top: 250px;
+}
+
+.upload-image{
+    width: 300px;
+    height: 300px;
+    border: 1px solid #eee; 
+    border-radius: 50%;
 }
 </style>

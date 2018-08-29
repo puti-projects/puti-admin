@@ -4,6 +4,7 @@ export default {
     add: 'Add',
     delete: 'Delete',
     edit: 'Edit',
+    change: 'Edit',
     create: 'Create',
     DESC: 'ID Descending',
     ASC: 'ID Ascending',
@@ -96,7 +97,10 @@ export default {
     password: 'Password',
     any: 'any',
     thirdparty: 'Or connect with',
-    wellcomeLogin: 'Wellcome!'
+    wellcomeLogin: 'Wellcome!',
+    pleaseEnterUsername: 'Please enter username',
+    passwordValidate: 'The length of password can not less than five characters.',
+    usernameValidate: 'Please enter the correct format username; include alphanumeric underline, 3 to 16 characters.'
   },
   permission: {
     roles: 'Your roles'
@@ -133,7 +137,10 @@ export default {
     pleaseInputEmail: 'Please input Email.',
     pleaseInputCorrectEmail: 'Please input a correct Email.',
     pleaseSelectRoles: 'Please select user role.',
-    pleaseCheckPasswordLength: 'The length of password can not less than six character.',
-    checkToDeleteUser: 'You are removing the user into the trash, continue or not?'
+    pleaseCheckPasswordLength: 'The length of password can not less than five characters.',
+    checkToDeleteUser: 'You are removing the user into the trash, continue or not?',
+    uploadSucceeded: 'Upload succeeded',
+    uploadFailed: 'Upload failed',
+    cropSuccess: 'Image crop success'
   }
 }

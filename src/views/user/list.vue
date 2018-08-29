@@ -204,12 +204,12 @@ export default {
           { required: true, message: this.$t('user.pleaseSelectRoles'), trigger: 'blur' }
         ],
         password: [
-          { required: true, validator: validatePass, trigger: ['blur'] },
-          { min: 6, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
+          { required: true, validator: validatePass, trigger: ['blur', 'change'] },
+          { min: 5, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
         ],
         passwordAgain: [
-          { required: true, validator: validateCheckPass, trigger: ['blur'] },
-          { min: 6, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
+          { required: true, validator: validateCheckPass, trigger: ['blur', 'change'] },
+          { min: 5, message: this.$t('user.pleaseCheckPasswordLength'), trigger: ['blur', 'change'] }
         ]
       }
     }
@@ -327,17 +327,15 @@ export default {
                 duration: 2000
               })
             } else if (response.code === 10002) {
-              this.$notify({
+              this.$notify.error({
                 title: this.$t('common.failed'),
                 message: this.$t('common.updateFailed') + this.$t('common.needRequiredParams'),
-                type: 'danger',
                 duration: 2000
               })
             } else {
-              this.$notify({
+              this.$notify.error({
                 title: this.$t('common.failed'),
                 message: this.$t('common.updateFailed') + response.message,
-                type: 'danger',
                 duration: 2000
               })
             }

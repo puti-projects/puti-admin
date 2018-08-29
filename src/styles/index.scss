@@ -99,6 +99,7 @@ a:hover {
   position: absolute;
   min-height: calc(100vh - 84px);
   width: 100%;
+  height: 100%;
   .el-tabs{
     position: relative;
     height: 100%;
@@ -123,6 +124,9 @@ a:hover {
     height:100%;
     display:inline-block;
     vertical-align:middle;
+  }
+  .el-tabs__content{
+    margin-top: 15px;
   }
 }
 

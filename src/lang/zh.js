@@ -4,6 +4,7 @@ export default {
     add: '添加',
     delete: '删除',
     edit: '编辑',
+    change: '修改',
     create: '创建',
     DESC: '按降序排列',
     ASC: '按升序排列',
@@ -136,7 +137,10 @@ export default {
     pleaseInputEmail: '请输入邮箱地址',
     pleaseInputCorrectEmail: '请输入正确的邮箱地址',
     pleaseSelectRoles: '请选择用户角色',
-    pleaseCheckPasswordLength: '密码长度不能小于 6 个字符',
-    checkToDeleteUser: '此操作将把用户移至回收站, 是否继续?'
+    pleaseCheckPasswordLength: '密码长度不能小于 5 个字符',
+    checkToDeleteUser: '此操作将把用户移至回收站, 是否继续?',
+    uploadSucceeded: '上传成功',
+    uploadFailed: '上传失败',
+    cropSuccess: '裁剪成功'
   }
 }
