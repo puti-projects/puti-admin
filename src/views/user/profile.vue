@@ -182,8 +182,12 @@ export default {
   },
   created() {
     this.getInfo()
+    this.setTitle()
   },
   methods: {
+    setTitle() {
+      document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
+    },
     getInfo() {
       var token = this.$store.getters.token
       this.uploadHeaders.Authorization = 'Bearer ' + token

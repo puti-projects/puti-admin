@@ -375,6 +375,7 @@ export default {
       }).then(() => {
         deleteUser(row.id).then(response => {
           if (response.code === 0) {
+            this.getList()
             this.$message({
               type: 'success',
               message: this.$t('common.deleteSucceeded')
