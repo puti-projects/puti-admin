@@ -3,16 +3,17 @@
         <el-row v-loading.body="listLoading">
             <el-col :xs="24" :sm="8" :md="4" :xl="3" v-for="item in list" :key="item.id">
                 <el-card class="media-card" :body-style="{ padding: '0px' }">
-                <img :src="item.url" class="media-image">
-                <div style="padding: 8px; width:100%">
-                    <span class="media-title">{{ item.title }}</span>
-                    <div class="media-bottom clearfix">
-                      <time class="media-time">{{ item.upload_time }}</time>
-                      <el-button class="media-button" @click="deleteMedia(item.id)">
-                        <i class="el-icon-delete"></i>
-                      </el-button>
-                    </div>
-                </div>
+                  <img v-if="item.type === 'picture'" :src="item.url" class="media-image">
+                  <div v-else  class="media-other-file" icon="el-icon-document"><svg-icon class="media-other-file-svg" icon-class="article"></svg-icon></div>
+                  <div style="padding: 8px; width:100%">
+                      <span class="media-title">{{ item.title }}</span>
+                      <div class="media-bottom clearfix">
+                        <time class="media-time">{{ item.upload_time }}</time>
+                        <el-button class="media-button" @click="deleteMedia(item.id)">
+                          <i class="el-icon-delete"></i>
+                        </el-button>
+                      </div>
+                  </div>
                 </el-card>
             </el-col>
         </el-row>
@@ -112,7 +113,23 @@ export default {
 
   .media-image {
     width: 100%;
+    height: 180px;
     display: block;
+  }
+
+  .media-other-file{
+    width: 100%;
+    height: 180px;
+    display: block;
+  }
+
+  .media-other-file-svg{
+    display: block;
+    font-size: 140px;
+    margin: 0 auto;
+    padding-top: 40px;
+    color: #5B584A;
+    overflow: hidden;
   }
 
   .clearfix:before,
