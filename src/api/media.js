@@ -7,3 +7,10 @@ export function fetchList(query) {
     params: query
   })
 }
+
+export function deleteMedia(id) {
+  return request({
+    url: '/media/' + id,
+    method: 'delete'
+  })
+}
