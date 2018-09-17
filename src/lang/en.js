@@ -144,9 +144,11 @@ export default {
     cropSuccess: 'Image crop success'
   },
   media: {
+    picture: 'Picture',
     fileName: 'File name',
     uploadSucceeded: 'Upload succeeded',
     uploadFailed: 'Upload failed',
-    checkToDeleteMedia: 'Are you sure to remove the file？Uploaded file will be move to the trash station。'
+    checkToDeleteMedia: 'Are you sure to remove the file？Uploaded file will be move to the trash station。',
+    getDetailFailed: 'Get media info failed'
   }
 }

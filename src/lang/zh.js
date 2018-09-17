@@ -144,9 +144,11 @@ export default {
     cropSuccess: '裁剪成功'
   },
   media: {
+    picture: '图片',
     fileName: '文件名',
     uploadSucceeded: '上传成功',
     uploadFailed: '上传失败',
-    checkToDeleteMedia: '确定删除文件吗？已上传文件将被移到回收站。'
+    checkToDeleteMedia: '确定删除文件吗？已上传文件将被移到回收站。',
+    getDetailFailed: '获取详情失败'
   }
 }
