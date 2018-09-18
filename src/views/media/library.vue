@@ -30,31 +30,31 @@
               <div v-if="detailForm.type == 'picture'" class="grid-content">
                 <img :src="detailForm.url" class="media-detail-image">
               </div>
-              <div v-else class="grid-content">未知类型</div>
+              <div v-else class="grid-content">{{ $t('media.unknowType') }}</div>
             </el-col>
             <el-col :xs="24" :sm="24" :md="9" :xl="9">
               <div class="grid-content">
                 <el-form :model="detailForm">
-                  <el-form-item label="标题">
+                  <el-form-item :label="$t('media.mediaTitle')">
                     <el-input v-model="detailForm.title"></el-input>
                   </el-form-item>
-                  <el-form-item label="缩略名">
+                  <el-form-item :label="$t('media.mediaSlug')">
                     <el-input v-model="detailForm.slug"></el-input>
                   </el-form-item>
-                  <el-form-item label="链接">
-                    <el-tooltip effect="dark" content="复制到粘贴板" placement="right-end">
+                  <el-form-item :label="$t('media.mediaUrl')">
+                    <el-tooltip effect="dark" :content="$t('media.copyTo')" placement="right-end">
                       <el-button type="text" size="mini" @click='handleCopy(detailForm.url,$event)' class="media-url-copy el-icon-document"></el-button>
                     </el-tooltip>
                     <el-input v-model="detailForm.url" disabled="disabled"></el-input>
                   </el-form-item>
-                  <el-form-item label="描述">
-                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入描述" v-model="detailForm.description"></el-input>
+                  <el-form-item :label="$t('media.mediaDescription')">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" :placeholder="$t('media.pleaseInputDesc')" v-model="detailForm.description"></el-input>
                   </el-form-item>
-                  <el-form-item label="上传时间">
+                  <el-form-item :label="$t('media.mediaUploadTime')">
                     <span>{{ detailForm.uploadTime }}</span>
                   </el-form-item>
                   <el-form-item>
-                    <el-button type="primary" @click="handleUpdate()">修改</el-button>
+                    <el-button type="primary" @click="handleUpdate()">{{ $t('common.change') }}</el-button>
                   </el-form-item>
                 </el-form>
               </div>
@@ -174,7 +174,7 @@ export default {
     },
     clipboardSuccess() {
       this.$message({
-        message: 'Copy successfully',
+        message: this.$t('media.copySuccessed'),
         type: 'success',
         duration: 1500
       })
@@ -184,7 +184,7 @@ export default {
       updateMedia(this.detailForm.id, updateData).then(response => {
         if (response.code === 0) {
           this.$message({
-            message: '更新成功',
+            message: this.$t('common.updateSucceeded'),
             type: 'success',
             duration: 3000
           })
@@ -192,7 +192,7 @@ export default {
           this.getList()
         } else if (response.code === 20203) {
           this.$message.error({
-            message: '标题不能为空',
+            message: this.$t('media.titleEmpty'),
             duration: 3000
           })
         } else {

@@ -144,11 +144,21 @@ export default {
     cropSuccess: 'Image crop success'
   },
   media: {
+    mediaTitle: 'Title',
+    mediaSlug: 'Slug',
+    mediaUrl: 'Url',
+    mediaDescription: 'Description',
+    mediaUploadTime: 'Uploaded time',
+    unknowType: 'Unknow file type.',
     picture: 'Picture',
     fileName: 'File name',
     uploadSucceeded: 'Upload succeeded',
     uploadFailed: 'Upload failed',
     checkToDeleteMedia: 'Are you sure to remove the file？Uploaded file will be move to the trash station。',
-    getDetailFailed: 'Get media info failed'
+    getDetailFailed: 'Get media info failed',
+    titleEmpty: 'Title can not be empty',
+    pleaseInputDesc: 'Please enter description',
+    copyTo: 'Copy to the clipboard',
+    copySuccessed: 'Copy successfully'
   }
 }
