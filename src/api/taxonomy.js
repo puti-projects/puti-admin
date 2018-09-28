@@ -7,3 +7,10 @@ export function fetchList(type) {
     params: type
   })
 }
+
+export function fetchTaxonomy(id) {
+  return request({
+    url: '/taxonomy/' + id,
+    method: 'get'
+  })
+}
