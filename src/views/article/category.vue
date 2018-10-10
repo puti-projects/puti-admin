@@ -12,10 +12,13 @@
                     </el-form-item>
                     <el-form-item label="父级分类">
                        <el-cascader
-                            :options="data"
+                            placeholder="无父级"
+                            :options="dataWithoutDefault"
                             :props="newProps"
                             @change="handleChange"
-                            v-model="newForm.parentId">
+                            v-model="defaultParentId" 
+                            change-on-select="true"
+                            clearable="true">
                         </el-cascader>
                     </el-form-item>
                     <el-form-item label="描述">
@@ -39,10 +42,27 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-dialog title="分类详情" :visible.sync="dialogFormVisible">
           <el-form :model="updateForm">
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
+            <el-form-item label="名称" :label-width="formLabelWidth">
               <el-input v-model="updateForm.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="缩略名" :label-width="formLabelWidth">
+              <el-input v-model="updateForm.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="父级分类">
+              <el-cascader
+                placeholder="无父级"
+                :options="data"
+                :props="newProps"
+                @change="handleChange"
+                v-model="updateParentId" 
+                change-on-select="true"
+                clearable="true">
+              </el-cascader>
+            </el-form-item>
+            <el-form-item label="描述">
+              <el-input type="textarea" v-model="updateForm.description"></el-input>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -84,6 +104,7 @@ export default {
         }
       ],
       data: [],
+      dataWithoutDefault: [], // without default(unsetting)
       listLoading: true,
       newForm: {
         name: '',
@@ -93,16 +114,18 @@ export default {
       },
       newProps: {
         label: 'name',
-        value: 'id'
+        value: 'term_id'
       },
       dialogFormVisible: false,
+      defaultParentId: [],
       updateForm: {
         id: undefined,
         name: '',
         slug: '',
         description: '',
         parentId: 0
-      }
+      },
+      updateParentId: []
     }
   },
   created() {
@@ -117,13 +140,63 @@ export default {
       this.listLoading = true
       fetchList({ type: 'category' }).then(response => {
         this.data = response.data
+        this.dataWithoutDefault = this.getDataWithoutDefault(response.data)
         this.listLoading = false
       })
     },
+    getDataWithoutDefault(data) {
+      var dataWithoutDefault = []
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].term_id === 1 && data[i].slug === 'uncategorized') {
+          continue
+        }
+        dataWithoutDefault.push(data[i])
+      }
+      return dataWithoutDefault
+    },
     handleDetail(row) {
-      fetchTaxonomy(row.termID).then(response => {
-        console.log(response)
+      fetchTaxonomy(row.term_id).then(response => {
+        if (response.code === 0) {
+          this.dialogFormVisible = true
+          this.updateForm.id = response.data.term_id
+          this.updateForm.name = response.data.name
+          this.updateForm.slug = response.data.slug
+          this.updateForm.description = response.data.description
+          this.updateForm.parentId = response.data.parent_term_id
+          this.updateParentId = this.getParentArr(response.data)
+          console.log(this.updateParentId)
+        } else {
+          this.$message.error(this.$t('common.error') + response.message)
+        }
       })
+    },
+    getParentArr(termData) {
+      var parentArr = []
+      if (termData.parent_term_id !== 0) {
+        var result = this.getUpdateParentId(this.data, termData.parent_term_id, [])
+        for (var i = 0; i <= result.length - 1; i++) {
+          parentArr.push(result[i])
+        }
+      }
+      return parentArr
+    },
+    getUpdateParentId(data, parentID, result) {
+      for (var i = 0; i <= data.length - 1; i++) {
+        if (parentID === data[i].term_id) {
+          result[data[i].pid] = data[i].term_id
+          if (data[i].parent_term_id !== 0) {
+            this.getUpdateParentId(data[i].children, data[i].pid, result)
+          }
+          break
+        }
+        if (data[i].children !== null) {
+          this.getUpdateParentId(data[i].children, parentID, result)
+        }
+      }
+      return result
+    },
+    handleChange(value) {
+      this.updateForm.parentId = value[value.length - 1]
     }
   }
 }
