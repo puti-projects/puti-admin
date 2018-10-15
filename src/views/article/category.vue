@@ -25,8 +25,8 @@
                         <el-input type="textarea" v-model="newForm.description"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" size="small" @click="handleCreate()" >立即添加</el-button>
-                        <el-button size="small" plain>清空</el-button>
+                        <el-button type="primary" size="small" @click="createCategory()" >立即添加</el-button>
+                        <el-button size="small" plain @click="clearNewForm()">清空</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
@@ -42,7 +42,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="分类详情" :visible.sync="dialogFormVisible">
+        <el-dialog title="分类详情" :visible.sync="dialogFormVisible" @close="closeUpdateDialog">
           <el-form :model="updateForm">
             <el-form-item label="名称" :label-width="formLabelWidth">
               <el-input v-model="updateForm.name" autocomplete="off"></el-input>
@@ -53,12 +53,12 @@
             <el-form-item label="父级分类">
               <el-cascader
                 placeholder="无父级"
-                :options="data"
+                :options="dataWithoutDefault"
                 :props="newProps"
-                @change="handleChange"
+                @change="handleChangeUpdate"
                 v-model="updateParentId" 
                 change-on-select="true"
-                clearable="true">
+                clearable="true" :disabled="updateDisabled">
               </el-cascader>
             </el-form-item>
             <el-form-item label="描述">
@@ -67,7 +67,7 @@
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button type="primary" @click="updateCategory()">确 定</el-button>
           </div>
         </el-dialog>
     </div>
@@ -125,7 +125,8 @@ export default {
         description: '',
         parentId: 0
       },
-      updateParentId: []
+      updateParentId: [],
+      updateDisabled: false
     }
   },
   created() {
@@ -164,11 +165,13 @@ export default {
           this.updateForm.description = response.data.description
           this.updateForm.parentId = response.data.parent_term_id
           this.updateParentId = this.getParentArr(response.data)
-          console.log(this.updateParentId)
         } else {
           this.$message.error(this.$t('common.error') + response.message)
         }
       })
+      if (row.children.length > 0) {
+        this.updateDisabled = true
+      }
     },
     getParentArr(termData) {
       var parentArr = []
@@ -196,7 +199,40 @@ export default {
       return result
     },
     handleChange(value) {
-      this.updateForm.parentId = value[value.length - 1]
+      if (value.length > 0) {
+        this.newForm.parentId = value[value.length - 1]
+      } else {
+        this.newForm.parentId = 0
+      }
+    },
+    handleChangeUpdate(value) {
+      if (value.length > 0) {
+        var selectedParentId = value[value.length - 1]
+        if (this.updateForm.id === selectedParentId) {
+          this.updateParentId = []
+          this.$message.error('父级分类不能是自己')
+        }
+        this.updateForm.parentId = selectedParentId
+      } else {
+        this.updateForm.parentId = 0
+      }
+    },
+    closeUpdateDialog() {
+      this.updateDisabled = false
+    },
+    clearNewForm() {
+      this.newForm.name = ''
+      this.newForm.slug = ''
+      this.newForm.description = ''
+      this.newForm.parentId = 0
+      this.defaultParentId = []
+    },
+    createCategory() {
+      console.log(this.newForm)
+    },
+    updateCategory() {
+      this.dialogFormVisible = false
+      console.log(this.updateForm)
     }
   }
 }
