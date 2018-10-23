@@ -2,6 +2,7 @@ export default {
   common: {
     search: '搜索',
     add: '添加',
+    addNow: '立即添加',
     delete: '删除',
     edit: '编辑',
     change: '修改',
@@ -14,9 +15,11 @@ export default {
     confirm: '确定',
     tips: '提示',
     reset: '重置',
+    clear: '清空',
     save: '保存',
     success: '成功',
     failed: '失败',
+    action: '操作',
     operationFailed: '操作失败！',
     operationSucceeded: '操作成功！',
     deleteSucceeded: '删除成功！',
@@ -160,5 +163,18 @@ export default {
     pleaseInputDesc: '请输入描述',
     copyTo: '复制到粘贴板',
     copySuccessed: '已复制到粘贴板'
+  },
+  taxonomy: {
+    category: '分类',
+    newCategory: '添加新分类',
+    taxonomyName: '名称',
+    taxonomySlug: '缩略名',
+    categoryParent: '父级分类',
+    taxonomyDesc: '描述',
+    categoryNoParents: '无父级',
+    categoryDetail: '分类详情',
+    articleNumber: '文章数量',
+    parentCannotBeSelf: '父级分类不能是自己',
+    confirmToDeleteCategory: '是否直接删除分类？该操作将直接删除分类且不会将分类移到回收站，操作不可逆，确定要删除吗？'
   }
 }

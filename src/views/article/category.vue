@@ -3,16 +3,16 @@
         <el-row :gutter="30">
             <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
                 <el-form ref="newForm" :model="newForm" label-width="80px" label-position="top" class="new-category-form">
-                    <h4>添加新分类</h4>
-                    <el-form-item label="名称">
+                    <h4>{{ $t('taxonomy.newCategory') }}</h4>
+                    <el-form-item :label="$t('taxonomy.taxonomyName')">
                         <el-input v-model="newForm.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="缩略名">
+                    <el-form-item :label="$t('taxonomy.taxonomySlug')">
                         <el-input v-model="newForm.slug"></el-input>
                     </el-form-item>
-                    <el-form-item label="父级分类">
+                    <el-form-item :label="$t('taxonomy.categoryParent')">
                        <el-cascader
-                            placeholder="无父级"
+                            :placeholder="$t('taxonomy.categoryNoParents')"
                             :options="dataWithoutDefault"
                             :props="newProps"
                             @change="handleChange"
@@ -21,60 +21,60 @@
                             clearable="true">
                         </el-cascader>
                     </el-form-item>
-                    <el-form-item label="描述">
+                    <el-form-item :label="$t('taxonomy.taxonomyDesc')">
                         <el-input type="textarea" v-model="newForm.description"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" size="small" @click="createCategory()" >立即添加</el-button>
-                        <el-button size="small" plain @click="clearNewForm()">清空</el-button>
+                        <el-button type="primary" size="small" @click="createCategory()" >{{ $t('common.addNow') }}</el-button>
+                        <el-button size="small" plain @click="clearNewForm()">{{ $t('common.clear') }}</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
             <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
                 <tree-table :data="data" :columns="columns" max-height="800" v-loading="listLoading" border>
-                    <el-table-column label="操作" width="150">
+                    <el-table-column :label="$t('common.action')" width="150">
                         <template slot-scope="scope">
                             <el-button v-if="scope.row.id != 1" type="primary" @click="handleDetail(scope.row)" icon="el-icon-edit" size="mini" circle></el-button>
-                            <el-button v-if="scope.row.children == null && scope.row.id != 1" type="danger" icon="el-icon-delete" size="mini" circle></el-button>
+                            <el-button v-if="scope.row.children == null && scope.row.id != 1" type="danger"  @click="handleDelete(scope.row)" icon="el-icon-delete" size="mini" circle></el-button>
                         </template>
                     </el-table-column>
                 </tree-table>
             </el-col>
         </el-row>
 
-        <el-dialog title="分类详情" :visible.sync="dialogFormVisible" @close="closeUpdateDialog">
+        <el-dialog :title="$t('taxonomy.categoryDetail')" :visible.sync="dialogFormVisible" @close="closeUpdateDialog">
           <el-form :model="updateForm">
-            <el-form-item label="名称" :label-width="formLabelWidth">
+            <el-form-item :label="$t('taxonomy.taxonomyName')" :label-width="formLabelWidth">
               <el-input v-model="updateForm.name" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="缩略名" :label-width="formLabelWidth">
-              <el-input v-model="updateForm.name" autocomplete="off"></el-input>
+            <el-form-item :label="$t('taxonomy.taxonomySlug')" :label-width="formLabelWidth">
+              <el-input v-model="updateForm.slug" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="父级分类">
+            <el-form-item :label="$t('taxonomy.categoryParent')">
               <el-cascader
-                placeholder="无父级"
+                :placeholder="$t('taxonomy.categoryNoParents')"
                 :options="dataWithoutDefault"
                 :props="newProps"
                 @change="handleChangeUpdate"
                 v-model="updateParentId" 
                 change-on-select="true"
-                clearable="true" :disabled="updateDisabled">
+                clearable="true">
               </el-cascader>
             </el-form-item>
-            <el-form-item label="描述">
+            <el-form-item :label="$t('taxonomy.taxonomyDesc')">
               <el-input type="textarea" v-model="updateForm.description"></el-input>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="updateCategory()">确 定</el-button>
+            <el-button @click="dialogFormVisible = false">{{ $t('common.cancel') }}</el-button>
+            <el-button type="primary" @click="updateCategory()">{{ $t('common.confirm') }}</el-button>
           </div>
         </el-dialog>
     </div>
 </template>
 
 <script>
-import { fetchList, fetchTaxonomy } from '@/api/taxonomy'
+import { fetchList, fetchTaxonomy, createTaxonomy, updateTaxonomy, deleteTaxonomy } from '@/api/taxonomy'
 import treeTable from '@/components/TreeTable'
 
 export default {
@@ -84,21 +84,21 @@ export default {
     return {
       columns: [
         {
-          text: '分类',
+          text: this.$t('taxonomy.category'),
           value: 'name',
           width: 200
         },
         {
-          text: '缩略名',
+          text: this.$t('taxonomy.taxonomySlug'),
           value: 'slug',
           width: 200
         },
         {
-          text: '描述',
+          text: this.$t('taxonomy.taxonomyDesc'),
           value: 'description'
         },
         {
-          text: '文章数量',
+          text: this.$t('taxonomy.articleNumber'),
           value: 'count',
           width: 100
         }
@@ -176,24 +176,42 @@ export default {
     getParentArr(termData) {
       var parentArr = []
       if (termData.parent_term_id !== 0) {
-        var result = this.getUpdateParentId(this.data, termData.parent_term_id, [])
-        for (var i = 0; i <= result.length - 1; i++) {
+        var result = this.getParent(this.data, termData.parent_term_id, [])
+        parentArr.push(result[0])
+        parentArr = this.handleParent(result, result[0], parentArr)
+      }
+      return parentArr
+    },
+    handleParent(result, id, parentArr) {
+      for (var i = 0; i <= result.length - 1; i++) {
+        if (result[i] !== undefined && i === id) {
           parentArr.push(result[i])
+          parentArr = this.handleParent(result, result[i], parentArr)
+          break
         }
       }
       return parentArr
     },
+    getParent(data, parentID, result) {
+      var parent = this.getUpdateParentId(data, parentID, [])
+      result[parent.pid] = parent.id
+      if (parent.pid !== 0) {
+        result = this.getParent(data, parent.pid, result)
+      }
+      return result
+    },
     getUpdateParentId(data, parentID, result) {
       for (var i = 0; i <= data.length - 1; i++) {
         if (parentID === data[i].term_id) {
-          result[data[i].pid] = data[i].term_id
-          if (data[i].parent_term_id !== 0) {
-            this.getUpdateParentId(data[i].children, data[i].pid, result)
+          result['id'] = data[i].term_id
+          result['pid'] = data[i].pid
+          if (data[i].pid !== 0) {
+            result = this.getUpdateParentId(data, data[i].pid, result)
           }
           break
         }
         if (data[i].children !== null) {
-          this.getUpdateParentId(data[i].children, parentID, result)
+          result = this.getUpdateParentId(data[i].children, parentID, result)
         }
       }
       return result
@@ -210,7 +228,7 @@ export default {
         var selectedParentId = value[value.length - 1]
         if (this.updateForm.id === selectedParentId) {
           this.updateParentId = []
-          this.$message.error('父级分类不能是自己')
+          this.$message.error(this.$t('taxonomy.parentCannotBeSelf'))
         }
         this.updateForm.parentId = selectedParentId
       } else {
@@ -228,11 +246,63 @@ export default {
       this.defaultParentId = []
     },
     createCategory() {
-      console.log(this.newForm)
+      this.newForm.taxonomy = 'category'
+      createTaxonomy(this.newForm).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        } else {
+          this.$message.error(this.$t('common.operationFailed') + response.message)
+        }
+      })
     },
     updateCategory() {
       this.dialogFormVisible = false
-      console.log(this.updateForm)
+      this.updateForm.taxonomy = 'category'
+      updateTaxonomy(this.updateForm.id, this.updateForm).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        } else {
+          this.$message.error(this.$t('common.operationFailed') + response.message)
+        }
+      })
+    },
+    handleDelete(row) {
+      this.$confirm(this.$t('taxonomy.confirmToDeleteCategory'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        var deleteData = {
+          taxonomy: 'category'
+        }
+        deleteTaxonomy(row.id, deleteData).then(response => {
+          if (response.code === 0) {
+            this.getList()
+            this.$message({
+              type: 'success',
+              message: this.$t('common.deleteSucceeded')
+            })
+          } else {
+            this.$message.error(this.$t('common.operationFailed') + response.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelDelete')
+        })
+      })
     }
   }
 }

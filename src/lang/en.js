@@ -2,6 +2,7 @@ export default {
   common: {
     search: 'Search',
     add: 'Add',
+    addNow: 'Add now',
     delete: 'Delete',
     edit: 'Edit',
     change: 'Edit',
@@ -14,9 +15,11 @@ export default {
     confirm: 'Confirm',
     tips: 'Tips',
     reset: 'Reset',
+    clear: 'Clear',
     save: 'Save',
     success: 'Success',
     failed: 'Failed',
+    action: 'Action',
     operationFailed: 'Operation failed!',
     operationSucceeded: 'Operation succeeded!',
     deleteSucceeded: 'Delete succeeded!',
@@ -160,5 +163,18 @@ export default {
     pleaseInputDesc: 'Please enter description',
     copyTo: 'Copy to the clipboard',
     copySuccessed: 'Copy successfully'
+  },
+  taxonomy: {
+    category: 'Category',
+    newCategory: 'New Cateogry',
+    taxonomyName: 'Name',
+    taxonomySlug: 'Slug',
+    categoryParent: 'Parent Category',
+    taxonomyDesc: 'Description',
+    categoryNoParents: 'No parent',
+    categoryDetail: 'Category Detail',
+    articleNumber: 'Article number',
+    parentCannotBeSelf: 'Parent category can not be itself',
+    confirmToDeleteCategory: 'Are you sure to delete the category? This action will directly remove the category without trash backup. Confirm to delete.'
   }
 }
