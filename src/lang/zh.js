@@ -175,6 +175,10 @@ export default {
     categoryDetail: '分类详情',
     articleNumber: '文章数量',
     parentCannotBeSelf: '父级分类不能是自己',
-    confirmToDeleteCategory: '是否直接删除分类？该操作将直接删除分类且不会将分类移到回收站，操作不可逆，确定要删除吗？'
+    confirmToDeleteCategory: '是否直接删除分类？该操作将直接删除分类且不会将分类移到回收站，操作不可逆，确定要删除吗？',
+    tag: '标签',
+    newTag: '添加新标签',
+    tagDetail: '标签详情',
+    confirmToDeleteTag: '是否直接删除标签？该操作将直接删除标签且不会将标签移到回收站，操作不可逆，确定要删除吗？'
   }
 }

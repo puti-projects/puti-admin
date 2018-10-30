@@ -42,7 +42,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog :title="$t('taxonomy.categoryDetail')" :visible.sync="dialogFormVisible" @close="closeUpdateDialog">
+        <el-dialog :title="$t('taxonomy.categoryDetail')" :visible.sync="dialogFormVisible">
           <el-form :model="updateForm">
             <el-form-item :label="$t('taxonomy.taxonomyName')" :label-width="formLabelWidth">
               <el-input v-model="updateForm.name" autocomplete="off"></el-input>

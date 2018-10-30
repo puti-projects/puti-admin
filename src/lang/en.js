@@ -175,6 +175,10 @@ export default {
     categoryDetail: 'Category Detail',
     articleNumber: 'Article number',
     parentCannotBeSelf: 'Parent category can not be itself',
-    confirmToDeleteCategory: 'Are you sure to delete the category? This action will directly remove the category without trash backup. Confirm to delete.'
+    confirmToDeleteCategory: 'Are you sure to delete the category? This action will directly remove the category without trash backup. Confirm to delete.',
+    tag: 'Tag',
+    newTag: 'New Tag',
+    tagDetail: 'Tag Detail',
+    confirmToDeleteTag: 'Are you sure to delete the tag? This action will directly remove the tag without trash backup. Confirm to delete.'
   }
 }
