@@ -1,62 +1,62 @@
 <template>
-  <div class="createPost-container">
-    <el-form class="form-container" :model="postForm" :rules="rules" ref="postForm">
+  <div class="app-container">
+    <div class="post-container">
+      <el-form class="form-container" :model="postForm" :rules="rules" ref="postForm" >
 
-      <div class="createPost-main-container">
-        <el-row>
-          <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="title">
-              <MDinput name="name" v-model="postForm.title" required :maxlength="100">
-                标题
-              </MDinput>
-            </el-form-item>
+        <div class="post-title-container">
+          <el-form-item prop="title">
+            <MDinput name="name" v-model="postForm.title" required :maxlength="100">
+              标题
+            </MDinput>
+          </el-form-item>
 
-            <div class="postInfo-container">
-              <el-row>
-                <el-col :span="10">
-                  <el-form-item label-width="80px" label="发布时间:" class="postInfo-container-item">
-                    <el-date-picker v-model="postForm.display_time" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
-          </el-col>
-        </el-row>
+          <el-form-item label-width="50px" label="摘要:">
+            <el-input type="textarea" class="article-textarea" :rows="1" autosize placeholder="请输入内容" v-model="postForm.description">
+            </el-input>
+            <span class="word-counter" v-show="contentShortLength">{{contentShortLength}}字</span>
+          </el-form-item>
+        </div>
 
-        <el-form-item style="margin-bottom: 40px;" label-width="45px" label="摘要:">
-          <el-input type="textarea" class="article-textarea" :rows="1" autosize placeholder="请输入内容" v-model="postForm.content_short">
-          </el-input>
-          <span class="word-counter" v-show="contentShortLength">{{contentShortLength}}字</span>
-        </el-form-item>
+        <div class="post-main-container" >
+          <el-row>
+            <el-col class="post-content-container" :span="19" >
+              <div id="editor">
+                  <mavon-editor style="height: 100%"></mavon-editor>
+              </div>
+            </el-col>
 
-      </div>
-    </el-form>
+            <el-col class="post-action-container" :span="5" >
+              789
+            </el-col>
+          </el-row>
+        </div>
 
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'// 使用的一个多选框组件，element-ui的select不能满足所有需求
-import 'vue-multiselect/dist/vue-multiselect.min.css'// 多选框组件css
-import { fetchArticle } from '@/api/article'
+import MDinput from '@/components/MDinput'
+import mavonEditor from '@/components/mavonEditor'
 
 const defaultForm = {
+  id: undefined,
   status: 'draft',
   title: '', // 文章题目
   content: '', // 文章内容
-  content_short: '', // 文章摘要
-  source_uri: '', // 文章外链
-  image_uri: '', // 文章图片
-  display_time: undefined, // 前台展示时间
-  id: undefined,
+  description: '', // 文章摘要
+  guid: '', // 文章链接
+  cover_picture: '', // 文章封面
+
   platforms: ['a-platform'],
-  comment_disabled: false
+  comment_status: 1,
+  importance: 0
 }
 
 export default {
   name: 'articleDetail',
-  components: { Multiselect },
+  components: { MDinput, mavonEditor },
   props: {
     isEdit: {
       type: Boolean,
@@ -64,31 +64,16 @@ export default {
     }
   },
   data() {
-    const validateRequire = (rule, value, callback) => {
-      if (value === '') {
-        this.$message({
-          message: rule.field + '为必传项',
-          type: 'error'
-        })
-        callback(null)
-      } else {
-        callback()
-      }
-    }
     return {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       userListOptions: [],
-      rules: {
-        image_uri: [{ validator: validateRequire }],
-        title: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }]
-      }
+      rules: { }
     }
   },
   computed: {
     contentShortLength() {
-      return this.postForm.content_short.length
+      return this.postForm.description.length
     }
   },
   created() {
@@ -100,87 +85,33 @@ export default {
     }
   },
   methods: {
-    fetchData(id) {
-      fetchArticle(id).then(response => {
-        this.postForm = response.data
-        // Just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    submitForm() {
-      this.postForm.display_time = parseInt(this.display_time / 1000)
-      console.log(this.postForm)
-      this.$refs.postForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$notify({
-            title: '成功',
-            message: '发布文章成功',
-            type: 'success',
-            duration: 2000
-          })
-          this.postForm.status = 'published'
-          this.loading = false
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    draftForm() {
-      if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
-        this.$message({
-          message: '请填写必要的标题和内容',
-          type: 'warning'
-        })
-        return
-      }
-      this.$message({
-        message: '保存成功',
-        type: 'success',
-        showClose: true,
-        duration: 1000
-      })
-      this.postForm.status = 'draft'
-    }
   }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "src/styles/mixin.scss";
-.createPost-container {
+.post-container {
   position: relative;
-  .createPost-main-container {
-    padding: 40px 45px 20px 50px;
-    .postInfo-container {
-      position: relative;
-      @include clearfix;
-      margin-bottom: 10px;
-      .postInfo-container-item {
-        float: left;
-      }
-    }
-    .editor-container {
-      min-height: 500px;
-      margin: 0 0 30px;
-      .editor-upload-btn-container {
-        text-align: right;
-        margin-right: 10px;
-        .editor-upload-btn {
-          display: inline-block;
-        }
-      }
+  .post-title-container{
+    padding: 0 10px 10px 10px;
+    // margin-bottom: 10px;
+  }
+  .post-main-container {
+    padding: 10px 10px 10px 10px;
+    #editor {
+      margin: auto;
+      width: 100%;
+      height: 650px;
     }
   }
+
   .word-counter {
     width: 40px;
     position: absolute;
     right: -10px;
     top: 0px;
   }
+  
 }
 </style>

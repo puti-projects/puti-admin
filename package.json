@@ -22,6 +22,7 @@
     "clipboard": "^2.0.1",
     "element-ui": "2.3.4",
     "js-cookie": "2.2.0",
+    "mavon-editor": "^2.6.17",
     "normalize.css": "7.0.0",
     "npm": "^6.4.1",
     "nprogress": "0.2.0",
