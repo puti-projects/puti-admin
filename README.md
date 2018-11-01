@@ -28,6 +28,7 @@ npm run build --report
 
 ## Demo
 ![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fputi-projects%2Fputi-admin.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fputi-projects%2Fputi-admin?ref=badge_shield)
 
 ## Extra
 If you want router permission && generate menu by user roles , you can use this branch [permission-control](https://github.com/PanJiaChen/vueAdmin-template/tree/permission-control)
@@ -69,3 +70,6 @@ Pictured:
 [MIT](https://github.com/PanJiaChen/vueAdmin-template/blob/master/LICENSE) license.
 
 Copyright (c) 2017-present PanJiaChen
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fputi-projects%2Fputi-admin.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fputi-projects%2Fputi-admin?ref=badge_large)
