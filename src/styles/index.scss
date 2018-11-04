@@ -75,6 +75,13 @@ a:hover {
 
 .app-container {
   padding: 20px;
+  height: 100%;
+}
+
+.app-container-grey {
+  padding: 20px;
+  background-color: rgb(240, 242, 245);
+  height: 100%;
 }
 
 .components-container {
@@ -136,5 +143,44 @@ a:hover {
   cursor: pointer;
   &:hover {
     color: rgb(32, 160, 255);
+  }
+}
+
+.post-title-container{
+  .el-input-group__prepend{
+    background-color: white;
+    color: #001528;
+  }
+}
+.post-action-container{
+  .post-card{
+    border: 1px solid #DDDDDD;
+    margin-bottom: 20px;
+    .post-card-header{
+      font-weight: bold;
+      border-bottom: 1px solid #ebeef5;
+      padding: 15px 20px 10px 15px;
+    }
+    .post-card-text{
+      padding: 10px;
+      .post-category-tree{
+        height:230px;
+        padding: 10px 5px 10px 5px;
+        border: 1px solid #DDDDDD;
+        border-top: none;
+        overflow-y: scroll;
+        .category-tree-input{
+          margin-bottom: 5px;
+        }
+      }
+      .el-tabs__header, .el-form-item{
+        margin: 0;
+      }
+    }
+    .post-card-bottom {
+      padding: 10px;
+      border-top: 1px solid #ebeef5;
+      margin-top: 10px;
+    }
   }
 }
