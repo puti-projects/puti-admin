@@ -35,6 +35,7 @@ export default {
     article: 'article',
     articleList: 'article list',
     articleAdd: 'new article',
+    articleEdit: 'edit article',
     category: 'category',
     tags: 'tags',
     subject: 'subject',

@@ -81,13 +81,14 @@
                           clearable>
                         </el-input>
                         <el-tree
+                          v-model="postForm.category"
                           :data="categoryData"
                           show-checkbox
                           node-key="term_id"
-                          default-expand-all="true"
+                          :default-expand-all="defaultExpandAllCategory"
                           :default-checked-keys="defaultCheckedCategory"
                           :filter-node-method="filterNode"
-                          :props="categoryProps" 
+                          :props="categoryProps"
                           ref="categoryTree">
                         </el-tree>
                     </el-tab-pane>
@@ -123,6 +124,7 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import { fetchList } from '@/api/taxonomy'
+import { fetchArticle } from '@/api/article'
 import 'mavon-editor/dist/css/index.css'
 
 const defaultForm = {
@@ -137,7 +139,7 @@ const defaultForm = {
   posted_time: '', // 发表时间
   if_top: '0', // 是否置顶
   category: [],
-  tag: ''
+  tag: []
 }
 
 export default {
@@ -153,6 +155,7 @@ export default {
     return {
       postForm: Object.assign({}, defaultForm),
       loading: false,
+      defaultExpandAllCategory: true,
       categoryTab: 'allCategory',
       categoryData: [],
       categoryProps: {
@@ -173,15 +176,18 @@ export default {
   },
   computed: {
     contentShortLength() {
-      return this.postForm.description.length
+      if (this.postForm.description !== undefined) {
+        return this.postForm.description.length
+      }
+      return 0
     }
   },
   created() {
     this.setTitle()
     this.initTaxonomy()
     if (this.isEdit) {
-      // const id = this.$route.params && this.$route.params.id
-      // this.fetchData(id)
+      const articleId = this.$route.params.id
+      this.getArticleInfo(articleId)
     } else {
       this.postForm = Object.assign({}, defaultForm)
     }
@@ -196,6 +202,27 @@ export default {
       })
       fetchList({ type: 'tag' }).then(response => {
         this.tagOptions = response.data
+      })
+    },
+    getArticleInfo(articleId) {
+      fetchArticle(articleId).then(response => {
+        if (response.code === 0) {
+          var articleInfo = response.data
+          this.postForm.id = articleInfo.id
+          this.postForm.status = articleInfo.status
+          this.postForm.title = articleInfo.title
+          this.postForm.content = articleInfo.content_markdown
+          this.postForm.description = articleInfo.meta_date.description
+          // this.postForm.comment_status = articleInfo.comment_status
+          // this.postForm.cover_picture = articleInfo.cover_picture
+          this.postForm.posted_time = articleInfo.post_date
+          // this.postForm.if_top = articleInfo.if_top
+          this.postForm.category = articleInfo.category
+          this.postForm.tag = articleInfo.tag
+          this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
+        } else {
+          this.$message.error(response.message)
+        }
       })
     },
     filterNode(value, data) {

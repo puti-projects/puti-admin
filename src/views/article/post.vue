@@ -30,7 +30,7 @@
 
       <el-table-column min-width="300px" :label="$t('post.title')">
         <template slot-scope="scope">
-          <router-link class="link-type" :to="'/example/edit/'+scope.row.id">
+          <router-link class="link-type" :to="'/article/edit/'+scope.row.id">
             <span>{{ scope.row.title }}</span>
           </router-link>
         </template>
@@ -76,12 +76,12 @@
 
       <el-table-column align="center" :label="$t('post.action')" width="200">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
+          <router-link :to="'/article/edit/'+scope.row.id">
             <el-button type="primary" size="mini" icon="el-icon-edit">{{$t('common.edit')}}</el-button>
-            <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" icon="el-icon-delete">
-              {{$t('common.delete')}}
-            </el-button>
           </router-link>
+          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" icon="el-icon-delete">
+              {{$t('common.delete')}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -35,6 +35,7 @@ export default {
     article: '文章',
     articleList: '文章列表',
     articleAdd: '创建文章',
+    articleEdit: '编辑文章',
     category: '分类目录',
     tags: '标签',
     subject: '专题',

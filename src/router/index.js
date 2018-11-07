@@ -63,7 +63,7 @@ export const asyncRouterMap = [
       meta: {
         title: 'articleList',
         icon: 'list',
-        roles: ['administrator']
+        roles: ['administrator', 'editor']
       }
     }, {
       path: 'new',
@@ -72,7 +72,16 @@ export const asyncRouterMap = [
       meta: {
         title: 'articleAdd',
         icon: 'add',
-        roles: ['administrator']
+        roles: ['administrator', 'editor']
+      }
+    }, {
+      path: 'edit/:id',
+      component: () => import('@/views/article/edit'),
+      name: 'article-edit',
+      hidden: true,
+      meta: {
+        title: 'articleEdit',
+        roles: ['administrator', 'editor']
       }
     }, {
       path: 'category',
@@ -81,7 +90,7 @@ export const asyncRouterMap = [
       meta: {
         title: 'category',
         icon: 'category',
-        roles: ['administrator']
+        roles: ['administrator', 'editor']
       }
     }, {
       path: 'tag',
@@ -284,18 +293,7 @@ export const asyncRouterMap = [
         icon: 'profile',
         roles: ['administrator']
       }
-    }
-    // {
-    //   path: 'info/:id',
-    //   component: () => import('@/views/user/info'),
-    //   name: 'user-info',
-    //   hidden: true,
-    //   meta: {
-    //     title: 'info',
-    //     roles: ['administrator']
-    //   }
-    // }
-    ]
+    }]
   },
 
   {
