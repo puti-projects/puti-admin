@@ -339,25 +339,25 @@ export const asyncRouterMap = [
           {
             path: 'writing',
             component: () => import('@/views/setting/content/writing'),
-            name: 'writing',
+            name: 'content-writing',
             meta: { title: 'contentSettingWritting' }
           },
           {
             path: 'reading',
             component: () => import('@/views/setting/content/reading'),
-            name: 'reading',
+            name: 'content-reading',
             meta: { title: 'contentSettingReading' }
           },
           {
             path: 'media',
             component: () => import('@/views/setting/content/media'),
-            name: 'media',
+            name: 'content-media',
             meta: { title: 'contentSettingMedia' }
           },
           {
             path: 'discuss',
             component: () => import('@/views/setting/content/discuss'),
-            name: 'discuss',
+            name: 'content-discuss',
             meta: { title: 'contentSettingDiscuss' }
           }
         ]

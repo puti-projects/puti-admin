@@ -11,8 +11,10 @@
         <el-option v-for="item in sortOptions" :key="item" :label="$t('common.' + item)" :value="item">
         </el-option>
       </el-select>
-      <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">{{$t('common.search')}}</el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">{{$t('common.add')}}</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{$t('common.search')}}</el-button>
+      <router-link :to="'/article/new'">
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">{{$t('common.add')}}</el-button>
+      </router-link>
    </div>
 
     <el-table :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
@@ -24,7 +26,7 @@
 
       <el-table-column width="180px" align="center" :label="$t('post.date')">
         <template slot-scope="scope">
-          <span>{{scope.row.post_date | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.post_date}}</span>
         </template>
       </el-table-column>
 

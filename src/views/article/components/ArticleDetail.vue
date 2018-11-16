@@ -36,32 +36,37 @@
                 <div class="post-card-text">
                   <el-form-item>
                     <div slot="label"><i class="el-icon-star-on"></i> 状态：</div>
-                    <el-radio-group v-model="postForm.status">
-                      <el-radio label="draft" >草稿</el-radio>
-                      <el-radio label="publish" >已发布</el-radio>
-                    </el-radio-group>
+                    <span v-if="defaultStatus=='draft'">草稿</span>
+                    <span v-if="defaultStatus=='publish'">已发布</span>
                   </el-form-item>
 
                   <el-form-item prop="comment_status">
                     <div slot="label"><svg-icon icon-class="comments" /> 开启评论：</div>
-                    <el-switch v-model="postForm.comment_status" active-value="1" inactive-value="0"></el-switch>
+                    <el-switch v-model="postForm.comment_status" :active-value="activeValue" :inactive-value="inactiveValue"></el-switch>
                   </el-form-item>
 
                   <el-form-item prop="if_top">
                     <div slot="label"><i class="el-icon-caret-top"></i> 是否置顶：</div>
-                    <el-switch v-model="postForm.if_top" active-value="1" inactive-value="0"></el-switch>
+                    <el-switch v-model="postForm.if_top" :active-value="activeValue" :inactive-value="inactiveValue"></el-switch>
                   </el-form-item>
 
                   <el-form-item prop="posted_time">
                     <div slot="label"><i class="el-icon-date"></i> 发布时间:</div>
-                    <el-date-picker v-model="postForm.posted_time" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" size="small">
+                    <el-date-picker v-model="postForm.posted_time" 
+                      type="datetime" 
+                      format="yyyy-MM-dd HH:mm:ss" 
+                      value-format="yyyy-MM-dd HH:mm:ss" 
+                      placeholder="选择发布日期时间" 
+                      size="small">
                     </el-date-picker>
                   </el-form-item>
                 </div>
 
                 <div class="post-card-bottom clearfix">
-                  <el-button v-loading="loading" type="primary" size="mini" @click="submitForm">发布</el-button>
-                  <el-button v-loading="loading" type="info" size="mini" @click="draftForm">保存草稿</el-button>
+                  <el-button v-if="postForm.status==='draft'" type="primary" size="mini" @click="submitForm">发布</el-button>
+                  <el-button v-else type="primary" size="mini" @click="submitForm">发布更新</el-button>
+                  <el-button v-if="postForm.status==='draft'" type="info" size="mini" @click="draftForm">保存草稿</el-button>
+                  <el-button v-else type="info" size="mini" @click="draftForm">保存为草稿</el-button>
                 </div>
               </el-card>
 
@@ -124,7 +129,7 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import { fetchList } from '@/api/taxonomy'
-import { fetchArticle } from '@/api/article'
+import { fetchArticle, createArticle, updateArticle } from '@/api/article'
 import 'mavon-editor/dist/css/index.css'
 
 const defaultForm = {
@@ -134,10 +139,10 @@ const defaultForm = {
   content: '', // 文章内容
   content_html: '', // 文章内容
   description: '', // 文章摘要
-  comment_status: '1', // 开启评论
+  comment_status: 1, // 开启评论
   cover_picture: '', // 文章封面
   posted_time: '', // 发表时间
-  if_top: '0', // 是否置顶
+  if_top: 0, // 是否置顶
   category: [],
   tag: []
 }
@@ -154,7 +159,7 @@ export default {
   data() {
     return {
       postForm: Object.assign({}, defaultForm),
-      loading: false,
+      defaultStatus: 'draft',
       defaultExpandAllCategory: true,
       categoryTab: 'allCategory',
       categoryData: [],
@@ -166,7 +171,9 @@ export default {
       defaultCheckedCategory: [1],
       filterText: '',
       tagOptions: [],
-      defaultSelectTags: []
+      defaultSelectTags: [],
+      activeValue: 1,
+      inactiveValue: 0
     }
   },
   watch: {
@@ -212,14 +219,16 @@ export default {
           this.postForm.status = articleInfo.status
           this.postForm.title = articleInfo.title
           this.postForm.content = articleInfo.content_markdown
-          this.postForm.description = articleInfo.meta_date.description
-          // this.postForm.comment_status = articleInfo.comment_status
-          // this.postForm.cover_picture = articleInfo.cover_picture
+          this.postForm.description = articleInfo.meta_date.description ? articleInfo.meta_date.description : ''
+          this.postForm.comment_status = articleInfo.comment_status
+          this.postForm.cover_picture = articleInfo.cover_picture
           this.postForm.posted_time = articleInfo.post_date
-          // this.postForm.if_top = articleInfo.if_top
+          this.postForm.if_top = articleInfo.if_top
           this.postForm.category = articleInfo.category
           this.postForm.tag = articleInfo.tag
           this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
+          this.defaultStatus = articleInfo.status
+          console.log(this.postForm)
         } else {
           this.$message.error(response.message)
         }
@@ -236,15 +245,55 @@ export default {
       this.postForm.content_html = render
     },
     submitForm() {
-      this.postForm.status = 'pubish'
+      this.postForm.status = 'publish'
       this.postForm.category = this.getCategoryCheckedKeys()
-      console.log(this.postForm)
-      console.log(this.$ref.mdEditor)
+      if (this.postForm.id === undefined) {
+        this.createArticle()
+      } else {
+        this.updateArticle()
+      }
     },
     draftForm() {
       this.postForm.status = 'draft'
       this.postForm.category = this.getCategoryCheckedKeys()
+      if (this.postForm.id === undefined) {
+        this.createArticle()
+      } else {
+        this.updateArticle()
+      }
+    },
+    createArticle() {
       console.log(this.postForm)
+      createArticle(this.postForm).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+
+          if (response.data.id) {
+            this.$router.push({ path: '/article/edit/' + response.data.id })
+          }
+        } else {
+          this.$message.error(response.message)
+        }
+      })
+    },
+    updateArticle() {
+      console.log(123)
+      console.log(this.postForm)
+      updateArticle(this.postForm).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          this.$message.error(response.message)
+        }
+      })
     }
   }
 }

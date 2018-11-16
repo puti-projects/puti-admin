@@ -14,3 +14,26 @@ export function fetchArticle(id) {
     method: 'get'
   })
 }
+
+export function createArticle(info) {
+  return request({
+    url: '/article',
+    method: 'post',
+    data: info
+  })
+}
+
+export function updateArticle(info) {
+  return request({
+    url: '/article/' + info.id,
+    method: 'put',
+    data: info
+  })
+}
+
+export function deleteArticle(id) {
+  return request({
+    url: '/article/' + id,
+    method: 'delete'
+  })
+}
