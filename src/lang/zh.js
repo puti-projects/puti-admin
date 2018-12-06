@@ -4,6 +4,8 @@ export default {
     add: '添加',
     addNow: '立即添加',
     delete: '删除',
+    restore: '恢复',
+    remove: '移除',
     edit: '编辑',
     change: '修改',
     create: '创建',
@@ -23,7 +25,9 @@ export default {
     operationFailed: '操作失败！',
     operationSucceeded: '操作成功！',
     deleteSucceeded: '删除成功！',
+    removeSucceeded: '移除成功！',
     cancelDelete: '已取消删除',
+    cancelRemove: '已取消移除',
     updateSucceeded: '更新成功！',
     updateFailed: '更新失败！',
     createSucceeded: '创建成功！',
@@ -86,7 +90,10 @@ export default {
     action: '操作',
     publish: '已发布',
     draft: '草稿',
-    deleted: '已删除'
+    deleted: '已删除',
+    checkToTrashArticle: '确定是否删除文章？删除后仍可恢复。',
+    checkToDeleteArticle: '此操作将把文章移除, 文章的各种关联关系也将彻底移除且不可逆，是否继续？',
+    restoreArticleSucceeded: '文章已恢复为草稿。'
   },
   navbar: {
     logOut: '退出登录',
@@ -142,7 +149,7 @@ export default {
     pleaseInputCorrectEmail: '请输入正确的邮箱地址',
     pleaseSelectRoles: '请选择用户角色',
     pleaseCheckPasswordLength: '密码长度不能小于 5 个字符',
-    checkToDeleteUser: '此操作将把用户移至回收站, 是否继续?',
+    checkToDeleteUser: '此操作将把用户移至回收站, 是否继续？',
     uploadSucceeded: '上传成功',
     uploadFailed: '上传失败',
     cropSuccess: '裁剪成功'

@@ -76,12 +76,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('post.action')" width="200">
+      <el-table-column align="center" :label="$t('post.action')" width="300">
         <template slot-scope="scope">
-          <router-link :to="'/article/edit/'+scope.row.id">
-            <el-button type="primary" size="mini" icon="el-icon-edit">{{$t('common.edit')}}</el-button>
-          </router-link>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" icon="el-icon-delete">
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEditArticle(scope.row.id)">{{$t('common.edit')}}</el-button>
+
+          <template v-if="scope.row.status=='deleted'">
+            <el-button size="mini" type="warning" @click="handleDelete(scope.row)" icon="el-icon-delete">
+              {{$t('common.remove')}}
+            </el-button>
+            <el-button size="mini" type="info" @click="handleRestoreArticle(scope.row)" icon="el-icon-delete">
+                {{$t('common.restore')}}
+            </el-button>
+          </template>
+          <el-button v-else size="mini" type="danger" @click="handleTrashArticle(scope.row)" icon="el-icon-delete">
               {{$t('common.delete')}}
           </el-button>
         </template>
@@ -98,7 +105,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+import { fetchList, deleteArticle, updateArticle } from '@/api/article'
 
 export default {
   name: 'articleList',
@@ -155,6 +162,76 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
+    },
+    handleTrashArticle(row) {
+      this.$confirm(this.$t('post.checkToTrashArticle'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        var trashForm = { id: row.id, status: 'deleted' }
+        updateArticle(trashForm).then(response => {
+          if (response.code === 0) {
+            this.$message({
+              message: this.$t('common.operationSucceeded'),
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+          } else {
+            this.$message.error(response.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelDelete')
+        })
+      })
+    },
+    handleRestoreArticle(row) {
+      var restoreForm = { id: row.id, status: 'restore' }
+      updateArticle(restoreForm).then(response => {
+        if (response.code === 0) {
+          this.$message({
+            message: this.$t('common.operationSucceeded') + this.$t('post.restoreArticleSucceeded'),
+            type: 'success',
+            duration: 3000
+          })
+          this.getList()
+        } else {
+          this.$message.error(response.message)
+        }
+      })
+    },
+    handleDelete(row) {
+      this.$confirm(this.$t('post.checkToDeleteArticle'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        deleteArticle(row.id).then(response => {
+          if (response.code === 0) {
+            this.$message({
+              type: 'success',
+              message: this.$t('common.removeSucceeded')
+            })
+            this.getList()
+          } else {
+            this.$message.error(this.$t('common.operationFailed') + response.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelRemove')
+        })
+      })
+    },
+    handleEditArticle(id) {
+      this.$router.push({ path: '/article/edit/' + id })
     }
   }
 }

@@ -15,10 +15,11 @@ export function fetchArticle(id) {
   })
 }
 
-export function createArticle(info) {
+export function createArticle(info, token) {
   return request({
     url: '/article',
     method: 'post',
+    params: { token },
     data: info
   })
 }

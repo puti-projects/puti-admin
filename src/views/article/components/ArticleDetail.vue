@@ -228,7 +228,6 @@ export default {
           this.postForm.tag = articleInfo.tag
           this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
           this.defaultStatus = articleInfo.status
-          console.log(this.postForm)
         } else {
           this.$message.error(response.message)
         }
@@ -247,6 +246,9 @@ export default {
     submitForm() {
       this.postForm.status = 'publish'
       this.postForm.category = this.getCategoryCheckedKeys()
+      if (this.postForm.category.length === 0) {
+        this.postForm.category = this.defaultCheckedCategory
+      }
       if (this.postForm.id === undefined) {
         this.createArticle()
       } else {
@@ -256,6 +258,9 @@ export default {
     draftForm() {
       this.postForm.status = 'draft'
       this.postForm.category = this.getCategoryCheckedKeys()
+      if (this.postForm.category.length === 0) {
+        this.postForm.category = this.defaultCheckedCategory
+      }
       if (this.postForm.id === undefined) {
         this.createArticle()
       } else {
@@ -263,8 +268,8 @@ export default {
       }
     },
     createArticle() {
-      console.log(this.postForm)
-      createArticle(this.postForm).then(response => {
+      var token = this.$store.getters.token
+      createArticle(this.postForm, token).then(response => {
         if (response.code === 0) {
           this.$message({
             message: this.$t('common.operationSucceeded'),
@@ -281,8 +286,6 @@ export default {
       })
     },
     updateArticle() {
-      console.log(123)
-      console.log(this.postForm)
       updateArticle(this.postForm).then(response => {
         if (response.code === 0) {
           this.$message({
@@ -290,6 +293,7 @@ export default {
             type: 'success',
             duration: 2000
           })
+          this.getArticleInfo(this.$route.params.id)
         } else {
           this.$message.error(response.message)
         }

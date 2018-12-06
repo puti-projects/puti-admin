@@ -4,6 +4,8 @@ export default {
     add: 'Add',
     addNow: 'Add now',
     delete: 'Delete',
+    restore: 'Restore',
+    remove: 'Remove',
     edit: 'Edit',
     change: 'Edit',
     create: 'Create',
@@ -23,7 +25,9 @@ export default {
     operationFailed: 'Operation failed!',
     operationSucceeded: 'Operation succeeded!',
     deleteSucceeded: 'Delete succeeded!',
+    removeSucceeded: 'Remove succeeded!',
     cancelDelete: 'Already cancel delete.',
+    cancelRemove: 'Already cancel remove.',
     updateSucceeded: 'Update succeeded!',
     updateFailed: 'Update failed!',
     createSucceeded: 'Create succeeded!',
@@ -86,7 +90,10 @@ export default {
     action: 'Actions',
     publish: 'published',
     draft: 'draft',
-    deleted: 'deleted'
+    deleted: 'deleted',
+    checkToTrashArticle: 'You are deleting the article into the trash, continue or not? You can restore it after delete.',
+    checkToDeleteArticle: 'You are removing the article which had been deleted. Also all the relationships connect to the article will be delete completly. Please check and continue.',
+    restoreArticleSucceeded: 'The article was been restored as a draft.'
   },
   navbar: {
     logOut: 'Log Out',
