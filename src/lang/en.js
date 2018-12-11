@@ -55,6 +55,7 @@ export default {
     page: 'pages',
     pageList: 'all pages',
     pageAdd: 'new page',
+    pageEdit: 'edit page',
     comment: 'comment',
     commentList: 'comment list',
     user: 'user',

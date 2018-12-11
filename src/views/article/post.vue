@@ -78,8 +78,6 @@
 
       <el-table-column align="center" :label="$t('post.action')" width="300">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEditArticle(scope.row.id)">{{$t('common.edit')}}</el-button>
-
           <template v-if="scope.row.status=='deleted'">
             <el-button size="mini" type="warning" @click="handleDelete(scope.row)" icon="el-icon-delete">
               {{$t('common.remove')}}
@@ -88,9 +86,14 @@
                 {{$t('common.restore')}}
             </el-button>
           </template>
-          <el-button v-else size="mini" type="danger" @click="handleTrashArticle(scope.row)" icon="el-icon-delete">
+          <template v-else>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEditArticle(scope.row.id)">
+              {{$t('common.edit')}}
+            </el-button>
+            <el-button size="mini" type="danger" @click="handleTrashArticle(scope.row)" icon="el-icon-delete">
               {{$t('common.delete')}}
-          </el-button>
+            </el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>

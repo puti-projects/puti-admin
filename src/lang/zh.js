@@ -55,6 +55,7 @@ export default {
     page: '页面',
     pageList: '所有页面',
     pageAdd: '添加页面',
+    pageEdit: '编辑页面',
     comment: '评论',
     commentList: '评论列表',
     user: '用户',

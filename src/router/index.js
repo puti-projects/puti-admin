@@ -212,13 +212,13 @@ export const asyncRouterMap = [
   {
     path: '/page',
     component: Layout,
-    redirect: '/page/index',
+    redirect: '/page/list',
     name: 'page',
     alwaysShow: true,
     meta: {
       title: 'page',
       icon: 'page',
-      roles: ['administrator']
+      roles: ['administrator', 'editor']
     },
     children: [{
       path: 'list',
@@ -227,7 +227,7 @@ export const asyncRouterMap = [
       meta: {
         title: 'pageList',
         icon: 'pages',
-        roles: ['administrator']
+        roles: ['administrator', 'editor']
       }
     }, {
       path: 'new',
@@ -236,7 +236,16 @@ export const asyncRouterMap = [
       meta: {
         title: 'pageAdd',
         icon: 'add',
-        roles: ['administrator']
+        roles: ['administrator', 'editor']
+      }
+    }, {
+      path: 'edit/:id',
+      component: () => import('@/views/page/edit'),
+      name: 'page-edit',
+      hidden: true,
+      meta: {
+        title: 'pageEdit',
+        roles: ['administrator', 'editor']
       }
     }]
   },

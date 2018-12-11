@@ -139,7 +139,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.articleList
+        this.list = response.data.pageList
         this.total = response.data.totalCount
         this.listLoading = false
       })
