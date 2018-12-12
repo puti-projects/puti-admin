@@ -78,12 +78,22 @@
 
       <el-table-column align="center" :label="$t('post.action')" width="200">
         <template slot-scope="scope">
-          <router-link :to="'/page/edit/'+scope.row.id">
-            <el-button type="primary" size="mini" icon="el-icon-edit">{{$t('common.edit')}}</el-button>
-          </router-link>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" icon="el-icon-delete">
+          <template v-if="scope.row.status=='deleted'">
+            <el-button size="mini" type="warning" @click="handleDelete(scope.row)" icon="el-icon-delete">
+              {{$t('common.remove')}}
+            </el-button>
+            <el-button size="mini" type="info" @click="handleRestorePage(scope.row)" icon="el-icon-delete">
+                {{$t('common.restore')}}
+            </el-button>
+          </template>
+          <template v-else>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEditPage(scope.row.id)">
+              {{$t('common.edit')}}
+            </el-button>
+            <el-button size="mini" type="danger" @click="handleTrashPage(scope.row)" icon="el-icon-delete">
               {{$t('common.delete')}}
-          </el-button>
+            </el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -98,7 +108,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/page'
+import { fetchList, deletePage, updatePage } from '@/api/page'
 
 export default {
   name: 'pageList',
@@ -155,6 +165,64 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
+    },
+    handleEditPage(id) {
+      this.$router.push({ path: '/page/edit/' + id })
+    },
+    handleDelete(row) {
+      this.$confirm(this.$t('post.checkToDeletePage'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        deletePage(row.id).then(response => {
+          this.$message({
+            type: 'success',
+            message: this.$t('common.removeSucceeded')
+          })
+          this.getList()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelRemove')
+        })
+      })
+    },
+    handleTrashPage(row) {
+      this.$confirm(this.$t('post.checkToTrashPage'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        var trashForm = { id: row.id, status: 'deleted' }
+        updatePage(trashForm).then(response => {
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelDelete')
+        })
+      })
+    },
+    handleRestorePage(row) {
+      var restoreForm = { id: row.id, status: 'restore' }
+      updatePage(restoreForm).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded') + this.$t('post.restorePageSucceeded'),
+          type: 'success',
+          duration: 3000
+        })
+        this.getList()
+      })
     }
   }
 }

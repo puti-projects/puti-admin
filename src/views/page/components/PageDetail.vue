@@ -79,7 +79,7 @@
                     <el-form-item prop="parent_id">
                         <div slot="label"><i class="el-icon-news"></i> 父级页面：</div>
                         <el-select v-model="postForm.parent_id" placeholder="请选择父级页面" size="small">
-                            <el-option label="无" value="0"></el-option>
+                            <el-option label="无" :value="defaultParentID"></el-option>
                         </el-select>
                     </el-form-item>
 
@@ -135,7 +135,8 @@ export default {
       postForm: Object.assign({}, defaultForm),
       defaultStatus: 'draft',
       activeValue: 1,
-      inactiveValue: 0
+      inactiveValue: 0,
+      defaultParentID: 0
     }
   },
   watch: {
@@ -151,8 +152,8 @@ export default {
   created() {
     this.setTitle()
     if (this.isEdit) {
-    //   const pageId = this.$route.params.id
-    //   this.getPageInfo(pageId)
+      const pageId = this.$route.params.id
+      this.getPageInfo(pageId)
     } else {
       this.postForm = Object.assign({}, defaultForm)
     }
@@ -163,23 +164,19 @@ export default {
     },
     getPageInfo(pageId) {
       fetchPage(pageId).then(response => {
-        if (response.code === 0) {
-          var pageInfo = response.data
-          this.postForm.id = pageInfo.id
-          this.postForm.status = pageInfo.status
-          this.postForm.title = pageInfo.title
-          this.postForm.content = pageInfo.content_markdown
-          this.postForm.description = pageInfo.meta_date.description ? pageInfo.meta_date.description : ''
-          this.postForm.page_template = pageInfo.meta_date.page_template ? pageInfo.meta_date.page_template : ''
-          this.postForm.comment_status = pageInfo.comment_status
-          this.postForm.cover_picture = pageInfo.cover_picture
-          this.postForm.posted_time = pageInfo.post_date
-          this.postForm.slug = pageInfo.slug
-          this.postForm.parent_id = pageInfo.parent_id
-          this.defaultStatus = pageInfo.status
-        } else {
-          this.$message.error(response.message)
-        }
+        var pageInfo = response.data
+        this.postForm.id = pageInfo.id
+        this.postForm.status = pageInfo.status
+        this.postForm.title = pageInfo.title
+        this.postForm.content = pageInfo.content_markdown
+        this.postForm.description = pageInfo.meta_date.description ? pageInfo.meta_date.description : ''
+        this.postForm.page_template = pageInfo.meta_date.page_template ? pageInfo.meta_date.page_template : ''
+        this.postForm.comment_status = pageInfo.comment_status
+        this.postForm.cover_picture = pageInfo.cover_picture
+        this.postForm.posted_time = pageInfo.post_date
+        this.postForm.slug = pageInfo.slug
+        this.postForm.parent_id = pageInfo.parent_id
+        this.defaultStatus = pageInfo.status
       })
     },
     getHtmlContent(value, render) {
@@ -205,35 +202,30 @@ export default {
     },
     createPage() {
       var token = this.$store.getters.token
-      console.log(this.postForm)
       createPage(this.postForm, token).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
 
-          if (response.data.id) {
-            this.$router.push({ path: '/page/edit/' + response.data.id })
-          }
-        } else {
-          this.$message.error(response.message)
+        if (response.data.id) {
+          this.$router.push({ path: '/page/edit/' + response.data.id })
         }
+      }).catch(e => {
+        this.postForm.status = this.defaultStatus
       })
     },
     updatePage() {
       updatePage(this.postForm).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
-          this.getPageInfo(this.$route.params.id)
-        } else {
-          this.$message.error(response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getPageInfo(this.$route.params.id)
+      }).catch(e => {
+        this.postForm.status = this.defaultStatus
       })
     }
   }

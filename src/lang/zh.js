@@ -93,8 +93,11 @@ export default {
     draft: '草稿',
     deleted: '已删除',
     checkToTrashArticle: '确定是否删除文章？删除后仍可恢复。',
+    checkToTrashPage: '确定是否删除该页面？删除后仍可恢复。',
     checkToDeleteArticle: '此操作将把文章移除, 文章的各种关联关系也将彻底移除且不可逆，是否继续？',
-    restoreArticleSucceeded: '文章已恢复为草稿。'
+    checkToDeletePage: '此操作将把页面移除, 是否继续？',
+    restoreArticleSucceeded: '文章已恢复为草稿。',
+    restorePageSucceeded: '页面已恢复为草稿。'
   },
   navbar: {
     logOut: '退出登录',

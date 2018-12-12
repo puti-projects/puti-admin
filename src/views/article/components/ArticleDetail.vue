@@ -213,24 +213,20 @@ export default {
     },
     getArticleInfo(articleId) {
       fetchArticle(articleId).then(response => {
-        if (response.code === 0) {
-          var articleInfo = response.data
-          this.postForm.id = articleInfo.id
-          this.postForm.status = articleInfo.status
-          this.postForm.title = articleInfo.title
-          this.postForm.content = articleInfo.content_markdown
-          this.postForm.description = articleInfo.meta_date.description ? articleInfo.meta_date.description : ''
-          this.postForm.comment_status = articleInfo.comment_status
-          this.postForm.cover_picture = articleInfo.cover_picture
-          this.postForm.posted_time = articleInfo.post_date
-          this.postForm.if_top = articleInfo.if_top
-          this.postForm.category = articleInfo.category
-          this.postForm.tag = articleInfo.tag
-          this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
-          this.defaultStatus = articleInfo.status
-        } else {
-          this.$message.error(response.message)
-        }
+        var articleInfo = response.data
+        this.postForm.id = articleInfo.id
+        this.postForm.status = articleInfo.status
+        this.postForm.title = articleInfo.title
+        this.postForm.content = articleInfo.content_markdown
+        this.postForm.description = articleInfo.meta_date.description ? articleInfo.meta_date.description : ''
+        this.postForm.comment_status = articleInfo.comment_status
+        this.postForm.cover_picture = articleInfo.cover_picture
+        this.postForm.posted_time = articleInfo.post_date
+        this.postForm.if_top = articleInfo.if_top
+        this.postForm.category = articleInfo.category
+        this.postForm.tag = articleInfo.tag
+        this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
+        this.defaultStatus = articleInfo.status
       })
     },
     filterNode(value, data) {
@@ -270,33 +266,29 @@ export default {
     createArticle() {
       var token = this.$store.getters.token
       createArticle(this.postForm, token).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
 
-          if (response.data.id) {
-            this.$router.push({ path: '/article/edit/' + response.data.id })
-          }
-        } else {
-          this.$message.error(response.message)
+        if (response.data.id) {
+          this.$router.push({ path: '/article/edit/' + response.data.id })
         }
+      }).catch(e => {
+        this.postForm.status = this.defaultStatus
       })
     },
     updateArticle() {
       updateArticle(this.postForm).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
-          this.getArticleInfo(this.$route.params.id)
-        } else {
-          this.$message.error(response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getArticleInfo(this.$route.params.id)
+      }).catch(e => {
+        this.postForm.status = this.defaultStatus
       })
     }
   }

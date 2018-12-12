@@ -15,10 +15,11 @@ export function fetchPage(id) {
   })
 }
 
-export function createPage(info) {
+export function createPage(info, token) {
   return request({
     url: '/page',
     method: 'post',
+    params: { token },
     data: info
   })
 }

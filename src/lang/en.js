@@ -93,8 +93,11 @@ export default {
     draft: 'draft',
     deleted: 'deleted',
     checkToTrashArticle: 'You are deleting the article into the trash, continue or not? You can restore it after delete.',
+    checkToTrashPage: 'You are deleting the page into the trash, continue or not? You can restore it after delete.',
     checkToDeleteArticle: 'You are removing the article which had been deleted. Also all the relationships connect to the article will be delete completly. Please check and continue.',
-    restoreArticleSucceeded: 'The article was been restored as a draft.'
+    checkToDeletePage: 'You are removing the page which had been deleted.Please check and continue.',
+    restoreArticleSucceeded: 'The article was been restored as a draft.',
+    restorePageSucceeded: 'The page was been restored as a draft.'
   },
   navbar: {
     logOut: 'Log Out',
