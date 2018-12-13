@@ -175,16 +175,12 @@ export default {
       }).then(() => {
         var trashForm = { id: row.id, status: 'deleted' }
         updateArticle(trashForm).then(response => {
-          if (response.code === 0) {
-            this.$message({
-              message: this.$t('common.operationSucceeded'),
-              type: 'success',
-              duration: 2000
-            })
-            this.getList()
-          } else {
-            this.$message.error(response.message)
-          }
+          this.$message({
+            message: this.$t('common.operationSucceeded'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
         })
       }).catch(() => {
         this.$message({
@@ -196,16 +192,12 @@ export default {
     handleRestoreArticle(row) {
       var restoreForm = { id: row.id, status: 'restore' }
       updateArticle(restoreForm).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded') + this.$t('post.restoreArticleSucceeded'),
-            type: 'success',
-            duration: 3000
-          })
-          this.getList()
-        } else {
-          this.$message.error(response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded') + this.$t('post.restoreArticleSucceeded'),
+          type: 'success',
+          duration: 3000
+        })
+        this.getList()
       })
     },
     handleDelete(row) {
@@ -216,15 +208,11 @@ export default {
         center: true
       }).then(() => {
         deleteArticle(row.id).then(response => {
-          if (response.code === 0) {
-            this.$message({
-              type: 'success',
-              message: this.$t('common.removeSucceeded')
-            })
-            this.getList()
-          } else {
-            this.$message.error(this.$t('common.operationFailed') + response.message)
-          }
+          this.$message({
+            type: 'success',
+            message: this.$t('common.removeSucceeded')
+          })
+          this.getList()
         })
       }).catch(() => {
         this.$message({

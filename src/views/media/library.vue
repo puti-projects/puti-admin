@@ -125,20 +125,13 @@ export default {
         center: true
       }).then(() => {
         deleteMedia(item.id).then(response => {
-          if (response.code === 0) {
-            this.$message({
-              message: this.$t('common.deleteSucceeded'),
-              type: 'success',
-              duration: 3000
-            })
-            const index = this.list.indexOf(item)
-            this.list.splice(index, 1)
-          } else {
-            this.$message.error({
-              message: this.$t('common.operationFailed') + response.message,
-              duration: 3000
-            })
-          }
+          this.$message({
+            message: this.$t('common.deleteSucceeded'),
+            type: 'success',
+            duration: 3000
+          })
+          const index = this.list.indexOf(item)
+          this.list.splice(index, 1)
         })
       }).catch(() => {
         this.$message({
@@ -149,24 +142,17 @@ export default {
     },
     handleDetail(item) {
       fetchMedia(item.id).then(response => {
-        if (response.code === 0) {
-          this.detailForm.id = response.data.id
-          this.detailForm.title = response.data.title
-          this.detailForm.slug = response.data.slug
-          this.detailForm.url = response.data.url
-          this.detailForm.type = response.data.type
-          this.detailForm.uploadTime = response.data.upload_time
-          this.detailForm.description = response.data.description
+        this.detailForm.id = response.data.id
+        this.detailForm.title = response.data.title
+        this.detailForm.slug = response.data.slug
+        this.detailForm.url = response.data.url
+        this.detailForm.type = response.data.type
+        this.detailForm.uploadTime = response.data.upload_time
+        this.detailForm.description = response.data.description
 
-          this.dialogVisible = true
-          this.dialogTitle = item.title
-          this.dialogImgPreviewUrl = item.url
-        } else {
-          this.$message.error({
-            message: this.$t('media.getDetailFailed') + response.message,
-            duration: 3000
-          })
-        }
+        this.dialogVisible = true
+        this.dialogTitle = item.title
+        this.dialogImgPreviewUrl = item.url
       })
     },
     handleCopy(text, event) {

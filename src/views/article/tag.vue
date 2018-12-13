@@ -123,46 +123,34 @@ export default {
     createTag() {
       this.newForm.taxonomy = 'tag'
       createTaxonomy(this.newForm).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
-          this.getList()
-          this.clearNewForm()
-        } else {
-          this.$message.error(this.$t('common.operationFailed') + response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
+        this.clearNewForm()
       })
     },
     handleDetail(row) {
       fetchTaxonomy(row.term_id).then(response => {
-        if (response.code === 0) {
-          this.dialogFormVisible = true
-          this.updateForm.id = response.data.term_id
-          this.updateForm.name = response.data.name
-          this.updateForm.slug = response.data.slug
-          this.updateForm.description = response.data.description
-        } else {
-          this.$message.error(this.$t('common.error') + response.message)
-        }
+        this.dialogFormVisible = true
+        this.updateForm.id = response.data.term_id
+        this.updateForm.name = response.data.name
+        this.updateForm.slug = response.data.slug
+        this.updateForm.description = response.data.description
       })
     },
     updateTag() {
       this.dialogFormVisible = false
       this.updateForm.taxonomy = 'tag'
       updateTaxonomy(this.updateForm.id, this.updateForm).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
-          this.getList()
-        } else {
-          this.$message.error(this.$t('common.operationFailed') + response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
     },
     handleDelete(row) {
@@ -176,15 +164,11 @@ export default {
           taxonomy: 'tag'
         }
         deleteTaxonomy(row.id, deleteData).then(response => {
-          if (response.code === 0) {
-            this.getList()
-            this.$message({
-              type: 'success',
-              message: this.$t('common.deleteSucceeded')
-            })
-          } else {
-            this.$message.error(this.$t('common.operationFailed') + response.message)
-          }
+          this.getList()
+          this.$message({
+            type: 'success',
+            message: this.$t('common.deleteSucceeded')
+          })
         })
       }).catch(() => {
         this.$message({

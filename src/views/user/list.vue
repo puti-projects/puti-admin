@@ -275,17 +275,13 @@ export default {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           createUser(this.ruleForm).then(response => {
-            if (response.code === 0) {
-              this.getList()
-              this.dialogFormVisible = false
-              this.$message({
-                message: this.$t('common.createSucceeded'),
-                type: 'success',
-                duration: 2000
-              })
-            } else {
-              this.$message.error(this.$t('common.createFailed') + response.message)
-            }
+            this.getList()
+            this.dialogFormVisible = false
+            this.$message({
+              message: this.$t('common.createSucceeded'),
+              type: 'success',
+              duration: 2000
+            })
           })
         } else {
           return false
@@ -354,15 +350,11 @@ export default {
         statusData = { id: row.id, status: changeStatus }
       }
       updateUser(statusData).then(response => {
-        if (response.code === 0) {
-          this.$message({
-            message: this.$t('common.operationSucceeded'),
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          this.$message.error(this.$t('common.operationFailed') + response.message)
-        }
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
       })
       row.status = changeStatus
     },
@@ -374,15 +366,11 @@ export default {
         center: true
       }).then(() => {
         deleteUser(row.id).then(response => {
-          if (response.code === 0) {
-            this.getList()
-            this.$message({
-              type: 'success',
-              message: this.$t('common.deleteSucceeded')
-            })
-          } else {
-            this.$message.error(this.$t('common.operationFailed') + response.message)
-          }
+          this.getList()
+          this.$message({
+            type: 'success',
+            message: this.$t('common.deleteSucceeded')
+          })
         })
       }).catch(() => {
         this.$message({
