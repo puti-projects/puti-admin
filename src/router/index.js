@@ -308,7 +308,7 @@ export const asyncRouterMap = [
   {
     path: '/setting',
     component: Layout,
-    redirect: '/setting/index',
+    redirect: 'noredirect',
     name: 'setting',
     alwaysShow: true,
     meta: {
@@ -319,6 +319,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'site',
+        component: () => import('@/views/setting/site/index'), // Parent router-view
         name: 'site',
         redirect: 'noredirect',
         alwaysShow: true,
@@ -326,13 +327,13 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'general',
-            component: () => import('@/views/setting/site/general'),
+            component: () => import('@/views/setting/site/general/index'),
             name: 'general',
             meta: { title: 'siteSettingGeneral' }
           },
           {
             path: 'property',
-            component: () => import('@/views/setting/site/property'),
+            component: () => import('@/views/setting/site/property/index'),
             name: 'property',
             meta: { title: 'siteSettingProperty' }
           }
@@ -340,6 +341,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'content',
+        component: () => import('@/views/setting/content/index'),
         name: 'content',
         redirect: 'noredirect',
         alwaysShow: true,
@@ -347,25 +349,25 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'writing',
-            component: () => import('@/views/setting/content/writing'),
+            component: () => import('@/views/setting/content/writing/index'),
             name: 'content-writing',
             meta: { title: 'contentSettingWritting' }
           },
           {
             path: 'reading',
-            component: () => import('@/views/setting/content/reading'),
+            component: () => import('@/views/setting/content/reading/index'),
             name: 'content-reading',
             meta: { title: 'contentSettingReading' }
           },
           {
             path: 'media',
-            component: () => import('@/views/setting/content/media'),
+            component: () => import('@/views/setting/content/media/index'),
             name: 'content-media',
             meta: { title: 'contentSettingMedia' }
           },
           {
             path: 'discuss',
-            component: () => import('@/views/setting/content/discuss'),
+            component: () => import('@/views/setting/content/discuss/index'),
             name: 'content-discuss',
             meta: { title: 'contentSettingDiscuss' }
           }
@@ -373,6 +375,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'others',
+        component: () => import('@/views/setting/others/index'),
         name: 'others',
         redirect: 'noredirect',
         alwaysShow: true,
@@ -380,12 +383,12 @@ export const asyncRouterMap = [
         children: [
           {
             path: 'github',
-            component: () => import('@/views/setting/others/github'),
+            component: () => import('@/views/setting/others/github/index'),
             name: 'github',
             meta: { title: 'otherSettingGithub', icon: 'github' }
           }, {
             path: 'public-account',
-            component: () => import('@/views/setting/others/public-account'),
+            component: () => import('@/views/setting/others/public-account/index'),
             name: 'public-account',
             meta: { title: 'otherSettingGeneralAccount', icon: 'wechat' }
           }

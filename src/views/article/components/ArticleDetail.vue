@@ -1,13 +1,13 @@
 <template>
   <div class="app-container-grey">
     <div class="post-container">
-      <el-form class="form-container" :model="postForm" ref="postForm" >
+      <el-form class="form-container" :model="postForm" ref="postForm" label-position="left">
         <div class="post-main-container" >
           <el-row :gutter="20">
             <el-col class="post-content-container" :span="19" >
               <el-form-item prop="title">
-                <el-input placeholder="请输入文章标题" v-model="postForm.title" class="post-title-container" >
-                  <template slot="prepend">标题</template>
+                <el-input :placeholder="$t('post.pleaseInputArticleTitle')" v-model="postForm.title" class="post-title-container" >
+                  <template slot="prepend">{{ $t('post.postTitle') }}</template>
                 </el-input>
               </el-form-item>
               
@@ -20,66 +20,66 @@
                 </mavon-editor>
               </div>
 
-              <el-form-item id="post-description" label-width="50px" label="摘要:">
-                <el-input type="textarea" class="article-textarea" :rows="1" autosize placeholder="请输入内容" v-model="postForm.description">
+              <el-form-item id="post-description" label-width="80px" :label="$t('post.postDescription')">
+                <el-input type="textarea" class="article-textarea" :rows="1" autosize :placeholder="$t('post.pleaseInputPostDescription')" v-model="postForm.description">
                 </el-input>
-                <span class="word-counter" v-show="contentShortLength">{{contentShortLength}}字</span>
+                <span class="word-counter" v-show="contentShortLength">{{contentShortLength}} {{ $t('post.postDescriptionWords') }}</span>
               </el-form-item>
             </el-col>
 
             <el-col class="post-action-container" :span="5" >
               <el-card class="post-card" shadow="never" body-style="padding:0">
                 <div class="post-card-header clearfix">
-                  <span><svg-icon icon-class="guide" /> 发布</span>
+                  <span><svg-icon icon-class="guide" /> {{ $t('post.postPublish') }}</span>
                 </div>
 
                 <div class="post-card-text">
                   <el-form-item>
-                    <div slot="label"><i class="el-icon-star-on"></i> 状态：</div>
-                    <span v-if="defaultStatus=='draft'">草稿</span>
-                    <span v-if="defaultStatus=='publish'">已发布</span>
+                    <div slot="label"><i class="el-icon-star-on"></i> {{ $t('post.postStatus') }}</div>
+                    <span v-if="defaultStatus=='draft'">{{ $t('post.draft') }}</span>
+                    <span v-if="defaultStatus=='publish'">{{ $t('post.publish') }}</span>
                   </el-form-item>
 
                   <el-form-item prop="comment_status">
-                    <div slot="label"><svg-icon icon-class="comments" /> 开启评论：</div>
+                    <div slot="label"><svg-icon icon-class="comments" /> {{ $t('post.postOpenComment') }}</div>
                     <el-switch v-model="postForm.comment_status" :active-value="activeValue" :inactive-value="inactiveValue"></el-switch>
                   </el-form-item>
 
                   <el-form-item prop="if_top">
-                    <div slot="label"><i class="el-icon-caret-top"></i> 是否置顶：</div>
+                    <div slot="label"><i class="el-icon-caret-top"></i> {{ $t('post.postIfTop') }}</div>
                     <el-switch v-model="postForm.if_top" :active-value="activeValue" :inactive-value="inactiveValue"></el-switch>
                   </el-form-item>
 
                   <el-form-item prop="posted_time">
-                    <div slot="label"><i class="el-icon-date"></i> 发布时间:</div>
+                    <div slot="label"><i class="el-icon-date"></i> {{ $t('post.postPushlishedDate') }}</div>
                     <el-date-picker v-model="postForm.posted_time" 
                       type="datetime" 
                       format="yyyy-MM-dd HH:mm:ss" 
                       value-format="yyyy-MM-dd HH:mm:ss" 
-                      placeholder="选择发布日期时间" 
+                      :placeholder="$t('post.chooseReleaseTime')" 
                       size="small">
                     </el-date-picker>
                   </el-form-item>
                 </div>
 
                 <div class="post-card-bottom clearfix">
-                  <el-button v-if="postForm.status==='draft'" type="primary" size="mini" @click="submitForm">发布</el-button>
-                  <el-button v-else type="primary" size="mini" @click="submitForm">发布更新</el-button>
-                  <el-button v-if="postForm.status==='draft'" type="info" size="mini" @click="draftForm">保存草稿</el-button>
-                  <el-button v-else type="info" size="mini" @click="draftForm">保存为草稿</el-button>
+                  <el-button v-if="postForm.status==='draft'" type="primary" size="mini" @click="submitForm">{{ $t('post.postPublish') }}</el-button>
+                  <el-button v-else type="primary" size="mini" @click="submitForm">{{ $t('post.postSubmitUpdate') }}</el-button>
+                  <el-button v-if="postForm.status==='draft'" type="info" size="mini" @click="draftForm">{{ $t('post.postSaveDraft') }}</el-button>
+                  <el-button v-else type="info" size="mini" @click="draftForm">{{ $t('post.postSaveAsDraft') }}</el-button>
                 </div>
               </el-card>
 
               <el-card class="post-card" shadow="never" body-style="padding:0">
                 <div class="post-card-header clearfix">
-                  <span><svg-icon icon-class="list" /> 分类目录</span>
+                  <span><svg-icon icon-class="list" /> {{ $t('post.articleCategory') }}</span>
                 </div>
 
                 <div class="post-card-text">
                   <el-tabs v-model="categoryTab" type="card">
-                    <el-tab-pane label="所有分类目录" name="allCategory" class="post-category-tree">
+                    <el-tab-pane :label="$t('post.articleAllCategory')" name="allCategory" class="post-category-tree">
                         <el-input
-                          placeholder="输入关键字进行过滤"
+                          :placeholder="$t('post.inputKeywordsToFilter')"
                           v-model="filterText" 
                           prefix-icon="el-icon-search"
                           size="small" class="category-tree-input"
@@ -103,11 +103,11 @@
 
               <el-card class="post-card" shadow="never" body-style="padding:0">
                 <div class="post-card-header clearfix">
-                  <span><svg-icon icon-class="tag" /> 标签</span>
+                  <span><svg-icon icon-class="tag" /> {{ $t('post.articleTag') }}</span>
                 </div>
 
                 <div class="post-card-text">
-                  <el-select v-model="postForm.tag" filterable multiple placeholder="选择标签" ref="tagTree" style="width:100%">
+                  <el-select v-model="postForm.tag" filterable multiple :placeholder="$t('post.pleaseChooseTags')" ref="tagTree" style="width:100%">
                     <el-option
                       v-for="item in tagOptions"
                       :key="item.term_id"
