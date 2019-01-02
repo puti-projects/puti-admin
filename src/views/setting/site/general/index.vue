@@ -35,7 +35,7 @@
                 </el-form-item>
 
                 <el-form-item label="站点语言">
-                  <el-select v-model="form.region" placeholder="请选择站点语言">
+                  <el-select v-model="form.site_language" placeholder="请选择站点语言">
                     <el-option label="简体中文" value="简体中文"></el-option>
                     <el-option label="English" value="English"></el-option>
                   </el-select>
@@ -62,20 +62,53 @@
 </template>
 
 <script>
+import { fetchOptions } from '@/api/option'
+
 export default {
   data() {
     return {
+      settingType: 'general',
       form: {
         blog_name: '',
         blog_description: '',
         site_url: '',
         admin_email: '',
-        users_can_register: '',
+        users_can_register: false,
         site_language: '',
         timezone_string: ''
       }
     }
   },
-  methods: {}
+  created() {
+    this.setTitle()
+    this.getOptions()
+  },
+  methods: {
+    setTitle() {
+      document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
+    },
+    getOptions() {
+      var query = { settingType: this.settingType }
+      fetchOptions(query).then(response => {
+        var data = response.data
+        this.form.blog_name = data.blog_name
+        this.form.blog_description = data.blog_description
+        this.form.site_url = data.site_url
+        this.form.admin_email = data.admin_email
+        if (data.users_can_register === '1') {
+          this.form.users_can_register = true
+        } else {
+          this.form.users_can_register = false
+        }
+        this.form.site_language = data.site_language
+        this.form.timezone_string = data.timezone_string
+      })
+    },
+    saveSetting() {
+    },
+    resetSetting() {
+      this.getOptions()
+    }
+  }
 }
 </script>

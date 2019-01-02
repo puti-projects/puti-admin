@@ -39,9 +39,12 @@
 </template>
 
 <script>
+import { fetchOptions } from '@/api/option'
+
 export default {
   data() {
     return {
+      settingType: 'property',
       form: {
         site_description: '',
         site_keywords: '',
@@ -49,6 +52,23 @@ export default {
       }
     }
   },
-  methods: {}
+  created() {
+    this.setTitle()
+    this.getOptions()
+  },
+  methods: {
+    setTitle() {
+      document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
+    },
+    getOptions() {
+      var query = { settingType: this.settingType }
+      fetchOptions(query).then(response => {
+        var data = response.data
+        this.form.site_description = data.site_description
+        this.form.site_keywords = data.site_keywords
+        this.form.footer_copyright = data.footer_copyright
+      })
+    }
+  }
 }
 </script>

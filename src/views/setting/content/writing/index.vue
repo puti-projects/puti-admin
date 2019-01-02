@@ -10,14 +10,14 @@
           <el-row>
             <el-col :span="14" :offset="2">
                 <el-form-item label="默认文章分类目录">
-                    <el-select v-model="form.region" placeholder="选择默认文章分类目录">
+                    <el-select v-model="form.default_category" placeholder="选择默认文章分类目录">
                         <el-option label="未分类" value="1"></el-option>
                     </el-select>
                 </el-form-item>
 
                 <el-form-item label="默认链接分类目录">
-                    <el-select v-model="form.region" placeholder="选择默认链接分类目录">
-                        <el-option label="无" value=""></el-option>
+                    <el-select v-model="form.default_link_category" placeholder="选择默认链接分类目录">
+                        <el-option label="无" value="0"></el-option>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -34,15 +34,34 @@
 </template>
 
 <script>
+import { fetchOptions } from '@/api/option'
+
 export default {
   data() {
     return {
+      settingType: 'writing',
       form: {
-        default_category: '',
-        default_link_category: ''
+        default_category: '1',
+        default_link_category: '0'
       }
     }
   },
-  methods: {}
+  created() {
+    this.setTitle()
+    this.getOptions()
+  },
+  methods: {
+    setTitle() {
+      document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
+    },
+    getOptions() {
+      var query = { settingType: this.settingType }
+      fetchOptions(query).then(response => {
+        var data = response.data
+        this.form.default_category = data.default_category
+        this.form.default_link_category = data.default_link_category
+      })
+    }
+  }
 }
 </script>
