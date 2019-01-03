@@ -30,7 +30,7 @@
                 </el-form-item>
 
                 <el-form-item label="开放注册">
-                  <el-switch v-model="form.users_can_register"></el-switch>
+                  <el-switch v-model="usersCanRegister"></el-switch>
                   <p class="setting-form-desc">是否开放站点的注册功能。</p>
                 </el-form-item>
 
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { fetchOptions } from '@/api/option'
+import { fetchOptions, updateOptions } from '@/api/option'
 
 export default {
   data() {
@@ -76,7 +76,8 @@ export default {
         users_can_register: false,
         site_language: '',
         timezone_string: ''
-      }
+      },
+      usersCanRegister: false
     }
   },
   created() {
@@ -87,24 +88,41 @@ export default {
     setTitle() {
       document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
     },
+    getQuery() {
+      return { settingType: this.settingType }
+    },
     getOptions() {
-      var query = { settingType: this.settingType }
-      fetchOptions(query).then(response => {
+      fetchOptions(this.getQuery()).then(response => {
         var data = response.data
         this.form.blog_name = data.blog_name
         this.form.blog_description = data.blog_description
         this.form.site_url = data.site_url
         this.form.admin_email = data.admin_email
-        if (data.users_can_register === '1') {
-          this.form.users_can_register = true
+        this.form.users_can_register = data.users_can_register
+        if (data.users_can_register === 'on') {
+          this.usersCanRegister = true
         } else {
-          this.form.users_can_register = false
+          this.usersCanRegister = false
         }
         this.form.site_language = data.site_language
         this.form.timezone_string = data.timezone_string
       })
     },
     saveSetting() {
+      if (this.usersCanRegister) {
+        this.form.users_can_register = 'on'
+      } else {
+        this.form.users_can_register = 'off'
+      }
+
+      updateOptions(this.getQuery(), this.form).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getOptions()
+      })
     },
     resetSetting() {
       this.getOptions()

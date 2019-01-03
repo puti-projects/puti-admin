@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { fetchOptions } from '@/api/option'
+import { fetchOptions, updateOptions } from '@/api/option'
 
 export default {
   data() {
@@ -54,13 +54,28 @@ export default {
     setTitle() {
       document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
     },
+    getQuery() {
+      return { settingType: this.settingType }
+    },
     getOptions() {
-      var query = { settingType: this.settingType }
-      fetchOptions(query).then(response => {
+      fetchOptions(this.getQuery()).then(response => {
         var data = response.data
         this.form.default_category = data.default_category
         this.form.default_link_category = data.default_link_category
       })
+    },
+    saveSetting() {
+      updateOptions(this.getQuery(), this.form).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getOptions()
+      })
+    },
+    resetSetting() {
+      this.getOptions()
     }
   }
 }

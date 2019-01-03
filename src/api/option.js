@@ -8,10 +8,11 @@ export function fetchOptions(query) {
   })
 }
 
-export function updateOption(info) {
+export function updateOptions(query, info) {
   return request({
     url: '/option',
     method: 'put',
+    params: query,
     data: info
   })
 }

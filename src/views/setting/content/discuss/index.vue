@@ -61,7 +61,7 @@
                     </el-tab-pane>
                     <el-tab-pane label="头像">
                         <el-form-item label="头像显示">
-                            <el-switch v-model="form.show_avatar"></el-switch>
+                            <el-switch v-model="showAvatar"></el-switch>
                         </el-form-item>
                     </el-tab-pane>
                 </el-tabs>
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { fetchOptions } from '@/api/option'
+import { fetchOptions, updateOptions } from '@/api/option'
 
 export default {
   data() {
@@ -98,7 +98,8 @@ export default {
       },
       commentStatus: [],
       commentNeedRegister: false,
-      showCommentPage: true
+      showCommentPage: true,
+      showAvatar: true
     }
   },
   created() {
@@ -110,9 +111,11 @@ export default {
     setTitle() {
       document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
     },
+    getQuery() {
+      return { settingType: this.settingType }
+    },
     getOptions() {
-      var query = { settingType: this.settingType }
-      fetchOptions(query).then(response => {
+      fetchOptions(this.getQuery()).then(response => {
         var data = response.data
         this.form.article_comment_status = data.article_comment_status
         this.form.page_comment_status = data.page_comment_status
@@ -124,14 +127,14 @@ export default {
         }
 
         this.form.comment_need_register = data.comment_need_register
-        if (data.comment_need_register === '1') {
+        if (data.comment_need_register === 'yes') {
           this.commentNeedRegister = true
         } else {
           this.commentNeedRegister = false
         }
 
         this.form.show_comment_page = data.show_comment_page
-        if (data.show_comment_page === '1') {
+        if (data.show_comment_page === 'on') {
           this.showCommentPage = true
         } else {
           this.showCommentPage = false
@@ -142,6 +145,11 @@ export default {
         this.form.comment_page_top = data.comment_page_top
         this.form.comment_before_show = data.comment_before_show
         this.form.show_avatar = data.show_avatar
+        if (data.show_avatar === 'on') {
+          this.showAvatar = true
+        } else {
+          this.showAvatar = false
+        }
       })
     },
     saveSetting() {
@@ -156,22 +164,39 @@ export default {
       if (this.commentStatus.indexOf('page') !== -1) {
         this.form.page_comment_status = 'open'
       } else {
-        this.form.article_comment_status = 'close'
+        this.form.page_comment_status = 'close'
       }
       // comment need register
       if (this.commentNeedRegister) {
-        this.form.comment_need_register = '1'
+        this.form.comment_need_register = 'yes'
       } else {
-        this.form.comment_need_register = '0'
+        this.form.comment_need_register = 'no'
       }
       // show comment page
       if (this.showCommentPage) {
-        this.form.showCommentPage = '1'
+        this.form.show_comment_page = 'on'
       } else {
-        this.form.showCommentPage = '0'
+        this.form.show_comment_page = 'off'
+      }
+      // show avatar
+      if (this.showAvatar) {
+        this.form.show_avatar = 'on'
+      } else {
+        this.form.show_avatar = 'off'
       }
 
       console.log(this.form)
+      updateOptions(this.getQuery(), this.form).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getOptions()
+      })
+    },
+    resetSetting() {
+      this.getOptions()
     }
   }
 }

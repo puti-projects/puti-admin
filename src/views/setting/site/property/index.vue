@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { fetchOptions } from '@/api/option'
+import { fetchOptions, updateOptions } from '@/api/option'
 
 export default {
   data() {
@@ -60,14 +60,29 @@ export default {
     setTitle() {
       document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
     },
+    getQuery() {
+      return { settingType: this.settingType }
+    },
     getOptions() {
-      var query = { settingType: this.settingType }
-      fetchOptions(query).then(response => {
+      fetchOptions(this.getQuery()).then(response => {
         var data = response.data
         this.form.site_description = data.site_description
         this.form.site_keywords = data.site_keywords
         this.form.footer_copyright = data.footer_copyright
       })
+    },
+    saveSetting() {
+      updateOptions(this.getQuery(), this.form).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getOptions()
+      })
+    },
+    resetSetting() {
+      this.getOptions()
     }
   }
 }
