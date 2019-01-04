@@ -1,8 +1,8 @@
 <template>
   <el-card class="box-card setting-form" shadow="hover">
     <div slot="header" class="setting-form-header clearfix">
-      <span class="setting-header-title">网站配置</span>
-      <span class="setting-header-subtitle">属性</span>
+      <span class="setting-header-title">{{ $t('option.siteSetting') }}</span>
+      <span class="setting-header-subtitle">{{ $t('option.siteSettingProperty') }}</span>
     </div>
 
     <div class="">
@@ -10,26 +10,26 @@
         <div class="setting-form-body">
             <el-row>
                 <el-col :span="14" :offset="2">
-                    <el-form-item label="网站描述 description" prop="site_description">
+                    <el-form-item :label="$t('option.siteDescription')" prop="site_description">
                         <el-input type="textarea" rows="5" v-model="form.site_description"></el-input>
-                        <p class="setting-form-desc">对你的网站进行描述，将输出在站点页面 meta 的 description 中。</p>
+                        <p class="setting-form-desc">{{ $t('option.siteDescriptionDesc') }}</p>
                     </el-form-item>
 
-                    <el-form-item label="网站关键词 keywords" prop="site_keywords">
+                    <el-form-item :label="$t('option.siteKeywords')" prop="site_keywords">
                         <el-input type="textarea" rows="5" v-model="form.site_keywords"></el-input>
-                        <p class="setting-form-desc">网站的关键词，将输出在站点页面 meta 的 keywords 中；多个关键词请用英文逗号隔开。</p>
+                        <p class="setting-form-desc">{{ $t('option.siteKeywordsDesc') }}</p>
                     </el-form-item>
 
-                    <el-form-item label="底部 footer 版权申明" prop="footer_copyright">
+                    <el-form-item :label="$t('option.siteFooter')" prop="footer_copyright">
                         <el-input type="textarea" rows="10" v-model="form.footer_copyright"></el-input>
-                        <p class="setting-form-desc">网站的底部信息，将输出在站点底部；可以包含 html 标签。</p>
+                        <p class="setting-form-desc">{{ $t('option.siteFooterDesc') }}</p>
                     </el-form-item>
                 </el-col>
             </el-row>
             <el-row class="setting-form-footer">
                 <el-col :span="14" :offset="6">
-                    <el-button type="primary" size="small" @click="saveSetting">保存更改</el-button>
-                    <el-button size="small" @click="resetSetting">重置</el-button>
+                    <el-button type="primary" size="small" @click="saveSetting">{{ $t('option.siteSettingSave') }}</el-button>
+                    <el-button size="small" @click="resetSetting">{{ $t('common.reset') }}</el-button>
                 </el-col>
             </el-row>
         </div>

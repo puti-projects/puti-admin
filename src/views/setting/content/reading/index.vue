@@ -1,45 +1,45 @@
 <template>
   <el-card class="box-card setting-form" shadow="hover">
     <div slot="header" class="setting-form-header clearfix">
-      <span class="setting-header-title">内容配置</span>
-      <span class="setting-header-subtitle">阅读</span>
+      <span class="setting-header-title">{{ $t('option.contentSetting') }}</span>
+      <span class="setting-header-subtitle">{{ $t('option.contentSettingReading') }}</span>
     </div>
 
       <el-form ref="form" :model="form" label-width="150px">
         <div class="setting-form-body">
           <el-row>
             <el-col :span="14" :offset="2">
-                <el-form-item label="首页显示">
+                <el-form-item :label="$t('option.contentShowOnIndex')">
                     <el-radio-group v-model="form.show_on_front">
-                        <el-radio size="small" label="posts">您的最新文章</el-radio>
+                        <el-radio size="small" label="posts">{{ $t('option.contentShowNewArticles') }}</el-radio>
                         <el-radio size="small" label="page">
-                            一个静态页面
-                            <el-select v-model="form.show_on_front_page" placeholder="选择" size="mini" style="width:100px">
+                            {{ $t('option.contentShowPage') }}
+                            <el-select v-model="form.show_on_front_page" :placeholder="$t('option.contentChoose')" size="mini" style="width:100px">
                                 <el-option label="关于" value="about"></el-option>
                             </el-select>
                         </el-radio>
                     </el-radio-group>
-                    <p class="setting-form-desc">首页要显示的内容。</p>
+                    <p class="setting-form-desc">{{ $t('option.contentShowOnIndexDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="博客页面至多显示">
-                    <el-input-number size="mini" v-model="form.posts_per_page"></el-input-number> 篇文章
-                    <p class="setting-form-desc">超出时将放到下一页</p>
+                <el-form-item :label="$t('option.contentShowLimit')">
+                    <el-input-number size="mini" v-model="form.posts_per_page"></el-input-number> {{ $t('option.contentShowArticles') }}
+                    <p class="setting-form-desc">{{ $t('option.contentOutofLimit') }}</p>
                 </el-form-item>
 
-                <el-form-item label="启用 XML 站点地图">
+                <el-form-item :label="$t('option.contentOpenXML')">
                     <el-radio-group v-model="form.open_XML">
-                        <el-radio size="small" label="on">是</el-radio>
-                        <el-radio size="small" label="off">否</el-radio>
+                        <el-radio size="small" label="on">{{ $t('option.contentYes') }}</el-radio>
+                        <el-radio size="small" label="off">{{ $t('option.contentNo') }}</el-radio>
                     </el-radio-group>
-                    <p class="setting-form-desc">是否启用XML站点地图。</p>
+                    <p class="setting-form-desc">{{ $t('option.contentOpenXMLDesc') }}</p>
                 </el-form-item>
             </el-col>
           </el-row>
           <el-row class="setting-form-footer">
             <el-col :span="14" :offset="4">
-              <el-button type="primary" size="small" @click="saveSetting">保存更改</el-button>
-              <el-button size="small" @click="resetSetting">重置</el-button>
+              <el-button type="primary" size="small" @click="saveSetting">{{ $t('option.siteSettingSave') }}</el-button>
+              <el-button size="small" @click="resetSetting">{{ $t('common.reset') }}</el-button>
             </el-col>
           </el-row>
         </div>

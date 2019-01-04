@@ -1,59 +1,59 @@
 <template>
   <el-card class="box-card setting-form" shadow="hover">
     <div slot="header" class="setting-form-header clearfix">
-      <span class="setting-header-title">网站配置</span>
-      <span class="setting-header-subtitle">常规</span>
+      <span class="setting-header-title">{{ $t('option.siteSetting') }}</span>
+      <span class="setting-header-subtitle">{{ $t('option.siteSettingGeneral') }}</span>
     </div>
 
       <el-form ref="form" :model="form" label-width="150px">
         <div class="setting-form-body">
           <el-row>
             <el-col :span="14" :offset="2">
-                <el-form-item label="站点标题">
+                <el-form-item :label="$t('option.siteTitle')">
                   <el-input v-model="form.blog_name"></el-input>
-                  <p class="setting-form-desc">即站点的名称</p>
+                  <p class="setting-form-desc">{{ $t('option.siteTitleDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="副标题">
+                <el-form-item :label="$t('option.siteSubtitle')">
                   <el-input v-model="form.blog_description"></el-input>
-                  <p class="setting-form-desc">用简洁的文字描述本站点，用于站点副标题。</p>
+                  <p class="setting-form-desc">{{ $t('option.siteSubtitleDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="站点 Url 地址">
+                <el-form-item :label="$t('option.siteURL')">
                   <el-input v-model="form.site_url"></el-input>
-                  <p class="setting-form-desc">如：https://www.puti.com</p>
+                  <p class="setting-form-desc">{{ $t('option.siteURLDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="电子邮件地址">
+                <el-form-item :label="$t('option.siteEmailAddress')">
                   <el-input v-model="form.admin_email"></el-input>
-                  <p class="setting-form-desc">此地址被用作管理用途，如新用户通知。</p>
+                  <p class="setting-form-desc">{{ $t('option.siteEmailAddressDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="开放注册">
+                <el-form-item :label="$t('option.siteOpenRegister')">
                   <el-switch v-model="usersCanRegister"></el-switch>
-                  <p class="setting-form-desc">是否开放站点的注册功能。</p>
+                  <p class="setting-form-desc">{{ $t('option.siteOpenRegisterDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="站点语言">
-                  <el-select v-model="form.site_language" placeholder="请选择站点语言">
+                <el-form-item :label="$t('option.siteLanguage')">
+                  <el-select v-model="form.site_language" :placeholder="$t('option.siteLanguagePlaceholder')">
                     <el-option label="简体中文" value="简体中文"></el-option>
                     <el-option label="English" value="English"></el-option>
                   </el-select>
-                  <p class="setting-form-desc">站点的语言</p>
+                  <p class="setting-form-desc">{{ $t('option.siteLanguageDesc') }}</p>
                 </el-form-item>
 
-                <el-form-item label="时区">
-                  <el-select v-model="form.timezone_string" placeholder="请选择时区">
-                    <el-option label="亚洲/上海" value="Asia/Shanghai"></el-option>
+                <el-form-item :label="$t('option.siteTimeZone')">
+                  <el-select v-model="form.timezone_string" :placeholder="$t('option.siteTimeZonePlaceholder')">
+                    <el-option :label="$t('zone.AsiaShanghai')" value="Asia/Shanghai"></el-option>
                   </el-select>
-                  <p class="setting-form-desc">选择与您在同一时区的城市。</p>
+                  <p class="setting-form-desc">{{ $t('option.siteTimeZoneDesc') }}</p>
                 </el-form-item>
             </el-col>
           </el-row>
           <el-row class="setting-form-footer">
             <el-col :span="14" :offset="4">
-              <el-button type="primary" size="small" @click="saveSetting">保存更改</el-button>
-              <el-button size="small" @click="resetSetting">重置</el-button>
+              <el-button type="primary" size="small" @click="saveSetting">{{ $t('option.siteSettingSave') }}</el-button>
+              <el-button size="small" @click="resetSetting">{{ $t('common.reset') }}</el-button>
             </el-col>
           </el-row>
         </div>
