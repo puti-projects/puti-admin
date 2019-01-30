@@ -18,7 +18,7 @@ const user = {
       state.name = name
     },
     SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar === '' ? '/upload/users/default.jpg' : avatar
+      state.avatar = avatar === '' ? '/assets/users/default.jpg' : avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
