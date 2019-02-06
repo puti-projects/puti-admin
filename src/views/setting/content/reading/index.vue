@@ -11,7 +11,7 @@
             <el-col :span="14" :offset="2">
                 <el-form-item :label="$t('option.contentShowOnIndex')">
                     <el-radio-group v-model="form.show_on_front">
-                        <el-radio size="small" label="posts">{{ $t('option.contentShowNewArticles') }}</el-radio>
+                        <el-radio size="small" label="article">{{ $t('option.contentShowNewArticles') }}</el-radio>
                         <el-radio size="small" label="page">
                             {{ $t('option.contentShowPage') }}
                             <el-select v-model="form.show_on_front_page" :placeholder="$t('option.contentChoose')" size="mini" style="width:100px">
@@ -55,7 +55,7 @@ export default {
     return {
       settingType: 'reading',
       form: {
-        show_on_front: 'posts',
+        show_on_front: 'article',
         show_on_front_page: '',
         posts_per_page: 10,
         open_XML: 'on'
