@@ -298,5 +298,30 @@ export default {
   },
   zone: {
     AsiaShanghai: '亚洲/上海'
+  },
+  subject: {
+    name: '专题名称',
+    description: '描述',
+    slug: '别名',
+    lastUpdated: '上次更新',
+    totalPost: '文章总数',
+    newSubject: '创建新专题',
+    newSubjectDesc: '专题可用于将文章进行归类展示等',
+    subjectName: '专题名称',
+    subjectNameDesc: '给专题起一个名称',
+    subjectSlug: '专题别名',
+    subjectSlugDesc: '“别名”是在URL中使用的别称，它可以令URL更美观。通常包含小写字母，数字和连字符（-）。',
+    parentSubject: '父级专题',
+    parentSubjectPlaceholder: '选择父级专题',
+    parentSubjectDesc: '选择新专辑的所属父级专题；可不选，一般来说会关联文章到末级专题。',
+    subjectDescription: '描述',
+    subjectDescriptionDesc: '用简洁的语言描述这个专题的内容',
+    subjectCoverPicture: '封面图',
+    subjectCoverPictureDesc: '上传一张封面图',
+    cancelImage: '已取消选择的图片',
+    uploadAgainTips: '您可以重新选择一张',
+    uploadCoverSuccess: '封面上传成功',
+    creatingSubjectNow: '正在创建专题......',
+    createSubjectSuccess: '成功创建新专题'
   }
 }

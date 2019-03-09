@@ -298,5 +298,12 @@ export default {
   },
   zone: {
     AsiaShanghai: 'Asia/Shanghai'
+  },
+  subject: {
+    name: 'Subject Name',
+    description: 'Description',
+    slug: 'Slug',
+    lastUpdated: 'Last Updated',
+    totalPost: 'Include Articles'
   }
 }

@@ -17,8 +17,8 @@
                             :props="newProps"
                             @change="handleChange"
                             v-model="defaultParentId" 
-                            change-on-select="true"
-                            clearable="true">
+                            change-on-select
+                            clearable>
                         </el-cascader>
                     </el-form-item>
                     <el-form-item :label="$t('taxonomy.taxonomyDesc')">
@@ -57,8 +57,8 @@
                 :props="newProps"
                 @change="handleChangeUpdate"
                 v-model="updateParentId" 
-                change-on-select="true"
-                clearable="true">
+                change-on-select
+                clearable>
               </el-cascader>
             </el-form-item>
             <el-form-item :label="$t('taxonomy.taxonomyDesc')">
