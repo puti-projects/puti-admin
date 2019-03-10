@@ -27,7 +27,7 @@
           </el-button>
         </el-form-item>
 
-        <p class="login-text  footer-text"><a href="https://github.com/goozp/puti" target="_blank"><svg-icon icon-class="github"></svg-icon></a></p>
+        <p class="login-text  footer-text"><a href="https://puti-projects/puti" target="_blank"><svg-icon icon-class="github"></svg-icon></a></p>
         <p class="login-text"><span> Copyright © 2018 Puti All rights reserved. Make by Goozp. </span></p>
       </el-form>
     </div>

@@ -45,6 +45,7 @@ export default {
     subject: '专题',
     subjectManager: '专题管理',
     subjectAdd: '添加专题',
+    subjectEdit: '编辑专题',
     media: '媒体',
     mediaManager: '媒体库',
     mediaAdd: '新增媒体',
@@ -313,15 +314,20 @@ export default {
     subjectSlugDesc: '“别名”是在URL中使用的别称，它可以令URL更美观。通常包含小写字母，数字和连字符（-）。',
     parentSubject: '父级专题',
     parentSubjectPlaceholder: '选择父级专题',
-    parentSubjectDesc: '选择新专辑的所属父级专题；可不选，一般来说会关联文章到末级专题。',
+    parentSubjectDesc: '选择新专题的所属父级专题；可不选，一般来说会关联文章到末级专题。',
     subjectDescription: '描述',
     subjectDescriptionDesc: '用简洁的语言描述这个专题的内容',
     subjectCoverPicture: '封面图',
+    subjectCoverPictureChange: '更换封面图',
+    subjectCoverPictureNow: '当前封面图',
     subjectCoverPictureDesc: '上传一张封面图',
     cancelImage: '已取消选择的图片',
     uploadAgainTips: '您可以重新选择一张',
     uploadCoverSuccess: '封面上传成功',
     creatingSubjectNow: '正在创建专题......',
-    createSubjectSuccess: '成功创建新专题'
+    updatingSubjectNow: '正在修改专题信息',
+    createSubjectSuccess: '成功创建新专题',
+    updateSubjectSuccess: '编辑专题成功',
+    parentCannotBeSelf: '父级专题不能是自己'
   }
 }

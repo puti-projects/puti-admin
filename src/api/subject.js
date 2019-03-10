@@ -15,3 +15,17 @@ export function createSubject(info) {
   })
 }
 
+export function fetchSubject(id) {
+  return request({
+    url: '/subject/' + id,
+    method: 'get'
+  })
+}
+
+export function updateSubject(id, data) {
+  return request({
+    url: '/subject/' + id,
+    method: 'put',
+    data: data
+  })
+}

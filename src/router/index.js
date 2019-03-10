@@ -133,6 +133,15 @@ export const asyncRouterMap = [
         icon: 'add',
         roles: ['administrator']
       }
+    }, {
+      path: 'edit/:id',
+      component: () => import('@/views/subject/edit'),
+      name: 'subject-edit',
+      hidden: true,
+      meta: {
+        title: 'subjectEdit',
+        roles: ['administrator']
+      }
     }]
   },
 

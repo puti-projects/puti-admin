@@ -44,10 +44,10 @@
 
         <el-dialog :title="$t('taxonomy.categoryDetail')" :visible.sync="dialogFormVisible">
           <el-form :model="updateForm">
-            <el-form-item :label="$t('taxonomy.taxonomyName')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('taxonomy.taxonomyName')">
               <el-input v-model="updateForm.name" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('taxonomy.taxonomySlug')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('taxonomy.taxonomySlug')">
               <el-input v-model="updateForm.slug" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item :label="$t('taxonomy.categoryParent')">
