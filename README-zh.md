@@ -30,6 +30,5 @@ npm run build --report
 
 ## License
 [MIT](https://github.com/puti-projects/puti-admin/blob/master/LICENSE) license.
+
 Copyright (c) 2018-present puti-projects
-
-
