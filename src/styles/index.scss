@@ -167,10 +167,22 @@ a:hover {
         height:230px;
         padding: 10px 5px 10px 5px;
         border: 1px solid #DDDDDD;
+        border-radius: 5px;
         border-top: none;
         overflow-y: scroll;
         .category-tree-input{
           margin-bottom: 5px;
+        }
+      }
+      .post-subject-tree{
+        height:250px;
+        padding: 10px 5px 10px 5px;
+        border: 1px solid #DDDDDD;
+        border-radius: 5px;
+        overflow-y: scroll;
+        .subject-tree-input{
+          width: 95%;
+          margin: 5px 10px 5px 5px;
         }
       }
       .el-tabs__header, .el-form-item{

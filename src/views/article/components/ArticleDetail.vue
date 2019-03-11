@@ -117,6 +117,36 @@
                   </el-select>
                 </div>
               </el-card>
+
+              <el-card class="post-card" shadow="never" body-style="padding:0">
+                <div class="post-card-header clearfix">
+                  <span><svg-icon icon-class="list" /> {{ $t('post.articleSubject') }}</span>
+                </div>
+
+                <div class="post-card-text">
+                  <div class="post-subject-tree">
+                    <el-input
+                      :placeholder="$t('post.inputKeywordsToFilter')"
+                      v-model="filterSubjectText" 
+                      prefix-icon="el-icon-search"
+                      size="small" 
+                      class="subject-tree-input"
+                      clearable>
+                    </el-input>
+                    <el-tree
+                      v-model="postForm.subject"
+                      :data="subjectData"
+                      show-checkbox
+                      node-key="id"
+                      :default-expand-all="defaultExpandAllSubject"
+                      :default-checked-keys="defaultCheckedSubject"
+                      :filter-node-method="filterNode"
+                      :props="subjectProps"
+                      ref="subjectTree">
+                    </el-tree>
+                  </div>
+                </div>
+              </el-card>
             </el-col>
           </el-row>
         </div>
@@ -128,7 +158,8 @@
 
 <script>
 import { mavonEditor } from 'mavon-editor'
-import { fetchList } from '@/api/taxonomy'
+import { fetchList as fetchTaxonomyList } from '@/api/taxonomy'
+import { fetchList as fetchSubjectList } from '@/api/subject'
 import { fetchArticle, createArticle, updateArticle } from '@/api/article'
 import 'mavon-editor/dist/css/index.css'
 
@@ -144,7 +175,8 @@ const defaultForm = {
   posted_time: '', // 发表时间
   if_top: 0, // 是否置顶
   category: [],
-  tag: []
+  tag: [],
+  subject: []
 }
 
 export default {
@@ -170,6 +202,15 @@ export default {
       },
       defaultCheckedCategory: [1],
       filterText: '',
+      subjectData: [],
+      subjectProps: {
+        id: 'id',
+        children: 'children',
+        label: 'name'
+      },
+      defaultExpandAllSubject: false,
+      defaultCheckedSubject: [],
+      filterSubjectText: '',
       tagOptions: [],
       defaultSelectTags: [],
       activeValue: 1,
@@ -179,6 +220,9 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.categoryTree.filter(val)
+    },
+    filterSubjectText(val) {
+      this.$refs.subjectTree.filter(val)
     }
   },
   computed: {
@@ -204,11 +248,14 @@ export default {
       document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
     },
     initTaxonomy() {
-      fetchList({ type: 'category' }).then(response => {
+      fetchTaxonomyList({ type: 'category' }).then(response => {
         this.categoryData = response.data
       })
-      fetchList({ type: 'tag' }).then(response => {
+      fetchTaxonomyList({ type: 'tag' }).then(response => {
         this.tagOptions = response.data
+      })
+      fetchSubjectList().then(response => {
+        this.subjectData = response.data
       })
     },
     getArticleInfo(articleId) {
@@ -225,7 +272,9 @@ export default {
         this.postForm.if_top = articleInfo.if_top
         this.postForm.category = articleInfo.category
         this.postForm.tag = articleInfo.tag
+        this.postForm.subject = articleInfo.subject
         this.$refs.categoryTree.setCheckedKeys(this.postForm.category)
+        this.$refs.subjectTree.setCheckedKeys(this.postForm.subject)
         this.defaultStatus = articleInfo.status
       })
     },
@@ -236,14 +285,21 @@ export default {
     getCategoryCheckedKeys() {
       return this.$refs.categoryTree.getCheckedKeys()
     },
+    getSubjectCheckedKeys() {
+      return this.$refs.subjectTree.getCheckedKeys()
+    },
     getHtmlContent(value, render) {
       this.postForm.content_html = render
     },
     submitForm() {
       this.postForm.status = 'publish'
       this.postForm.category = this.getCategoryCheckedKeys()
+      this.postForm.subject = this.getSubjectCheckedKeys()
       if (this.postForm.category.length === 0) {
         this.postForm.category = this.defaultCheckedCategory
+      }
+      if (this.postForm.subject.length === 0) {
+        this.postForm.subject = this.defaultCheckedSubject
       }
       if (this.postForm.id === undefined) {
         this.createArticle()
@@ -254,8 +310,12 @@ export default {
     draftForm() {
       this.postForm.status = 'draft'
       this.postForm.category = this.getCategoryCheckedKeys()
+      this.postForm.subject = this.getSubjectCheckedKeys()
       if (this.postForm.category.length === 0) {
         this.postForm.category = this.defaultCheckedCategory
+      }
+      if (this.postForm.subject.length === 0) {
+        this.postForm.subject = this.defaultCheckedSubject
       }
       if (this.postForm.id === undefined) {
         this.createArticle()

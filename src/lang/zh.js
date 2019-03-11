@@ -127,7 +127,8 @@ export default {
     articleAllCategory: '所有分类目录',
     inputKeywordsToFilter: '输入关键字进行过滤',
     articleTag: '标签',
-    pleaseChooseTags: '选择标签'
+    pleaseChooseTags: '选择标签',
+    articleSubject: '专题'
   },
   navbar: {
     logOut: '退出登录',
