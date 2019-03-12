@@ -32,7 +32,8 @@ export default {
     updateFailed: '更新失败！',
     createSucceeded: '创建成功！',
     createFailed: '创建失败！',
-    needRequiredParams: '缺少必填参数'
+    needRequiredParams: '缺少必填参数',
+    comingSoon: '敬请期待！'
   },
   route: {
     dashboard: '首页',
@@ -77,7 +78,7 @@ export default {
     otherSettingGeneralAccount: '公众号'
   },
   dashboard: {
-    totalVisit: '总访问',
+    totalVisit: '总阅读量',
     totalComments: '评论数',
     totalArticles: '文章数',
     totalMedia: '媒体数'
@@ -329,6 +330,7 @@ export default {
     updatingSubjectNow: '正在修改专题信息',
     createSubjectSuccess: '成功创建新专题',
     updateSubjectSuccess: '编辑专题成功',
-    parentCannotBeSelf: '父级专题不能是自己'
+    parentCannotBeSelf: '父级专题不能是自己',
+    confirmToDeleteSubject: '是否删除专题？该操作将移除专题与文章的关联关系。'
   }
 }

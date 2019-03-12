@@ -29,3 +29,10 @@ export function updateSubject(id, data) {
     data: data
   })
 }
+
+export function deleteSubject(id) {
+  return request({
+    url: '/subject/' + id,
+    method: 'delete'
+  })
+}

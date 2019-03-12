@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { fetchList, fetchSubject, updateSubject } from '@/api/subject'
+import { fetchList, fetchSubject, updateSubject, deleteSubject } from '@/api/subject'
 import { getInfo } from '@/api/login'
 import treeTable from '@/components/TreeTable'
 
@@ -297,6 +297,27 @@ export default {
     },
     closeUpdateDialog() {
       this.editDialogImgFileList = []
+    },
+    handleDelete(row) {
+      this.$confirm(this.$t('subject.confirmToDeleteSubject'), this.$t('common.tips'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning',
+        center: true
+      }).then(() => {
+        deleteSubject(row.id).then(response => {
+          this.getList()
+          this.$message({
+            type: 'success',
+            message: this.$t('common.deleteSucceeded')
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('common.cancelDelete')
+        })
+      })
     }
   }
 }

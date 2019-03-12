@@ -32,7 +32,8 @@ export default {
     updateFailed: 'Update failed!',
     createSucceeded: 'Create succeeded!',
     createFailed: 'Create failed!',
-    needRequiredParams: 'Missing params.'
+    needRequiredParams: 'Missing params.',
+    comingSoon: 'Coming Soon! '
   },
   route: {
     dashboard: 'Dashboard',
@@ -127,7 +128,8 @@ export default {
     articleAllCategory: 'All Categories',
     inputKeywordsToFilter: 'input keywords to filter',
     articleTag: 'Tags',
-    pleaseChooseTags: 'Select tags'
+    pleaseChooseTags: 'Select tags',
+    articleSubject: 'Subjects'
   },
   navbar: {
     logOut: 'Log Out',
@@ -328,6 +330,7 @@ export default {
     updatingSubjectNow: 'Modifying subject information',
     createSubjectSuccess: 'Successfully created new subject.',
     updateSubjectSuccess: 'Edit subject success.',
-    parentCannotBeSelf: 'The parent subject cannot be yourself'
+    parentCannotBeSelf: 'The parent subject cannot be yourself',
+    confirmToDeleteSubject: 'Are you sure to delete the subject? This action removes the association between the subject and associated articles.'
   }
 }

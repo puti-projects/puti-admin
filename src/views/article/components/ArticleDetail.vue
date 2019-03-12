@@ -120,7 +120,7 @@
 
               <el-card class="post-card" shadow="never" body-style="padding:0">
                 <div class="post-card-header clearfix">
-                  <span><svg-icon icon-class="list" /> {{ $t('post.articleSubject') }}</span>
+                  <span><svg-icon icon-class="component" /> {{ $t('post.articleSubject') }}</span>
                 </div>
 
                 <div class="post-card-text">

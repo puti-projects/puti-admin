@@ -55,7 +55,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog :title="$t('taxonomy.tagDetail')" :visible.sync="dialogFormVisible" @close="closeUpdateDialog">
+        <el-dialog :title="$t('taxonomy.tagDetail')" :visible.sync="dialogFormVisible">
           <el-form :model="updateForm">
             <el-form-item :label="$t('taxonomy.taxonomyName')">
                 <el-input v-model="updateForm.name"></el-input>
