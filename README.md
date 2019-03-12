@@ -1,6 +1,6 @@
 # Puti-admin
 
-> Puti-admin is Puti's administrative backend build project, which is only used for the construction of Puti projects.
+> Puti-admin is Puti's administrative backend build project, which is only used for the construction of Puti projects.   
 > Base on [PanJiaChen/vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
 English | [简体中文](./README-zh.md)

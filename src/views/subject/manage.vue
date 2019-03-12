@@ -1,12 +1,10 @@
 <template>
     <div class="app-container">
-        <tree-table :data="data" :columns="columns" max-height="800" v-loading="listLoading" border>
-            <el-table-column :label="$t('common.action')" width="150">
-                <template slot-scope="scope">
-                    <el-button type="primary" @click="handleEditSubject(scope.row.id)" icon="el-icon-edit" size="mini" circle></el-button>
-                    <el-button v-if="scope.row.children == null" type="danger"  @click="handleDelete(scope.row)" icon="el-icon-delete" size="mini" circle></el-button>
-                </template>
-            </el-table-column>
+        <tree-table :data="data" :columns="columns" defaultExpandAll max-height="800" v-loading="listLoading" border>
+            <template slot="action" slot-scope="{scope}">
+              <el-button type="primary" @click="handleEditSubject(scope.row.id)" icon="el-icon-edit" size="mini" circle></el-button>
+              <el-button v-if="scope.row.children == null" type="danger"  @click="handleDelete(scope.row)" icon="el-icon-delete" size="mini" circle></el-button>
+            </template>
         </tree-table>
 
         <el-dialog :title="editDialogTitle" :visible.sync="editDialogVisible" width="70%" @open="openUpdateDialog" @close="closeUpdateDialog">
@@ -92,28 +90,40 @@ export default {
     return {
       columns: [
         {
-          text: this.$t('subject.name'),
-          value: 'name',
-          width: 230
+          label: this.$t('subject.name'),
+          key: 'name',
+          expand: true,
+          width: 230,
+          align: 'left'
         },
         {
-          text: this.$t('subject.slug'),
-          value: 'slug',
-          width: 200
+          label: this.$t('subject.slug'),
+          key: 'slug',
+          width: 200,
+          align: 'left'
         },
         {
-          text: this.$t('subject.description'),
-          value: 'description'
+          label: this.$t('subject.description'),
+          key: 'description',
+          align: 'left'
         },
         {
-          text: this.$t('subject.lastUpdated'),
-          value: 'last_updated',
-          width: 200
+          label: this.$t('subject.lastUpdated'),
+          key: 'last_updated',
+          width: 200,
+          align: 'center'
         },
         {
-          text: this.$t('subject.totalPost'),
-          value: 'count',
-          width: 100
+          label: this.$t('subject.totalPost'),
+          key: 'count',
+          width: 100,
+          align: 'center'
+        },
+        {
+          label: this.$t('common.action'),
+          key: 'action',
+          width: 150,
+          align: 'center'
         }
       ],
       data: [],
@@ -186,7 +196,6 @@ export default {
           status: response.data.cover_image_status
         }
 
-        console.log(this.editForm)
         this.editDialogVisible = true
         this.editDialogTitle = response.data.name
       })

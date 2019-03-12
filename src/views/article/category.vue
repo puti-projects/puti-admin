@@ -31,13 +31,11 @@
                 </el-form>
             </el-col>
             <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
-                <tree-table :data="data" :columns="columns" max-height="800" v-loading="listLoading" border>
-                    <el-table-column :label="$t('common.action')" width="150">
-                        <template slot-scope="scope">
-                            <el-button v-if="scope.row.id != 1" type="primary" @click="handleDetail(scope.row)" icon="el-icon-edit" size="mini" circle></el-button>
-                            <el-button v-if="scope.row.children == null && scope.row.id != 1" type="danger"  @click="handleDelete(scope.row)" icon="el-icon-delete" size="mini" circle></el-button>
-                        </template>
-                    </el-table-column>
+                <tree-table :data="data" :columns="columns" defaultExpandAll max-height="800" v-loading="listLoading" border>
+                    <template slot="action" slot-scope="{scope}">
+                      <el-button v-if="scope.row.id != 1" type="primary" @click="handleDetail(scope.row)" icon="el-icon-edit" size="mini" circle></el-button>
+                      <el-button v-if="scope.row.children == null && scope.row.id != 1" type="danger"  @click="handleDelete(scope.row)" icon="el-icon-delete" size="mini" circle></el-button>
+                    </template>
                 </tree-table>
             </el-col>
         </el-row>
@@ -84,23 +82,34 @@ export default {
     return {
       columns: [
         {
-          text: this.$t('taxonomy.category'),
-          value: 'name',
-          width: 200
+          label: this.$t('taxonomy.category'),
+          key: 'name',
+          expand: true,
+          width: 200,
+          align: 'left'
         },
         {
-          text: this.$t('taxonomy.taxonomySlug'),
-          value: 'slug',
-          width: 200
+          label: this.$t('taxonomy.taxonomySlug'),
+          key: 'slug',
+          width: 200,
+          align: 'left'
         },
         {
-          text: this.$t('taxonomy.taxonomyDesc'),
-          value: 'description'
+          label: this.$t('taxonomy.taxonomyDesc'),
+          key: 'description',
+          align: 'left'
         },
         {
-          text: this.$t('taxonomy.articleNumber'),
-          value: 'count',
-          width: 100
+          label: this.$t('taxonomy.articleNumber'),
+          key: 'count',
+          width: 100,
+          align: 'center'
+        },
+        {
+          label: this.$t('common.action'),
+          key: 'action',
+          width: 150,
+          align: 'center'
         }
       ],
       data: [],

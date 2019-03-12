@@ -1,6 +1,6 @@
 # Puti-admin
 
-> Puti-admin 是 Puti 的管理后台构建项目，仅用于 Puti 项目的构建。
+> Puti-admin 是 Puti 的管理后台构建项目，仅用于 Puti 项目的构建。   
 > 基于 [PanJiaChen/vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
 [English](./README.md) | 简体中文
