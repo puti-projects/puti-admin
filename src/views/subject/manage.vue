@@ -47,7 +47,7 @@
                   </div>
                   <div v-else>
                     <span v-if="nowCoverPicture.status != ''">{{ nowCoverPicture.status }}</span>
-                    <img v-else :src="nowCoverPicture.url">
+                    <img v-else :src="nowCoverPicture.url" style="max-width: 90%;">
                   </div> 
                 </el-form-item>
                 <el-form-item :label="$t('subject.subjectCoverPictureChange')">
