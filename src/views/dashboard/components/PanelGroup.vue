@@ -7,7 +7,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">{{$t('dashboard.totalVisit')}}</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="0" :duration="2600"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="statisticsData.TotalViews" :duration="2600"></count-to>
         </div>
       </div>
     </el-col>
@@ -18,7 +18,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">{{$t('dashboard.totalComments')}}</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="0" :duration="3000"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="statisticsData.TotalComments" :duration="3000"></count-to>
         </div>
       </div>
     </el-col>
@@ -29,7 +29,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">{{$t('dashboard.totalArticles')}}</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="0" :duration="3200"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="statisticsData.TotalArticles" :duration="3200"></count-to>
         </div>
       </div>
     </el-col>
@@ -40,7 +40,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">{{$t('dashboard.totalMedia')}}</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="0" :duration="3600"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="statisticsData.TotalMedia" :duration="3600"></count-to>
         </div>
       </div>
     </el-col>
@@ -49,12 +49,26 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import { getDashbordStatistics } from '@/api/statistics'
 
 export default {
   components: {
     CountTo
   },
+  data() {
+    return {
+      statisticsData: {}
+    }
+  },
+  created() {
+    this.getStatistics()
+  },
   methods: {
+    getStatistics() {
+      getDashbordStatistics().then(response => {
+        this.statisticsData = response.data
+      })
+    }
   }
 }
 </script>

@@ -11,6 +11,14 @@ export default {
   name: 'dashboard',
   components: {
     PanelGroup
+  },
+  created() {
+    this.setTitle()
+  },
+  methods: {
+    setTitle() {
+      document.title = this.$t('route.' + this.$route.meta.title) + ' | Puti'
+    }
   }
 }
 </script>
