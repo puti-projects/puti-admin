@@ -6,3 +6,10 @@ export function getDashbordStatistics() {
     method: 'get'
   })
 }
+
+export function getSystemInfo() {
+  return request({
+    url: '/statistics/system',
+    method: 'get'
+  })
+}

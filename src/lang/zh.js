@@ -33,7 +33,9 @@ export default {
     createSucceeded: '创建成功！',
     createFailed: '创建失败！',
     needRequiredParams: '缺少必填参数',
-    comingSoon: '敬请期待！'
+    comingSoon: '敬请期待！',
+    comma: '，',
+    exclamationMark: '！'
   },
   route: {
     dashboard: '首页',
@@ -81,7 +83,28 @@ export default {
     totalVisit: '总阅读量',
     totalComments: '评论数',
     totalArticles: '文章数',
-    totalMedia: '媒体数'
+    totalMedia: '媒体数',
+    yourRoleIs: '您的角色是：',
+    hello: '您好',
+    billboard: '看板',
+    budiling: '更多功能正在开发中，敬请期待！',
+    systemInfo: '系统信息',
+    systemNormal: '常规',
+    hostname: '主机',
+    uptime: '运行时间',
+    system: '系统',
+    systemVersion: '版本',
+    systemRam: '内存',
+    status: '状态',
+    usedPercent: '使用百分比',
+    used: '已使用',
+    total: '总共',
+    statusNormal: '正常',
+    statusWarning: '警告',
+    statusDanger: '危险',
+    systemDisk: '磁盘',
+    cpuCores: 'CPU核数',
+    loadAverage: '系统平均负荷'
   },
   post: {
     author: '作者',

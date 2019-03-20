@@ -1,5 +1,5 @@
 <template>
-  <el-row class="panel-group" :gutter="40">
+  <el-row class="panel-group" :gutter="20">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class='card-panel'>
         <div class="card-panel-icon-wrapper icon-people">
@@ -75,7 +75,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .panel-group {
-  margin-top: 18px;
+  margin-top: 10px;
   .card-panel-col{
     margin-bottom: 32px;
   }

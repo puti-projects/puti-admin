@@ -33,7 +33,9 @@ export default {
     createSucceeded: 'Create succeeded!',
     createFailed: 'Create failed!',
     needRequiredParams: 'Missing params.',
-    comingSoon: 'Coming Soon! '
+    comingSoon: 'Coming Soon! ',
+    comma: ',',
+    exclamationMark: '!'
   },
   route: {
     dashboard: 'Dashboard',
@@ -81,7 +83,28 @@ export default {
     totalVisit: 'Total Visit',
     totalComments: 'Comments',
     totalArticles: 'Articles',
-    totalMedia: 'Media'
+    totalMedia: 'Media',
+    yourRoleIs: 'Your role is ',
+    hello: 'Hello',
+    billboard: 'Billboard',
+    budiling: 'More features are developing, coming soon!',
+    systemInfo: 'System Info',
+    systemNormal: 'Public',
+    hostname: 'Hostname',
+    uptime: 'Uptime',
+    system: 'System',
+    systemVersion: 'Platform',
+    systemRam: 'RAM',
+    status: 'Status',
+    usedPercent: 'Used Percent',
+    used: 'Used',
+    total: 'Total',
+    statusNormal: 'Normal',
+    statusWarning: 'Warning',
+    statusDanger: 'Danger',
+    systemDisk: 'Disk',
+    cpuCores: 'CPU Cores',
+    loadAverage: 'Load Average'
   },
   post: {
     author: 'Author',

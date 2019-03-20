@@ -4,7 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 const user = {
   state: {
     token: getToken(),
-    name: '',
+    name: '', // account
     avatar: '',
     roles: '',
     nickname: ''
@@ -14,8 +14,8 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, name) => {
-      state.name = name
+    SET_NAME: (state, account) => {
+      state.name = account
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar === '' ? '/assets/users/default.jpg' : avatar
@@ -37,7 +37,7 @@ const user = {
           const data = response.data
           setToken(data.token)
           commit('SET_TOKEN', data.token)
-          commit('SET_NAME', data.username)
+          commit('SET_NAME', data.account)
           resolve()
         }).catch(error => {
           reject(error)
@@ -55,7 +55,7 @@ const user = {
           } else {
             reject('getInfo: roles must be not empty !')
           }
-          commit('SET_NAME', data.username)
+          commit('SET_NAME', data.account)
           commit('SET_AVATAR', data.avatar)
           commit('SET_NICKNAME', data.nickname)
           resolve(response)
