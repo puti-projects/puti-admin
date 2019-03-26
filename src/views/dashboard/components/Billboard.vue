@@ -11,7 +11,7 @@
     <div class="info-item">
       <p class="login-text  footer-text">
         <span>您正在使用 Puti 项目，您可以直接贡献代码：
-        <a href="https://puti-projects/puti" target="_blank" class="link"><svg-icon icon-class="github"></svg-icon> 链接</a>
+        <a href="https://github.com/puti-projects/puti" target="_blank" class="link"><svg-icon icon-class="github"></svg-icon> 链接</a>
         </span>
       </p>
     </div>
