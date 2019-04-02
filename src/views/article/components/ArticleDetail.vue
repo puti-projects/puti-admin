@@ -89,6 +89,7 @@
                           v-model="postForm.category"
                           :data="categoryData"
                           show-checkbox
+                          check-strictly
                           node-key="term_id"
                           :default-expand-all="defaultExpandAllCategory"
                           :default-checked-keys="defaultCheckedCategory"
