@@ -6,7 +6,7 @@
   "author": "goozp <gzp@goozp.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/goozp/puti-admin"
+    "url": "https://github.com/puti-projects/puti-admin"
   },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
