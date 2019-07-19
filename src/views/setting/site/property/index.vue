@@ -65,7 +65,7 @@ export default {
     },
     getOptions() {
       fetchOptions(this.getQuery()).then(response => {
-        var data = response.data
+        var data = response.data.options
         this.form.site_description = data.site_description
         this.form.site_keywords = data.site_keywords
         this.form.footer_copyright = data.footer_copyright

@@ -336,6 +336,12 @@ export const asyncRouterMap = [
             component: () => import('@/views/setting/site/property/index'),
             name: 'property',
             meta: { title: 'siteSettingProperty' }
+          },
+          {
+            path: 'theme',
+            component: () => import('@/views/setting/site/theme/index'),
+            name: 'theme',
+            meta: { title: 'siteSettingTheme' }
           }
         ]
       },

@@ -93,7 +93,7 @@ export default {
     },
     getOptions() {
       fetchOptions(this.getQuery()).then(response => {
-        var data = response.data
+        var data = response.data.options
         this.form.blog_name = data.blog_name
         this.form.blog_description = data.blog_description
         this.form.site_url = data.site_url

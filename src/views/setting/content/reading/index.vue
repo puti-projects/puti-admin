@@ -75,7 +75,7 @@ export default {
     },
     getOptions() {
       fetchOptions(this.getQuery()).then(response => {
-        var data = response.data
+        var data = response.data.options
         this.form.show_on_front = data.show_on_front
         this.form.show_on_front_page = data.show_on_front_page
         this.form.posts_per_page = data.posts_per_page

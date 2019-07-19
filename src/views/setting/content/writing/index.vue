@@ -59,7 +59,7 @@ export default {
     },
     getOptions() {
       fetchOptions(this.getQuery()).then(response => {
-        var data = response.data
+        var data = response.data.options
         this.form.default_category = data.default_category
         this.form.default_link_category = data.default_link_category
       })

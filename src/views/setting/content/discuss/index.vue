@@ -115,7 +115,7 @@ export default {
     },
     getOptions() {
       fetchOptions(this.getQuery()).then(response => {
-        var data = response.data
+        var data = response.data.options
         this.form.article_comment_status = data.article_comment_status
         this.form.page_comment_status = data.page_comment_status
         if (data.article_comment_status === 'open') {
