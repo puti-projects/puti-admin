@@ -14,8 +14,8 @@
                         <div style="padding: 14px;">
                             <span><b>{{ item.name }}</b></span>
                             <div class="bottom clearfix">
-                                <time v-if="item.name === form.current_theme" class="time">当前主题</time>
-                                <el-button v-else  type="text" class="button">启用</el-button>
+                                <time v-if="item.name === form.current_theme" class="time">{{ $t('option.siteCurrentTheme') }}</time>
+                                <el-button v-else  type="text" class="button" @click="handleUpdate(item.name)">{{ $t('option.siteEnableTheme') }}</el-button>
                             </div>
                         </div>
                     </el-card>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { fetchOptions } from '@/api/option'
+import { fetchOptions, updateOptions } from '@/api/option'
 
 export default {
   data() {
@@ -56,6 +56,17 @@ export default {
         this.themeList = response.data.extraData
 
         this.form.current_theme = data.current_theme
+      })
+    },
+    handleUpdate(themeName) {
+      this.form.current_theme = themeName
+      updateOptions(this.getQuery(), this.form).then(response => {
+        this.$message({
+          message: this.$t('common.operationSucceeded'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getOptions()
       })
     }
   }

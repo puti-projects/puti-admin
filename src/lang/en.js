@@ -277,6 +277,8 @@ export default {
     siteFooter: 'Footer Copyright Notice',
     siteFooterDesc: 'The copyright notice of the site or other information will be output at the bottom of the site; it can contain html tags.',
     siteSettingTheme: 'Theme',
+    siteCurrentTheme: 'current theme',
+    siteEnableTheme: 'Enable',
     contentSetting: 'Content setting',
     contentSettingWritting: 'Writting',
     contentDefaultArticleCategory: 'Default Article Category',

@@ -277,6 +277,8 @@ export default {
     siteFooter: '底部 footer 版权申明',
     siteFooterDesc: '网站的底部信息，将输出在站点底部；可以包含 html 标签。',
     siteSettingTheme: '主题',
+    siteCurrentTheme: '当前主题',
+    siteEnableTheme: '启用',
     contentSetting: '内容配置',
     contentSettingWritting: '撰写',
     contentDefaultArticleCategory: '默认文章分类目录',
