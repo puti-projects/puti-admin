@@ -8,7 +8,7 @@
       <el-form ref="form" :model="form" label-width="150px">
         <div class="setting-form-body">
             <el-row>
-                <el-col :span="8" v-for="item in themeList" :key="item.name" >
+                <el-col :span="6" v-for="item in themeList" :key="item.name" >
                     <el-card class="theme-card" :body-style="{ padding: '0px' }" shadow="hover">
                         <img :src="item.thumbnail" class="theme-image">
                         <div style="padding: 14px;">
