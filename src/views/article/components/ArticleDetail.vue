@@ -139,10 +139,12 @@
                       :data="subjectData"
                       show-checkbox
                       node-key="id"
+                      check-strictly
                       :default-expand-all="defaultExpandAllSubject"
                       :default-checked-keys="defaultCheckedSubject"
                       :filter-node-method="filterNode"
                       :props="subjectProps"
+                      @check-change="subjectCheckChange"
                       ref="subjectTree">
                     </el-tree>
                   </div>
@@ -209,7 +211,7 @@ export default {
         children: 'children',
         label: 'name'
       },
-      defaultExpandAllSubject: false,
+      defaultExpandAllSubject: true,
       defaultCheckedSubject: [],
       filterSubjectText: '',
       tagOptions: [],
@@ -287,7 +289,36 @@ export default {
       return this.$refs.categoryTree.getCheckedKeys()
     },
     getSubjectCheckedKeys() {
-      return this.$refs.subjectTree.getCheckedKeys()
+      return this.$refs.subjectTree.getCheckedKeys().concat(this.$refs.subjectTree.getHalfCheckedKeys())
+    },
+    subjectCheckChange(data, ifCheck) {
+      if (data.parent_id !== 0) {
+        if (ifCheck === true) {
+          // checked
+          this.$refs.subjectTree.setChecked(data.parent_id, true)
+        } else {
+          // check if parent still has checked children
+          var parentNode = this.$refs.subjectTree.getNode(data.parent_id)
+          var parentHasCheckedChild = false
+          for (var i = 0, parentChildLen = parentNode.childNodes.length; i < parentChildLen; i++) {
+            if (parentNode.childNodes[i].checked === true) {
+              parentHasCheckedChild = true
+              break
+            }
+          }
+          if (!parentHasCheckedChild) this.$refs.subjectTree.setChecked(data.parent_id, false)
+        }
+      }
+
+      if (data.children != null && ifCheck === false) {
+        for (var j = 0, len = data.children.length; j < len; j++) {
+          var childNode = this.$refs.subjectTree.getNode(data.children[j].id)
+          if (childNode.checked === true) {
+            console.log(childNode.data.id)
+            this.$refs.subjectTree.setChecked(childNode.data.id, false)
+          }
+        }
+      }
     },
     getHtmlContent(value, render) {
       this.postForm.content_html = render
