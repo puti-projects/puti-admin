@@ -1,21 +1,17 @@
 <template>
   <div class="logo">
-    <transition name="fade">
-      <span v-if="isCollapse" class="logo_title is-bold " key="0" :class="{'is-text':!type,'is-img':type}">
-        <template v-if="type">
-          <img :src="website.logo" width="40" height="40" />
-        </template>
-        <template v-else>
-          {{website.logo}}
-        </template>
-      </span>
-    </transition>
-    
-    <transition-group name="fade">
-      <template v-if="!isCollapse">
-        <span class="logo_title is-bold" key="1">{{website.title}} </span>
+    <span v-if="isCollapse" class="logo_title is-bold " key="0" :class="{'is-text':!type,'is-img':type}">
+      <template v-if="type">
+        <img :src="website.logo" width="40" height="40" />
       </template>
-    </transition-group>
+      <template v-else>
+        {{website.logo}}
+      </template>
+    </span>
+
+    <template v-if="!isCollapse">
+      <span class="logo_title is-bold" key="1">{{website.title}}</span>
+    </template>
   </div>
 </template>
 
@@ -42,16 +38,6 @@ export default {
 </script>
 
 <style scoped="scoped" lang="scss">
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter-active {
-  transition: opacity 2.5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 .logo {
   position: relative;
   display: flex;
@@ -59,21 +45,20 @@ export default {
   align-items: center;
   height: 50px;
   line-height: 50px;
-  background: -webkit-gradient(linear,0 0,0 100%,from(#000000),to(#00142A));
-  background: -moz-linear-gradient((#000000, #00142A));
-  background: -o-linear-gradient((#000000, #00142A));
-  background: linear-gradient(#000000, #00142A);
-  color: #fdfdfd;
+  background: -webkit-gradient(linear,0 0,0 100%,from(#182445),to(#1F2E54));
+  background: -moz-linear-gradient((#182445, #1F2E54));
+  background: -o-linear-gradient((#182445, #1F2E54));
+  background: linear-gradient(#182445, #1F2E54);
+  color: #F2F3F4;
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   overflow: hidden;
   box-sizing: border-box;
 }
 .logo_title {
-  padding: 0 5px 0 0;
-  color: #409EFF;
-  font-size: 20px;
+  color: #F2F3F4;
+  font-size: 22px;
   &.is-bold {
     font-weight: 700;
   }
@@ -81,7 +66,6 @@ export default {
 .is-text {
   position: absolute;
   top: 0;
-  // left: 20px;
 }
 .is-img {
   position: absolute;

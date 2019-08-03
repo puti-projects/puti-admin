@@ -289,7 +289,7 @@ export default {
       return this.$refs.categoryTree.getCheckedKeys()
     },
     getSubjectCheckedKeys() {
-      return this.$refs.subjectTree.getCheckedKeys().concat(this.$refs.subjectTree.getHalfCheckedKeys())
+      return this.$refs.subjectTree.getCheckedKeys()
     },
     subjectCheckChange(data, ifCheck) {
       if (data.parent_id !== 0) {
@@ -314,7 +314,6 @@ export default {
         for (var j = 0, len = data.children.length; j < len; j++) {
           var childNode = this.$refs.subjectTree.getNode(data.children[j].id)
           if (childNode.checked === true) {
-            console.log(childNode.data.id)
             this.$refs.subjectTree.setChecked(childNode.data.id, false)
           }
         }

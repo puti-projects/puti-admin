@@ -6,9 +6,9 @@
       :show-timeout="200"
       :default-active="$route.path"
       :collapse="isCollapse"
-      background-color="#00142A"
-      text-color="#bfcbd9"
-      active-text-color="#409EFF"
+      background-color="#1F2E54"
+      text-color="#DEE0E5"
+      active-text-color="#55A8FD"
       :unique-opened="true"
     >
       <sidebar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></sidebar-item>
