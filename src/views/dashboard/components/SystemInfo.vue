@@ -30,15 +30,16 @@
             <el-tag v-if="RAMInfo.healthStatus == 'NORMAL' " type="success" size="small">{{$t('dashboard.statusNormal')}}</el-tag>
             <el-tag v-else-if="RAMInfo.healthStatus == 'WARNING' " type="warning" size="small">{{$t('dashboard.statusWarning')}}</el-tag>
             <el-tag v-else-if="RAMInfo.healthStatus == 'CRITICAL' " type="danger" size="small">{{$t('dashboard.statusDanger')}}</el-tag>
+            <el-tag v-else-if="RAMInfo.healthStatus == 'ERROR' " type="danger" size="small">{{$t('dashboard.statusError')}}</el-tag>
           </el-form-item>
           <el-form-item :label="$t('dashboard.usedPercent')">
             {{RAMInfo.usedPercent}} %
           </el-form-item>
           <el-form-item :label="$t('dashboard.used')">
-            {{RAMInfo.usedMB}} MB / {{RAMInfo.usedGB}} GB
+            {{RAMInfo.used}}
           </el-form-item>
           <el-form-item :label="$t('dashboard.total')">
-            {{RAMInfo.totalMB}} MB / {{RAMInfo.totalGB}} GB
+            {{RAMInfo.total}}
           </el-form-item> 
         </el-tab-pane>
 
@@ -50,15 +51,16 @@
             <el-tag v-if="DiskInfo.healthStatus == 'NORMAL' " type="success" size="small">{{$t('dashboard.statusNormal')}}</el-tag>
             <el-tag v-else-if="DiskInfo.healthStatus == 'WARNING' " type="warning" size="small">{{$t('dashboard.statusWarning')}}</el-tag>
             <el-tag v-else-if="DiskInfo.healthStatus == 'CRITICAL' " type="danger" size="small">{{$t('dashboard.statusDanger')}}</el-tag>
+            <el-tag v-else-if="RAMInfo.healthStatus == 'ERROR' " type="danger" size="small">{{$t('dashboard.statusError')}}</el-tag>
           </el-form-item>
           <el-form-item :label="$t('dashboard.usedPercent')">
             {{DiskInfo.usedPercent}} %
           </el-form-item>
           <el-form-item :label="$t('dashboard.used')">
-            {{DiskInfo.usedMB}} MB / {{DiskInfo.usedGB}} GB
+            {{DiskInfo.used}} 
           </el-form-item>
           <el-form-item :label="$t('dashboard.total')">
-            {{DiskInfo.totalMB}} MB / {{DiskInfo.totalGB}} GB
+            {{DiskInfo.total}} 
           </el-form-item>
         </el-tab-pane>
 

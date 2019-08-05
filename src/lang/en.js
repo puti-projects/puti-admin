@@ -103,6 +103,7 @@ export default {
     statusNormal: 'Normal',
     statusWarning: 'Warning',
     statusDanger: 'Danger',
+    statusError: 'Exception Error',
     systemDisk: 'Disk',
     cpuCores: 'CPU Cores',
     loadAverage: 'Load Average'

@@ -103,6 +103,7 @@ export default {
     statusNormal: '正常',
     statusWarning: '警告',
     statusDanger: '危险',
+    statusError: '获取异常',
     systemDisk: '磁盘',
     cpuCores: 'CPU核数',
     loadAverage: '系统平均负荷'
