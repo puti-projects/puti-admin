@@ -254,7 +254,6 @@ export default {
       } else {
         this.editForm.parent_id = 0
       }
-      console.log(this.editForm)
     },
     handleRemove(file, fileList) {
       this.$notify.info({

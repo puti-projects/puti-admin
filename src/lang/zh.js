@@ -129,6 +129,7 @@ export default {
     pleaseInputArticleTitle: '请输入文章标题',
     pleaseInputPageTitle: '请输入页面标题',
     postDescription: '摘要：',
+    postCoverPicture: '封面图：',
     pleaseInputPostDescription: '请输入内容摘要',
     postDescriptionWords: '字',
     postPublish: '发布',

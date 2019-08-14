@@ -3,7 +3,7 @@
         <el-row v-loading.body="listLoading">
             <el-col :xs="24" :sm="8" :md="4" :xl="3" v-for="item in list" :key="item.id">
                 <el-card class="media-card" :body-style="{ padding: '0px' }">
-                  <img v-if="item.type === 'picture'" :src="item.url" class="media-image">
+                  <el-image v-if="item.type === 'picture'" :src="item.url" class="media-image" lazy></el-image>
                   <div v-else  class="media-other-file" icon="el-icon-document"><svg-icon class="media-other-file-svg" icon-class="article"></svg-icon></div>
                   <div style="padding: 8px; width:100%">
                       <el-button type="text" class="media-title" @click="handleDetail(item)">{{ item.title }}</el-button>
@@ -28,7 +28,7 @@
           <el-row :gutter="20">
             <el-col :xs="24" :sm="24" :md="15" :xl="15" class="media-detail-left">
               <div v-if="detailForm.type == 'picture'" class="grid-content">
-                <img :src="detailForm.url" class="media-detail-image">
+                <el-image :src="detailForm.url" class="media-detail-image"></el-image>
               </div>
               <div v-else class="grid-content">{{ $t('media.unknowType') }}</div>
             </el-col>
@@ -204,7 +204,7 @@ export default {
     text-overflow:ellipsis;
     white-space: nowrap;
     width:100%;
-    padding: 0;
+    padding: 2px;
     text-align: left;
   }
 

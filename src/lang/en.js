@@ -129,6 +129,7 @@ export default {
     pleaseInputArticleTitle: 'Please input article title',
     pleaseInputPageTitle: 'Please input page title',
     postDescription: 'Description:',
+    postCoverPicture: 'Cover Picture:',
     pleaseInputPostDescription: 'Input the content description',
     postDescriptionWords: 'words',
     postPublish: 'Publish',

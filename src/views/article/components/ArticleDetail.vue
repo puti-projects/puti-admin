@@ -4,7 +4,8 @@
       <el-form class="form-container" :model="postForm" ref="postForm" label-position="left">
         <div class="post-main-container" >
           <el-row :gutter="20">
-            <el-col class="post-content-container" :span="19" >
+            <!-- 主栏 -->
+            <el-col class="post-content-container" :xs="24" :sm="24" :md="18" :lg="19" :xl="19">
               <el-form-item prop="title">
                 <el-input :placeholder="$t('post.pleaseInputArticleTitle')" v-model="postForm.title" class="post-title-container" >
                   <template slot="prepend">{{ $t('post.postTitle') }}</template>
@@ -25,9 +26,28 @@
                 </el-input>
                 <span class="word-counter" v-show="contentShortLength">{{contentShortLength}} {{ $t('post.postDescriptionWords') }}</span>
               </el-form-item>
+
+              <el-form-item prop="cover_picture" :label="$t('post.postCoverPicture')">
+                  <el-image
+                    class="cover-picture-selected"
+                    :src="this.postForm.cover_picture"
+                    @click="coverPictureDrawer = true"
+                    fit="fit">
+                      <div slot="placeholder" class="image-slot">
+                        loading<span class="dot">...</span>
+                      </div>
+                      <div v-if="this.postForm.cover_picture != ''" slot="error" class="image-error" @click="coverPictureDrawer = true">
+                        <i class="el-icon-picture-outline"></i>
+                      </div>
+                      <div v-else slot="error" class="image-error" @click="coverPictureDrawer = true">
+                        <i class="el-icon-plus"></i>
+                      </div>
+                  </el-image>
+              </el-form-item>
             </el-col>
 
-            <el-col class="post-action-container" :span="5" >
+            <!-- 右栏 -->
+            <el-col class="post-action-container" :xs="24" :sm="24" :md="6" :lg="5" :xl="5">
               <el-card class="post-card" shadow="never" body-style="padding:0">
                 <div class="post-card-header clearfix">
                   <span><svg-icon icon-class="guide" /> {{ $t('post.postPublish') }}</span>
@@ -153,8 +173,39 @@
             </el-col>
           </el-row>
         </div>
-
       </el-form>
+
+      <el-drawer
+        title="选择封面图"
+        :visible.sync="coverPictureDrawer"
+        :direction="coverPictureDirection"
+        @opened="getCoverPicture"
+        @closed="cleanPictureList"
+        ref="coverPictureDrawer"
+        size="50%">
+        <el-row :gutter="15" v-loading.body="coverPictureListLoading">
+            <el-col :xs="24" :sm="12" :md="6" :xl="4" v-for="item in coverPictureList" :key="item.id" class="picture-list-card">
+                <el-tooltip effect="dark" :content="item.title" placement="left-start">
+                  <el-image class="picture-list-image"
+                    v-if="item.type === 'picture'"
+                    :src="item.url"
+                    fit="fit"
+                    @click="chooseCoverPicture(item.url)"
+                    lazy>
+                  </el-image>
+                </el-tooltip>
+            </el-col>
+            <el-col :span="24">
+              <el-pagination background small
+                @current-change="handlePageChange"
+                :current-page.sync="coverPictureListQuery.page"
+                :page-size="coverPictureListQuery.limit"
+                layout="total, prev, pager, next"
+                :total="coverPictureListTotal">
+              </el-pagination>
+            </el-col>
+        </el-row>
+      </el-drawer>
     </div>
   </div>
 </template>
@@ -164,6 +215,7 @@ import { mavonEditor } from 'mavon-editor'
 import { fetchList as fetchTaxonomyList } from '@/api/taxonomy'
 import { fetchList as fetchSubjectList } from '@/api/subject'
 import { fetchArticle, createArticle, updateArticle } from '@/api/article'
+import { fetchList as fetchMediaList } from '@/api/media'
 import 'mavon-editor/dist/css/index.css'
 
 const defaultForm = {
@@ -217,7 +269,16 @@ export default {
       tagOptions: [],
       defaultSelectTags: [],
       activeValue: 1,
-      inactiveValue: 0
+      inactiveValue: 0,
+      coverPictureDrawer: false,
+      coverPictureDirection: 'rtl',
+      coverPictureListQuery: {
+        page: 1,
+        limit: 24
+      },
+      coverPictureList: null,
+      coverPictureListTotal: 0,
+      coverPictureListLoading: false
     }
   },
   watch: {
@@ -381,6 +442,29 @@ export default {
       }).catch(e => {
         this.postForm.status = this.defaultStatus
       })
+    },
+    getCoverPicture() {
+      this.coverPictureListLoading = true
+      fetchMediaList(this.coverPictureListQuery).then(response => {
+        this.coverPictureList = response.data.mediaList
+        this.coverPictureListTotal = response.data.totalCount
+      })
+      this.coverPictureListLoading = false
+    },
+    cleanPictureList() {
+      // reset
+      this.coverPictureList = null
+      this.coverPictureListTotal = 0
+      this.coverPictureListQuery.page = 1
+      this.coverPictureListLoading = false
+    },
+    handlePageChange(val) {
+      this.coverPictureListQuery.page = val
+      this.getCoverPicture()
+    },
+    chooseCoverPicture(url) {
+      this.postForm.cover_picture = url
+      this.$refs.coverPictureDrawer.closeDrawer()
     }
   }
 }
@@ -419,5 +503,56 @@ export default {
   .clearfix:after {
       clear: both
   }
+
+  // cover picture
+  .cover-picture-selected{
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #A8A8A8;
+    color: #A8A8A8;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .cover-picture-selected:hover{
+    border: 2px dashed #409EFF;
+    color: #409EFF;
+  }
+  .image-slot, .image-error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    font-size: 30px;
+  }
+  .cover-picture-selected:hover .image-slot, .cover-picture-selected:hover .image-error{
+    background: rgb(218, 236, 255);
+  }
+}
+
+.picture-list-card{
+  margin-bottom: 10px;
+
+  .picture-list-image{
+    width: 100%;
+    height: 150px;
+    cursor:pointer;
+    border-radius: 4px;
+  }
+  .picture-list-image:hover{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  }
+}
+</style>
+
+<style>
+.el-drawer__body {
+  padding: 0 20px 20px 20px;
+  overflow: auto;
+}
+.el-tree-node__label{
+  margin-left: 5px;
 }
 </style>
