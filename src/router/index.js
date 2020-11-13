@@ -137,6 +137,40 @@ export const asyncRouterMap = [
   },
 
   {
+    path: '/knowledge',
+    component: Layout,
+    redirect: '/knowledge/list',
+    children: [{
+      path: 'list',
+      component: () => import('@/views/knowledge/list'),
+      name: 'knowledge',
+      meta: {
+        title: 'knowledge',
+        icon: 'knowledge',
+        roles: ['administrator']
+      }
+    }, {
+      path: 'edit/note/:id',
+      component: () => import('@/views/knowledge/editNote'),
+      name: 'knowledge-edit-note',
+      hidden: true,
+      meta: {
+        title: 'noteEdit',
+        roles: ['administrator', 'editor']
+      }
+    }, {
+      path: 'edit/doc/:id',
+      component: () => import('@/views/knowledge/editDoc'),
+      name: 'knowledge-edit-doc',
+      hidden: true,
+      meta: {
+        title: 'docEdit',
+        roles: ['administrator', 'editor']
+      }
+    }]
+  },
+
+  {
     path: '/media',
     component: Layout,
     redirect: '/media/library',
