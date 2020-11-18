@@ -399,7 +399,13 @@ export default {
     turnBackToKnowledgeList: 'Turn Back',
     newNoteItem: 'New Note',
     newDocItem: 'Now doc',
+    editNoteItem: 'Edit Note',
+    eidtDocItem: 'Edit doc',
     pleaseInputTitle: 'Please input title',
-    cancelCreate: 'Cancel create'
+    cancelCreate: 'Cancel create',
+    cancelEdit: 'Cancel edit',
+    lastUpdated: 'Lastest update: ',
+    ifDelete: 'Make sure you will delete: ',
+    notYetSaved: 'Not yet saved'
   }
 }

@@ -22,3 +22,18 @@ export function fetchKnowledgeItem(id) {
     method: 'get'
   })
 }
+
+export function updateKnowledgeItem(id, data) {
+  return request({
+    url: '/knowledge-item/' + id,
+    method: 'put',
+    data: data
+  })
+}
+
+export function deleteKnowledgeItem(id) {
+  return request({
+    url: '/knowledge-item/' + id,
+    method: 'delete'
+  })
+}

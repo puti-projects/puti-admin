@@ -399,7 +399,13 @@ export default {
     turnBackToKnowledgeList: '返回知识库列表',
     newNoteItem: '新建笔记',
     newDocItem: '新建文档',
+    editNoteItem: '编辑笔记',
+    eidtDocItem: '编辑文档',
     pleaseInputTitle: '请输入标题',
-    cancelCreate: '取消创建'
+    cancelCreate: '取消创建',
+    cancelEdit: '取消编辑',
+    lastUpdated: '上次保存：',
+    ifDelete: '是否删除：',
+    notYetSaved: '暂未保存'
   }
 }
