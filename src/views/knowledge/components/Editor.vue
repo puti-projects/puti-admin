@@ -54,8 +54,13 @@
         <span v-if="this.itemContent.content.updated_time!=''" class="knowledge-main-header-word"><i class="el-icon-time"></i> {{$t('knowledge.lastUpdated') + this.itemContent.content.updated_time}} </span> 
         <span v-else-if="this.itemContent.knowledge_item_id!=0" class="knowledge-main-header-word"><i class="el-icon-time"></i> {{$t('knowledge.notYetSaved') }} </span> 
         <span v-else class="knowledge-main-header-word"><i class="el-icon-time"></i> </span> 
-        <el-link class="knowledge-main-header-link" icon="el-icon-s-promotion" :underline="false" @click="handleSave('publish')">发布</el-link> 
-        <el-link class="knowledge-main-header-link" icon="el-icon-success" :underline="false" @click="handleSave('save')">保存</el-link>
+        <template v-if="this.editType === 'doc'">
+          <el-link class="knowledge-main-header-link" icon="el-icon-s-promotion" :underline="false" @click="handleSave('publish')">发布</el-link> 
+          <el-link class="knowledge-main-header-link" icon="el-icon-success" :underline="false" @click="handleSave('save')">保存</el-link>
+        </template>
+        <template v-else-if="this.editType === 'note'">
+          <el-link class="knowledge-main-header-link" icon="el-icon-success" :underline="false" @click="handleSave('publish')">保存发布</el-link>
+        </template>
       </el-col>
     </el-row>
 
@@ -111,6 +116,7 @@ export default {
       },
       updateContentForm: {
         knowledge_item_id: 0,
+        edit_type: '',
         save_type: '',
         content: ''
       },
@@ -188,6 +194,7 @@ export default {
     },
     createItem(title, parentID) {
       var createForm = {
+        create_type: this.editType,
         title: title,
         knowledge_id: this.knowledgeID,
         parent_id: parentID
@@ -227,6 +234,7 @@ export default {
     handleSave(saveType) {
       this.updateContentForm = {
         knowledge_item_id: this.itemContent.knowledge_item_id,
+        edit_type: this.editType,
         save_type: saveType,
         content: this.contentEditor.getValue(),
         version: this.itemContent.content.version
