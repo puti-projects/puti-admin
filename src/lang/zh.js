@@ -403,7 +403,7 @@ export default {
     newNoteItem: '新建笔记',
     newDocItem: '新建文档',
     editNoteItem: '编辑笔记',
-    eidtDocItem: '编辑文档',
+    editDocItem: '编辑文档',
     pleaseInputTitle: '请输入标题',
     cancelCreate: '取消创建',
     cancelEdit: '取消编辑',
